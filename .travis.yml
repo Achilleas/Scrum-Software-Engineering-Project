@@ -1,7 +1,3 @@
 language: java
 java:
   - "1.7"
-  
-script:
-  - javac src/TestClass.java
-  - java TestClass
