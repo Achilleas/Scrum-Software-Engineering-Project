@@ -1,0 +1,28 @@
+<project>
+    <path id="classpath.lib">
+        <pathelement location="lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="lib/junit-4.11.jar" />
+    	<pathelement location="lib/commons-lang3-3.1.jar"/>
+        <pathelement location="build"/>
+    </path>
+	
+    <target name="test">
+    	<delete dir="build/main" />
+    	<delete dir="build/test" />
+        <delete dir="build" />
+
+        <mkdir dir="build" />
+    	<mkdir dir="build/main" />
+        <mkdir dir="build/test" />
+    	
+    	<javac includeantruntime="false" srcdir="src" destdir="build">
+             <classpath refid="classpath.lib"/>
+        </javac>
+
+        <junit printsummary="on" haltonfailure="yes">
+            <classpath refid="classpath.lib"/>
+            <formatter type="brief" usefile="false" />
+            <test name="test.AllTests" />
+        </junit>
+    </target>
+</project>

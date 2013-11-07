@@ -1,4 +1,4 @@
-package Main;
+package main;
 //Home Address Class
 public class Address {
 	private String line1;

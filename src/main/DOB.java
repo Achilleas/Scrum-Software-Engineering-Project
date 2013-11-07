@@ -1,4 +1,4 @@
-package Main;
+package main;
 //Date of Birth Class
 public class DOB {
 	private int day;
