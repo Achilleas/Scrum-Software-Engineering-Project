@@ -11,7 +11,7 @@ import org.apache.commons.io.FileUtils;
 
 public class FinanceQuery {
 	
-	private final static String DAILY_PRICE_FLAG = "snohv";
+	private final static String DAILY_PRICE_FLAG = "snohgpv";
 	
 	// get daily price information in csv
 	public static File getDailyPriceCSV(String symbol) {
@@ -23,7 +23,8 @@ public class FinanceQuery {
 	
 	private static File requestCSVQuote(String symbol, String properties) {
 		
-		final String STATIC_PART = "&f=s&e=.csv";
+		final String STATIC_PART = "&e=.csv";
+		
 		String request = "";
 		URI uri;
 		File file = null;
