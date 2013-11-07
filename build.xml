@@ -1,8 +1,9 @@
 <project>
     <path id="classpath.lib">
-	<fileset dir="lib">
-		<include name="**/*.jar"/>
-	</fileset>
+		<fileset dir="lib">
+			<include name="**/*.jar"/>
+		</fileset>
+    	<pathelement location="build"/>
     </path>
 	
     <target name="test">
