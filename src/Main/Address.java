@@ -1,3 +1,4 @@
+package Main;
 //Home Address Class
 public class Address {
 	private String line1;
@@ -19,7 +20,7 @@ public class Address {
 	
 	//Returns String Array containing Address elements
 	public String[] getAddress() {
-		String add[6];
+		String[] add = new String[6];
 		add[0] = line1;
 		add[1] = line2;
 		add[2] = city;

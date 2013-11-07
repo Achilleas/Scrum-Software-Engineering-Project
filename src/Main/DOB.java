@@ -1,3 +1,4 @@
+package Main;
 //Date of Birth Class
 public class DOB {
 	private int day;
@@ -11,7 +12,7 @@ public class DOB {
 	}
 	
 	public int[] getBirthday() {
-		int birthday_array[3];
+		int[] birthday_array = new int[3];
 		birthday_array[0] = day;
 		birthday_array[1] = month;
 		birthday_array[2] = year;

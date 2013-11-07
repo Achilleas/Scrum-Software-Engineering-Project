@@ -1,4 +1,4 @@
-package DataType;
+package Main;
 /*
  * Please parse the data and put them in this format. Please also provide an interface that can return an array of objects of this class. so that I can use them.
  * Please put the date in integer format, i.e 20131106

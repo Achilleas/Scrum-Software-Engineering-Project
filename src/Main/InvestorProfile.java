@@ -1,3 +1,7 @@
+package Main;
+
+import java.util.ArrayList;
+
 
 public class InvestorProfile {
 	
@@ -8,6 +12,6 @@ public class InvestorProfile {
 	String username;
 	String password;
 	
-	public InvestorProfile(String firstName, String surname, ArrayList companiesInvested, ArrayList companiesInterested)
+	public InvestorProfile(String firstName, String surname, ArrayList companiesInvested, ArrayList companiesInterested){}
 	
 }
