@@ -51,7 +51,6 @@ public class DailyPrice {
 		System.out.print("Low Price: " + low_price + " ");
 		System.out.print("Close Price: " + close_price + " ");
 		System.out.print("Volume: " + volume);
-		System.out.println();
-		
+		System.out.println();	
 	}
 }
