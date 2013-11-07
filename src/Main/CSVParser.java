@@ -17,9 +17,7 @@ public class CSVParser {
 	public CSVParser(String separator){
 		this.separator = separator;
 	}
-	
-	public CSVParser(){}
-	
+		
 	public LinkedList<DailyPrice> parseCSV(String filename) {
 		BufferedReader r = null;
 		String line;
