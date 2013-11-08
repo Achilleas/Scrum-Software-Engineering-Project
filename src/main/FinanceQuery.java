@@ -147,10 +147,13 @@ public class FinanceQuery {
 		}
 		catch(JauntException e){
 			  System.err.println(e);
+			  return null;
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.err.println("Something wrong with the encoding format. Exit!");
+			System.exit(1);
 		}
+		
 		return components;
 	}
 	
