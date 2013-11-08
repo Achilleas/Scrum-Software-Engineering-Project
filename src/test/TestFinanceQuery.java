@@ -51,6 +51,32 @@ public class TestFinanceQuery {
 		}
 	}
 
+	@Test
+	public void altDailyPriceFile() {
+		// this uses webscrape to get components instead of using @**** symbol to get components
+		// create 2 temporary file and test if second file will replace the first file
+		// a sample csv file will created
+		File file1, file2, sample_file;
+		String symbols;
+		
+		symbols = FinanceQuery.getComponents("^FTSE");
+		System.out.println("The list of symbols are \n" + symbols);
+		
+		file1 = FinanceQuery.getDailyPriceCSV(symbols);
+		file2 = FinanceQuery.getDailyPriceCSV(symbols);
+		
+		sample_file = new File("sample-daily-price2.csv");
+		
+		assertNotNull(file1);
+		assertNotNull(file2);
+		assertNotEquals(file1.getPath(), file2.getPath());
+		try {
+			FileUtils.copyFile(file1, sample_file);
+		} catch (IOException e) {
+			System.out.println("Unable to copy sample csv file");
+		}
+	}
+	
 	@Test(expected = NullPointerException.class)
 	public void getDailyPriceNullTest() {
 		FinanceQuery.getDailyPriceCSV(null);
@@ -119,7 +145,7 @@ public class TestFinanceQuery {
 	public void invalidDateRange3() {
 		
 		LocalDate nextYear = new LocalDate();
-		nextYear.plusYears(1);
+		nextYear = nextYear.plusYears(1);
 		
 		fromDate = toDate;
 		toDate = nextYear.toDate();
