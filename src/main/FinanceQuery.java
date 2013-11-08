@@ -6,8 +6,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.Validate;
 
 public class FinanceQuery {
 	
@@ -16,9 +19,76 @@ public class FinanceQuery {
 	// get daily price information in csv
 	public static File getDailyPriceCSV(String symbol) {
 		
+		Validate.notNull(symbol);
+		
 		File file = FinanceQuery.requestCSVQuote(symbol, DAILY_PRICE_FLAG);
 		return file;
 		
+	}
+	
+	public static File getHistoricalCVS(String symbol, Date fromDate, Date toDate, String Interval) {
+		
+		Validate.notNull(symbol);
+		
+		File file = FinanceQuery.requestCSVHistorical(symbol, fromDate, toDate, Interval);
+		return file;
+	}
+	
+	private static File requestCSVHistorical(String symbol, Date fromDate, Date toDate, String Interval) {
+		
+		final String STATIC_PART = "&ignore=.csv";
+
+		String request = "";
+		URI uri;
+		File file = null;
+		
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(fromDate);
+	    int fromYear = cal.get(Calendar.YEAR);
+	    int fromMonth = cal.get(Calendar.MONTH);
+	    int fromDay = cal.get(Calendar.DAY_OF_MONTH);
+	    cal.setTime(toDate);
+	    int toYear = cal.get(Calendar.YEAR);
+	    int toMonth = cal.get(Calendar.MONTH);
+	    int toDay = cal.get(Calendar.DAY_OF_MONTH);
+	    
+		try {
+			uri = new URI(
+			        "http", 
+			        "ichart.yahoo.com", 
+			        "/table.csv",
+			        "s=" + symbol + 
+			        "&a=" + fromMonth +
+			        "&b=" + fromDay +
+			        "&c=" + fromYear +
+			        "&d=" + toMonth +
+			        "&e=" + toDay +
+			        "&f=" + toYear +
+			        "&g=" + Interval +
+			        STATIC_PART,
+			        null);
+			request = uri.toASCIIString();
+			
+			URL url = new URL(request);
+			
+			file = File.createTempFile("historical", null);
+			FileUtils.copyURLToFile(url, file);
+			file.deleteOnExit();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return file;
 	}
 	
 	private static File requestCSVQuote(String symbol, String properties) {

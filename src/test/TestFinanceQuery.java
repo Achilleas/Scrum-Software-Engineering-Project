@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestFinanceQuery {
 
 	@Test
-	public void testFile() {
+	public void testDailyPriceFile() {
 		// create 2 temporary file and test if second file will replace the first file
 		// a sample csv file will created
 		File file1, file2, sample_file;
@@ -32,4 +32,8 @@ public class TestFinanceQuery {
 		}
 	}
 
+	@Test(expected = NullPointerException.class)
+	public void testGetDailyPriceNull() {
+		FinanceQuery.getDailyPriceCSV(null);
+	}
 }
