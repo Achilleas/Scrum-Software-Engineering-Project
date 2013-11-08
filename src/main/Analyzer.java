@@ -1,6 +1,7 @@
 package main;
 
 import java.util.LinkedList;
+import org.apache.commons.lang3.Validate;
 
 /*
  * This class is the demo that analyze the data parsed based on user profile and generate html code when it it called.
