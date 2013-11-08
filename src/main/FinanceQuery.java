@@ -28,9 +28,9 @@ public class FinanceQuery {
 		
 		File file = FinanceQuery.requestCSVQuote(symbol, DAILY_PRICE_PROP);
 		return file;
-		
 	}
 	
+	// get Historial price for a given share
 	public static File getHistoricalCVS(String symbol, Date fromDate, Date toDate, String interval) {
 		
 		Validate.notNull(symbol, "symbol can't be null");
