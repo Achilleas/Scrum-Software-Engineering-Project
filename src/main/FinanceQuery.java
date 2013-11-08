@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +14,8 @@ import static main.Constants.*;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.Validate;
+
+import com.jaunt.*;
 
 public class FinanceQuery {
 	
@@ -105,6 +108,50 @@ public class FinanceQuery {
 		}
 		
 		return file;
+	}
+	
+	public static String getComponents(String symbol) {
+		
+		String components = "";
+		
+		try{
+			symbol = URLEncoder.encode(symbol, "ISO-8859-1");
+			UserAgent userAgent = new UserAgent();
+			userAgent.visit("http://uk.finance.yahoo.com/q/cp?s=" + symbol);
+			Element element;
+			Elements elements;
+			
+			element = userAgent.doc.findFirst("<div align=\"right\">").getElement(2);
+			String last_url = element.getAt("href");
+			int last_index = Integer.parseInt(last_url.substring(last_url.length() - 1)); // get the last index
+			int i = 0;
+			while (i <= last_index) {
+				userAgent = new UserAgent();
+				userAgent.visit("http://uk.finance.yahoo.com/q/cp?s=" + symbol + "&c=" + i);
+				element = userAgent.doc.findFirst("<div align=\"right\">").nextSiblingElement().nextSiblingElement();
+				element = element.getElement(0).getElement(0).getElement(0);
+				elements = element.findEach("<tr>");
+				for(Element tr : elements){                                     //iterate through Results
+					String textNode;
+					
+					element = tr.getElement(0);
+					textNode = element.getText();
+					if (!textNode.equals("Symbol")) {
+						element = element.getElement(0).getElement(0);
+						textNode = element.getText();
+						components = components.equals("")? textNode : components + "," + textNode;
+					}
+				} 
+				i++;
+			}
+		}
+		catch(JauntException e){
+			  System.err.println(e);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return components;
 	}
 	
 	private static File requestCSVQuote(String symbol, String properties) {

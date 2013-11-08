@@ -46,8 +46,9 @@ public class TestFinanceQuery {
 		// a sample csv file will created
 		File file1, file2, sample_file;
 		
-		file1 = FinanceQuery.getDailyPriceCSV(FTSE100_COMPONENTS);
-		file2 = FinanceQuery.getDailyPriceCSV(FTSE100_COMPONENTS);
+		file1 = FinanceQuery.getDailyPriceCSV(FTSE100);
+		file2 = FinanceQuery.getDailyPriceCSV(FTSE100);
+		
 		sample_file = new File("sample-daily-price.csv");
 		
 		assertNotNull(file1);
