@@ -9,32 +9,49 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static main.Constants.*;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.Validate;
 
 public class FinanceQuery {
 	
-	private final static String DAILY_PRICE_FLAG = "snohgpv";
+	private final static String DAILY_PRICE_PROP = "snohgpv";
 	
 	// get daily price information in csv
 	public static File getDailyPriceCSV(String symbol) {
 		
-		Validate.notNull(symbol);
+		Validate.notNull(symbol, "symbol can't be null");
 		
-		File file = FinanceQuery.requestCSVQuote(symbol, DAILY_PRICE_FLAG);
+		File file = FinanceQuery.requestCSVQuote(symbol, DAILY_PRICE_PROP);
 		return file;
 		
 	}
 	
-	public static File getHistoricalCVS(String symbol, Date fromDate, Date toDate, String Interval) {
+	public static File getHistoricalCVS(String symbol, Date fromDate, Date toDate, String interval) {
 		
-		Validate.notNull(symbol);
+		Validate.notNull(symbol, "symbol can't be null");
+		Validate.notNull(fromDate, "fromDate can't be null");
+		Validate.notNull(toDate, "toDate can't be null");
+		Validate.notNull(interval, "interval can't be null");
 		
-		File file = FinanceQuery.requestCSVHistorical(symbol, fromDate, toDate, Interval);
+		if (fromDate.compareTo(toDate) >= 0)
+			throw new IllegalArgumentException("fromDate must before toDate");
+		
+		Calendar cal = Calendar.getInstance();
+		Date today = new Date();
+		today = cal.getTime();
+		if (today.compareTo(toDate) <= 0)
+			throw new IllegalArgumentException("toDate can't be later than today");
+		
+		if (!interval.equals(DAILY_INTERVAL) && !interval.equals(WEEKLY_INTERVAL) && !interval.equals(MONTHLY_INTERVAL))
+			throw new IllegalArgumentException();
+		
+		File file = FinanceQuery.requestCSVHistorical(symbol, fromDate, toDate, interval);
 		return file;
 	}
 	
-	private static File requestCSVHistorical(String symbol, Date fromDate, Date toDate, String Interval) {
+	private static File requestCSVHistorical(String symbol, Date fromDate, Date toDate, String interval) {
 		
 		final String STATIC_PART = "&ignore=.csv";
 
@@ -64,11 +81,10 @@ public class FinanceQuery {
 			        "&d=" + toMonth +
 			        "&e=" + toDay +
 			        "&f=" + toYear +
-			        "&g=" + Interval +
+			        "&g=" + interval +
 			        STATIC_PART,
 			        null);
 			request = uri.toASCIIString();
-			
 			URL url = new URL(request);
 			
 			file = File.createTempFile("historical", null);
@@ -104,7 +120,9 @@ public class FinanceQuery {
 			        "http", 
 			        "download.finance.yahoo.com", 
 			        "/d/quotes.csv",
-			        "s=" + symbol + "&f=" + properties + STATIC_PART,
+			        "s=" + symbol + 
+			        "&f=" + properties +
+			        STATIC_PART,
 			        null);
 			request = uri.toASCIIString();
 			
