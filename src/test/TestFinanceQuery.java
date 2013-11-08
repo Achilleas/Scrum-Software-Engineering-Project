@@ -4,21 +4,20 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
 
 import static main.Constants.*;
 import main.FinanceQuery;
 
 import org.apache.commons.io.FileUtils;
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TestFinanceQuery {
 	
-	Date fromDate = new Date();
-	Date toDate = new Date();
+	Date fromDate, toDate;
 	
 	@BeforeClass
 	public static void setupBeforeClass() {
@@ -27,17 +26,8 @@ public class TestFinanceQuery {
 	
 	@Before
 	public void setupBefore() {
-		Calendar cal = Calendar.getInstance();
-		
-		cal.set(Calendar.YEAR, 2000);
-		cal.set(Calendar.MONTH, 2);
-		cal.set(Calendar.DAY_OF_MONTH, 15);
-		fromDate = cal.getTime();
-		
-		cal.set(Calendar.YEAR, 2010);
-		cal.set(Calendar.MONTH, 0);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		toDate = cal.getTime();
+		fromDate = new LocalDate(2000,2,15).toDate();
+		toDate = new LocalDate(2010,1,31).toDate();
 	}
 	
 	@Test
@@ -113,48 +103,26 @@ public class TestFinanceQuery {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidDateRange1() {
-		Calendar cal = Calendar.getInstance();
-		
-		cal.set(Calendar.YEAR, 2010);
-		cal.set(Calendar.MONTH, 2);
-		cal.set(Calendar.DAY_OF_MONTH, 15);
-		fromDate = cal.getTime();
-		
-		cal.set(Calendar.YEAR, 2000);
-		cal.set(Calendar.MONTH, 0);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		toDate = cal.getTime();
-		
-		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		// flip the toDate and fromDate
+		FinanceQuery.getHistoricalCVS("GOOG", toDate, fromDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidDateRange2() {
-		Calendar cal = Calendar.getInstance();
 		
-		cal.set(Calendar.YEAR, 2010);
-		cal.set(Calendar.MONTH, 2);
-		cal.set(Calendar.DAY_OF_MONTH, 15);
-		fromDate = cal.getTime();
-		toDate = cal.getTime();
+		toDate = fromDate;
 		
 		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidDateRange3() {
-		Calendar cal = Calendar.getInstance();
-		int next_year = 1 + cal.get(Calendar.YEAR);
-
-		cal.set(Calendar.YEAR, 2010);
-		cal.set(Calendar.MONTH, 2);
-		cal.set(Calendar.DAY_OF_MONTH, 15);
-		fromDate = cal.getTime();
 		
-		cal.set(Calendar.YEAR, next_year);
-		cal.set(Calendar.MONTH, 0);
-		cal.set(Calendar.DAY_OF_MONTH, 31);
-		toDate = cal.getTime();
+		LocalDate nextYear = new LocalDate();
+		nextYear.plusYears(1);
+		
+		fromDate = toDate;
+		toDate = nextYear.toDate();
 		
 		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 	}
