@@ -2,6 +2,8 @@ package main;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.Validate;
+
 public class DailyPrice {
 	private String stock_id;
 	private Date date;
@@ -12,6 +14,10 @@ public class DailyPrice {
 	private int volume;
 	
 	public DailyPrice(String stock_id,Date date,double open_price,double high_price,double low_price, double close_price, int volume){
+		
+		Validate.notNull(stock_id);
+		Validate.notNull(date);
+		
 		this.stock_id=stock_id;
 		this.date=date;
 		this.open_price=open_price;
