@@ -17,6 +17,7 @@ public class Main {
 			d.printDailyPrice();
 			a++;
 		}
+		
 		System.out.println(a);
 	}
 
