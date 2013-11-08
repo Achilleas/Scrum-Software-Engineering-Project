@@ -108,6 +108,7 @@ public class FinanceQuery {
 
 		String request = "";
 		URI uri;
+		URL url = null;
 		File file = null;
 	    
 		try {
@@ -126,24 +127,31 @@ public class FinanceQuery {
 			        STATIC_PART,
 			        null);
 			request = uri.toASCIIString();
-			URL url = new URL(request);
+			url = new URL(request);
 			
 			file = File.createTempFile("historical", null);
-			FileUtils.copyURLToFile(url, file);
-			file.deleteOnExit();
+			
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Syntax error in the url");
+			System.exit(1);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(1);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.err.println("Failed to create a temp file");
+			return null;
 		}
+		
+		try {
+			FileUtils.copyURLToFile(url, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("Failed to get the file from the url");
+			return null;
+		}
+		file.deleteOnExit();
 		
 		return file;
 	}
@@ -154,6 +162,7 @@ public class FinanceQuery {
 		
 		String request = "";
 		URI uri;
+		URL url = null;
 		File file = null;
 		
 		try {
@@ -167,24 +176,32 @@ public class FinanceQuery {
 			        null);
 			request = uri.toASCIIString();
 			
-			URL url = new URL(request);
+			url = new URL(request);
 			
 			file = File.createTempFile("components", null);
 			FileUtils.copyURLToFile(url, file);
 			file.deleteOnExit();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Syntax error in the url");
+			System.exit(1);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(1);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.err.println("Failed to create a temp file");
+			return null;
 		}
+		
+		try {
+			FileUtils.copyURLToFile(url, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("Failed to get the file from the url");
+			return null;
+		}
+		file.deleteOnExit();
 		
 		return file;
 	}
