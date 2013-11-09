@@ -35,9 +35,10 @@ public class TestFinanceQuery {
 		// create 2 temporary file and test if second file will replace the first file
 		// a sample csv file will created
 		File file1, file2, sample_file;
+		FinanceQuery query = new FinanceQuery();
 		
-		file1 = FinanceQuery.getDailyPriceCSV(FTSE100);
-		file2 = FinanceQuery.getDailyPriceCSV(FTSE100);
+		file1 = query.getDailyPriceCSV(FTSE100);
+		file2 = query.getDailyPriceCSV(FTSE100);
 		
 		sample_file = new File("sample-daily-price.csv");
 		
@@ -54,16 +55,15 @@ public class TestFinanceQuery {
 	@Test
 	public void altDailyPriceFile() {
 		// this uses webscrape to get components instead of using @**** symbol to get components
-		// create 2 temporary file and test if second file will replace the first file
-		// a sample csv file will created
 		File file1, file2, sample_file;
 		String symbols;
+		FinanceQuery query = new FinanceQuery();
 		
-		symbols = FinanceQuery.getComponents("^FTSE");
+		symbols = query.getComponents("^FTSE");
 		System.out.println("The list of symbols are \n" + symbols);
 		
-		file1 = FinanceQuery.getDailyPriceCSV(symbols);
-		file2 = FinanceQuery.getDailyPriceCSV(symbols);
+		file1 = query.getDailyPriceCSV(symbols);
+		file2 = query.getDailyPriceCSV(symbols);
 		
 		sample_file = new File("sample-daily-price2.csv");
 		
@@ -79,7 +79,9 @@ public class TestFinanceQuery {
 	
 	@Test(expected = NullPointerException.class)
 	public void getDailyPriceNullTest() {
-		FinanceQuery.getDailyPriceCSV(null);
+		FinanceQuery query = new FinanceQuery();
+		
+		query.getDailyPriceCSV(null);
 	}
 	
 	@Test
@@ -87,9 +89,10 @@ public class TestFinanceQuery {
 		// create 2 temporary file and test if second file will replace the first file
 		// a sample csv file will created
 		File file1, file2, sample_file;
+		FinanceQuery query = new FinanceQuery();
 		
-		file1 = FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
-		file2 = FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		file1 = query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		file2 = query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 		sample_file = new File("sample-historical.csv");
 		
 		assertNotNull(file1);
@@ -104,33 +107,39 @@ public class TestFinanceQuery {
 	
 	@Test(expected = NullPointerException.class)
 	public void getHistoricalNullTest1() {
-		FinanceQuery.getHistoricalCVS(null, fromDate, toDate, WEEKLY_INTERVAL);
+		FinanceQuery query = new FinanceQuery();
+		query.getHistoricalCVS(null, fromDate, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void getHistoricalNullTest2() {
-		FinanceQuery.getHistoricalCVS("GOOG", null, toDate, WEEKLY_INTERVAL);
+		FinanceQuery query = new FinanceQuery();
+		query.getHistoricalCVS("GOOG", null, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void getHistoricalNullTest3() {
-		FinanceQuery.getHistoricalCVS("GOOG", null, toDate, WEEKLY_INTERVAL);
+		FinanceQuery query = new FinanceQuery();
+		query.getHistoricalCVS("GOOG", null, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void getHistoricalNullTest4() {
-		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, null);
+		FinanceQuery query = new FinanceQuery();
+		query.getHistoricalCVS("GOOG", fromDate, toDate, null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidInterval() {
-		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, "daily");
+		FinanceQuery query = new FinanceQuery();
+		query.getHistoricalCVS("GOOG", fromDate, toDate, "daily");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidDateRange1() {
 		// flip the toDate and fromDate
-		FinanceQuery.getHistoricalCVS("GOOG", toDate, fromDate, WEEKLY_INTERVAL);
+		FinanceQuery query = new FinanceQuery();
+		query.getHistoricalCVS("GOOG", toDate, fromDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -138,7 +147,8 @@ public class TestFinanceQuery {
 		
 		toDate = fromDate;
 		
-		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		FinanceQuery query = new FinanceQuery();
+		query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -150,6 +160,7 @@ public class TestFinanceQuery {
 		fromDate = toDate;
 		toDate = nextYear.toDate();
 		
-		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		FinanceQuery query = new FinanceQuery();
+		query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 	}
 }
