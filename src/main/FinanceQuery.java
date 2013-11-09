@@ -21,18 +21,20 @@ public class FinanceQuery {
 	
 	private final static String DAILY_PRICE_PROP = "snohgpv";
 	
-	// get daily price information in csv
-	public static File getDailyPriceCSV(String symbol) {
-		
+	// get daily pricing information of stock(s)
+	// To get multiple stock, put symbols into a string and separate them with ","
+	public File getDailyPriceCSV(String symbol) {
 		Validate.notNull(symbol, "symbol can't be null");
 		
-		File file = FinanceQuery.requestCSVQuote(symbol, DAILY_PRICE_PROP);
+		File file = requestCSVQuote(symbol, DAILY_PRICE_PROP);
 		return file;
 	}
 	
-	// get Historial price for a given share
-	public static File getHistoricalCVS(String symbol, Date fromDate, Date toDate, String interval) {
-		
+	
+	// get historical price for a given share in csv file
+	// you are not allowed to download historical quotes of several stocks or indices
+	// Interval of the trading period. use DAILY_INTERVAL, WEEKLY_INTERVAL
+	public File getHistoricalCVS(String symbol, Date fromDate, Date toDate, String interval) {
 		Validate.notNull(symbol, "symbol can't be null");
 		Validate.notNull(fromDate, "fromDate can't be null");
 		Validate.notNull(toDate, "toDate can't be null");
@@ -51,18 +53,19 @@ public class FinanceQuery {
 		if (!interval.equals(DAILY_INTERVAL) && !interval.equals(WEEKLY_INTERVAL) && !interval.equals(MONTHLY_INTERVAL))
 			throw new IllegalArgumentException();
 		
-		File file = FinanceQuery.requestCSVHistorical(symbol, fromLocalDate, toLocalDate, interval);
+		File file = requestCSVHistorical(symbol, fromLocalDate, toLocalDate, interval);
 		return file;
 	}
 	
-	public static String getComponents(String symbol) {
+	// get all component of the stock market index into a string separated with ","
+	public String getComponents(String index) {
 		
 		String components = "";
 		
 		try{
-			symbol = URLEncoder.encode(symbol, "ISO-8859-1");
+			index = URLEncoder.encode(index, "ISO-8859-1");
 			UserAgent userAgent = new UserAgent();
-			userAgent.visit("http://uk.finance.yahoo.com/q/cp?s=" + symbol);
+			userAgent.visit("http://uk.finance.yahoo.com/q/cp?s=" + index);
 			Element element;
 			Elements elements;
 			
@@ -70,18 +73,20 @@ public class FinanceQuery {
 			String last_url = element.getAt("href");
 			int last_index = Integer.parseInt(last_url.substring(last_url.length() - 1)); // get the last index
 			int i = 0;
-			while (i <= last_index) {
+			while (i <= last_index) {	// for each page
 				userAgent = new UserAgent();
-				userAgent.visit("http://uk.finance.yahoo.com/q/cp?s=" + symbol + "&c=" + i);
+				userAgent.visit("http://uk.finance.yahoo.com/q/cp?s=" + index + "&c=" + i);
+				// find the table containing the component of the stock market index
 				element = userAgent.doc.findFirst("<div align=\"right\">").nextSiblingElement().nextSiblingElement();
 				element = element.getElement(0).getElement(0).getElement(0);
+				// iterate each row of the table
 				elements = element.findEach("<tr>");
-				for(Element tr : elements){                                     //iterate through Results
+				for(Element tr : elements){  
 					String textNode;
 					
 					element = tr.getElement(0);
 					textNode = element.getText();
-					if (!textNode.equals("Symbol")) {
+					if (!textNode.equals("Symbol")) { // filter out the headings
 						element = element.getElement(0).getElement(0);
 						textNode = element.getText();
 						components = components.equals("")? textNode : components + "," + textNode;
@@ -89,8 +94,7 @@ public class FinanceQuery {
 				} 
 				i++;
 			}
-		}
-		catch(JauntException e){
+		} catch(JauntException e){
 			  System.err.println(e);
 			  return null;
 		} catch (UnsupportedEncodingException e) {
@@ -102,7 +106,7 @@ public class FinanceQuery {
 		return components;
 	}
 	
-	private static File requestCSVHistorical(String symbol, LocalDate fromDate, LocalDate toDate, String interval) {
+	private File requestCSVHistorical(String symbol, LocalDate fromDate, LocalDate toDate, String interval) {
 		
 		final String STATIC_PART = "&ignore=.csv";
 
@@ -130,7 +134,6 @@ public class FinanceQuery {
 			url = new URL(request);
 			
 			file = File.createTempFile("historical", null);
-			
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 			System.err.println("Syntax error in the url");
@@ -152,11 +155,10 @@ public class FinanceQuery {
 			return null;
 		}
 		file.deleteOnExit();
-		
 		return file;
 	}
 	
-	private static File requestCSVQuote(String symbol, String properties) {
+	private File requestCSVQuote(String symbol, String properties) {
 		
 		final String STATIC_PART = "&e=.csv";
 		
@@ -179,8 +181,6 @@ public class FinanceQuery {
 			url = new URL(request);
 			
 			file = File.createTempFile("components", null);
-			FileUtils.copyURLToFile(url, file);
-			file.deleteOnExit();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 			System.err.println("Syntax error in the url");
@@ -202,7 +202,6 @@ public class FinanceQuery {
 			return null;
 		}
 		file.deleteOnExit();
-		
 		return file;
 	}
 	
