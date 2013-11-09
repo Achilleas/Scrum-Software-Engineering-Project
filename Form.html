@@ -11,21 +11,51 @@
 <p>Please fill in all fields to create your profile</p>
 
 <form method="get" action = "http://www.cs.st-andrews.ac.uk/">
-User Name: <br /><input type="text" name="UserName" /><br />
-Password: <br /><input type="text" name="Password" /><p>
 
-First Name: <br /><input type="text" name="FirstName" /><br />
-Second Name: <br /><input type="text" name="SecondName" /><br />
-Date of Birth (DD/MM/YY): <br /><input type="text" name="DOB" /><p>
+<h3>User Name</h3>
+	<h5>(if available)</h5>
+		<input type="text" name="UserName" />
 
-<h3>Contact Info</h3>
+<h3>Password</h3>
+	<h5>(minimum 6 digits length, include numbers, symbols, and different case letters)</h5>
+		<input type="password" name="Password" />
+
+<h2>Personal Info</h2>
+
+<h3>Name</h3>
+	<input type="text" name="FirstName" value="Forename" />
+	<input type="text" name="SecondName" value="Surname" />
+
+<h3>Date of Birth</h3>
+	<select id="Menu" name="Day" value="Day">
+		<option value="1">1</option>
+		<option value="2">2</option>
+	</select>
+	<select id="Menu" name="Month" value="Month">
+		<option value="January">January</option>
+		<option value="Febraury">February</option>
+	</select>
+	<select id="Menu" name="Year" value="Year">
+		<option value="1900">1900</option>
+		<option value="1901">1901</option>
+	</select>
+
+<h2>Contact Info</h2>
+
 E-mail Address: <br /><input type="text" name="Email" /><br />
 Home telephone: <br /><input type="text" name="Home" /><br />
 Mobile telephone: <br /><input type="text" name="Mobile" /><br />
-Address: <br /><textarea id="address" name="Address">
-Enter address here
-</textarea><p>
 
+<h3>Address</h3>
+	<input type="text" name="Line1" value="Line 1"/><br />
+	<input type="text" name="Line2" value="Line 2"/><br />
+	<input type="text" name="Town" value="Town" /><br />
+	<input type="text" name="County" value="County" /><br />
+	<input type="text" name="Postcode" value="Postcode" /><br />
+	<input type="text" name="Country" value="Country"/><br />
+
+<input type="submit" name="Action" value="Submit Details" />
+<input type="reset" value="Reset" />
 
 </form>
 </body>
