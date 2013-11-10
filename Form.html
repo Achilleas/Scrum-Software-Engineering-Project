@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>User Registration Form</title>
+	<link rel="stylesheet" type="text/css" href="RegStyle.css" />
 </head>
 <body>
 
@@ -12,48 +13,57 @@
 
 <form method="get" action = "http://www.cs.st-andrews.ac.uk/">
 
-<h3>User Name</h3>
-	<h5>(if available)</h5>
-		<input type="text" name="UserName" />
+<p><span class="top">User Name</span>
+	<span class="sub">(if available)</span>
+		<br />
+		<input type="text" name="UserName" /></p>
 
-<h3>Password</h3>
-	<h5>(minimum 6 digits length, include numbers, symbols, and different case letters)</h5>
-		<input type="password" name="Password" />
+<p><span class="top">Password</span>
+	<span class="sub">(minimum 6 digits length, include numbers, symbols, and different case letters)</span>
+		<br />
+		<input type="password" name="Password" /></p>
 
 <h2>Personal Info</h2>
 
-<h3>Name</h3>
-	<input type="text" name="FirstName" value="Forename" />
-	<input type="text" name="SecondName" value="Surname" />
+<p>Name<br />
+	<input type="text" name="FirstName" placeholder="Forename" />
+	<input type="text" name="SecondName" placeholder="Surname" /></p>
 
-<h3>Date of Birth</h3>
-	<select id="Menu" name="Day" value="Day">
+<p>Date of Birth<br />
+	<select id="Menu" name="Day">
+		<option value="Day">Day</option>
 		<option value="1">1</option>
 		<option value="2">2</option>
 	</select>
-	<select id="Menu" name="Month" value="Month">
+	<select id="Menu" name="Month">
+		<option value="Month">Month</option>
 		<option value="January">January</option>
 		<option value="Febraury">February</option>
 	</select>
-	<select id="Menu" name="Year" value="Year">
+	<select id="Menu" name="Year">
+		<option value="Year">Year</option>
 		<option value="1900">1900</option>
 		<option value="1901">1901</option>
-	</select>
+	</select></p>
 
 <h2>Contact Info</h2>
 
-E-mail Address: <br /><input type="text" name="Email" /><br />
-Home telephone: <br /><input type="text" name="Home" /><br />
-Mobile telephone: <br /><input type="text" name="Mobile" /><br />
+<p>E-mail Address:
+	<br /><input type="text" name="Email" /><br />
+Home telephone:
+	<br /><input type="text" name="Home" /><br />
+Mobile telephone:
+	<br /><input type="text" name="Mobile" /><br />
 
-<h3>Address</h3>
-	<input type="text" name="Line1" value="Line 1"/><br />
-	<input type="text" name="Line2" value="Line 2"/><br />
-	<input type="text" name="Town" value="Town" /><br />
-	<input type="text" name="County" value="County" /><br />
-	<input type="text" name="Postcode" value="Postcode" /><br />
-	<input type="text" name="Country" value="Country"/><br />
+Address<br />
+	<input type="text" name="Line1" placeholder="Line 1"/><br />
+	<input type="text" name="Line2" placeholder="Line 2"/><br />
+	<input type="text" name="Town" placeholder="Town" /><br />
+	<input type="text" name="County" placeholder="County" /><br />
+	<input type="text" name="Postcode" placeholder="Postcode" /><br />
+	<input type="text" name="Country" placeholder="Country"/><br /></p>
 
+<p>
 <input type="submit" name="Action" value="Submit Details" />
 <input type="reset" value="Reset" />
 
