@@ -1,18 +1,39 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.commons.lang3.Validate;
 
 
 public class Investor {
 	
-	private String firstName;
-	private String surname;
-	private ArrayList<String> companiesInvested;
-	private ArrayList<String> companiesInterested;
 	private String username;
 	private String password;
+	private Date dob;
+	private String firstName;
+	private String surname;
+	private String email;
+	private String telephone;
+	private Address address;
+	private ArrayList<String> companiesInvested;
+	private ArrayList<String> companiesInterested;
+	
+	public Investor(String username, String password, Date dob,
+			String firstName, String surname, String email, String telephone,
+			Address address, ArrayList<String> companiesInvested,
+			ArrayList<String> companiesInterested) {
+		this.username = username;
+		this.password = password;
+		this.dob = dob;
+		this.firstName = firstName;
+		this.surname = surname;
+		this.email = email;
+		this.telephone = telephone;
+		this.address = address;
+		this.companiesInvested = companiesInvested;
+		this.companiesInterested = companiesInterested;
+	}
 
 	public Investor(String firstName2, String surname2, String username2,
 			String password2, ArrayList<String> companiesInvested2,

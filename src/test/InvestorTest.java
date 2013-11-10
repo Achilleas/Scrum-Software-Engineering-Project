@@ -2,8 +2,11 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import main.Address;
 import main.Investor;
 
 import org.junit.Before;
@@ -12,12 +15,16 @@ import org.junit.Test;
 
 public class InvestorTest {
 	
-	String firstName = "John";
-	String surname = "Doe";
-	ArrayList<String> companiesInvested;
-	ArrayList<String> companiesInterested;
 	String username = "john";
 	String password = "1234";
+	String firstName = "John";
+	String surname = "Doe";
+	Date dob = new Date();
+	String email = "jd@hotmail.co.uk";
+	String telephone = "07754791234";
+	Address address = new Address("5 Hartwell House", "Strawberry Terrace", "Oz", "Wizardshire", "OZ15 9YR", "Oztopia");
+	ArrayList<String> companiesInvested;
+	ArrayList<String> companiesInterested;
 	
 	@Before
 	public void setupBefore() {
