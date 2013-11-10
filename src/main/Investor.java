@@ -25,7 +25,8 @@ public class Investor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Investor(String firstName, String surname) {
+	public Investor(String firstName, String surname,
+			String password2) {
 		
 		Validate.notNull(firstName, "firstName can't be null");
 		Validate.notNull(surname, "surname can't be null");
@@ -47,9 +48,29 @@ public class Investor {
 	public String getSurname() {
 		return surname;
 	}
+	/**
+	 * -------------------------------------------------------------------------
+	 * @author Qiao
+	 * -------------------------------------------------------------------------
+	 * @param password
+	 * @return if change is made
+	 */
+	public boolean changePassword(String old_password,String new_password){
+		if(this.password.equals(old_password)){
+			this.password=new_password;
+			return true;
+		}else{
+			return false;
+		}
+	}
 	public void addInterested(String stock){
 		if(!isStockList(stock,companiesInterested)){
 			companiesInterested.add(stock);
+		}
+	}
+	public void addInvested(String stock){
+		if(!isStockList(stock,companiesInvested)){
+			companiesInvested.add(stock);
 		}
 	}
 	public boolean isInterested(String stock){
@@ -57,6 +78,12 @@ public class Investor {
 	}
 	public boolean isInvested(String stock){
 		return isStockList(stock,companiesInvested);
+	}
+	public ArrayList<String> getInterestList(){
+		return companiesInterested;
+	}
+	public ArrayList<String> getInvestedList(){
+		return companiesInterested;
 	}
 	private static boolean isStockList(String stock,ArrayList<String> list){
 		for(int i=0;i<list.size();i++){
