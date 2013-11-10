@@ -10,9 +10,9 @@ public class Analyzer {
 	public static final int HIGH_GRANULARITY=1;
 	public static final int LOW_GRANULARITY=2;
 	private LinkedList<DailyPrice> prices;
-	private InvestorProfile user;
+	private Investor user;
 	private String result;
-	public Analyzer(InvestorProfile profile, String filename,String separator){
+	public Analyzer(Investor profile, String filename,String separator){
 		Validate.notNull(filename, "firstName can't be null");
 		Validate.notNull(profile, "profile can't be null");
 		CSVParser parser=new CSVParser(separator);

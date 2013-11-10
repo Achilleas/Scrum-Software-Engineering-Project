@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.apache.commons.lang3.Validate;
 
 
-public class InvestorProfile {
+public class Investor {
 	
 	private String firstName;
 	private String surname;
@@ -14,7 +14,7 @@ public class InvestorProfile {
 	private String username;
 	private String password;
 	
-	public InvestorProfile(String firstName, String surname) {
+	public Investor(String firstName, String surname) {
 		
 		Validate.notNull(firstName, "firstName can't be null");
 		Validate.notNull(surname, "surname can't be null");
