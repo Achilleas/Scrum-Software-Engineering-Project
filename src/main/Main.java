@@ -2,9 +2,11 @@ package main;
 
 import java.util.LinkedList;
 
+import jetty.JettyServer;
+
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		String file = "example_table.csv";
 		
 		LinkedList<DailyPrice> l;
@@ -19,6 +21,9 @@ public class Main {
 		}
 		
 		System.out.println(a);
+		
+		JettyServer js = new JettyServer();
+		js.run(args);
 	}
 
 }

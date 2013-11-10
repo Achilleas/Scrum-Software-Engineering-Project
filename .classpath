@@ -24,6 +24,15 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Callum/Documents/GitHub/Scrum-Software-Engineering-Project/lib/servlet-api-3.0.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/servlet-api-3.0.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-continuation-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-http-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-io-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-security-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-server-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-servlet-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-util-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-webapp-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="/CS3051/lib/jetty-xml-8.1.1.v20120215.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
