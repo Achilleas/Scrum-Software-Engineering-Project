@@ -62,13 +62,63 @@ public class Investor {
 		//this.password = password;
 	}
 	
+	
+	public String getUsername() {
+		return username;
+	}
+	public String getPassword() {
+		return password;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public String getSurname() {
 		return surname;
 	}
+	public Date getDob() {
+		return dob;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public String getTelephone() {
+		return telephone;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public ArrayList<String> getCompaniesInvested() {
+		return companiesInvested;
+	}
+	public ArrayList<String> getCompaniesInterested() {
+		return companiesInterested;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	/**
 	 * -------------------------------------------------------------------------
 	 * @author Qiao
