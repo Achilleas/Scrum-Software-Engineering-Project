@@ -24,15 +24,15 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/servlet-api-3.0.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-continuation-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-http-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-io-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-security-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-server-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-servlet-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-util-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-webapp-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="/CS3051/lib/jetty-xml-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-continuation-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-http-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-io-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-security-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-server-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-servlet-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-webapp-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-xml-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

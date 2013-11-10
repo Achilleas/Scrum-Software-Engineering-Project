@@ -22,18 +22,30 @@ public class InvestorProfile {
 	}
 	
 	public void updateFirstname(){
-		//TODO
+		//TODO store new firstname to file
 	}
 	
 	public void updateSurname(){
-		//TODO
+		//TODO store new surname to file
 	}
 	
 	public void updateUsername(){
-		//TODO
+		//TODO store new username to file
 	}
 	
 	public void updatePassword(){
-		//TODO
+		//TODO store new password to file
+	}
+	
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 }

@@ -74,7 +74,7 @@ public class CreateProfile extends HttpServlet{
 	}
 	
 	boolean validUsername(String username){
-		//TODO: SEE IF USERNAME BELOWS TO ANOTHER INVESTOR
+		//TODO: SEE IF USERNAME BELONGS TO ANOTHER INVESTOR
 		if(username.equals("abc"))
 			return false;
 		else
