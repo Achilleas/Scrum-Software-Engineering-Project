@@ -55,8 +55,11 @@ public class Investor {
 	 * @param password
 	 * @return if change is made
 	 */
+	public boolean verifyPassword(String password){
+		return password.equals(this.password);
+	}
 	public boolean changePassword(String old_password,String new_password){
-		if(this.password.equals(old_password)){
+		if(verifyPassword(old_password)){
 			this.password=new_password;
 			return true;
 		}else{
