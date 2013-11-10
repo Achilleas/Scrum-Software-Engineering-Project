@@ -7,7 +7,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	FinanceQueryTest.class,
-	AnalyzerTest.class
+	AnalyzerTest.class,
+	InvestorTest.class
 })
 
 public class AllTests {

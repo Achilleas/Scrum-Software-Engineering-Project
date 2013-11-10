@@ -13,7 +13,18 @@ public class Investor {
 	private ArrayList<String> companiesInterested;
 	private String username;
 	private String password;
-	
+
+	public Investor(String firstName2, String surname2, String username2,
+			String password2, ArrayList<String> companiesInvested2,
+			ArrayList<String> companiesInterested2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Investor(String firstName2, String surname2, String username2,
+			String password2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Investor(String firstName, String surname) {
 		
 		Validate.notNull(firstName, "firstName can't be null");
@@ -28,7 +39,7 @@ public class Investor {
 		//this.username = username;
 		//this.password = password;
 	}
-
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -36,15 +47,15 @@ public class Investor {
 	public String getSurname() {
 		return surname;
 	}
-	public void addPreference(String stock){
+	public void addInterested(String stock){
 		if(!isStockList(stock,companiesInterested)){
 			companiesInterested.add(stock);
 		}
 	}
-	public boolean Isinterested(String stock){
+	public boolean isInterested(String stock){
 		return isStockList(stock,companiesInterested);
 	}
-	public boolean Isinvested(String stock){
+	public boolean isInvested(String stock){
 		return isStockList(stock,companiesInvested);
 	}
 	private static boolean isStockList(String stock,ArrayList<String> list){
