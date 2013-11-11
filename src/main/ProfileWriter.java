@@ -28,6 +28,8 @@ public class ProfileWriter {
 	 * @throws IOException
 	 */
 	private void writeList(ArrayList<String> list) throws IOException{
+		if(list==null)
+			return;
 		for(int i=0;i<list.size()-1;i++){
 			bw.write(list.get(i)+separator);
 		}
@@ -39,6 +41,7 @@ public class ProfileWriter {
 	 * @param user
 	 */
 	public void writeProfile(String filename,Investor user){
+		System.out.println("Profile write");
 		try{
 			bw=new BufferedWriter(new FileWriter(filename));
 			bw.write(user.getSurname()+separator);
@@ -53,7 +56,5 @@ public class ProfileWriter {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String args[]){
-		
-	}
+
 }

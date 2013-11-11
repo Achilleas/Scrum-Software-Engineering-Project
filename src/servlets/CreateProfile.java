@@ -62,7 +62,7 @@ public class CreateProfile extends HttpServlet{
 					firstname = value;
 				if(name.equals("Surname"))
 					surname = value;	
-				System.out.println("name: "+name+" value: "+value);
+				//System.out.println("name: "+name+" value: "+value);
 			}
 				//out.println("<p>" + name + " = " + value + "</p>");
 				//System.out.println("name: "+name+" value: "+value);
@@ -76,10 +76,10 @@ public class CreateProfile extends HttpServlet{
 	public void createNewProfile(PrintWriter out) throws IOException{
 		if(validDetails()){
 			Investor ip = new Investor(username, password, firstname, surname);
+			Profile pro = new Profile(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
 			pw.writeProfile("profileDB.csv",ip);
 			//ip.storeAllDetails();
-			Profile pro = new Profile(out, ip);
 			System.out.println("valid");
 		}
 		else{

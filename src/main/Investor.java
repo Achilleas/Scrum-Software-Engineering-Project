@@ -40,9 +40,12 @@ public class Investor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Investor(String username2, String password2, String firstName2,
-			String surname2) {
-		// TODO Auto-generated constructor stub
+	public Investor(String username, String password, String firstName,
+			String surname) {
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.surname = surname;
 	}
 
 	public Investor(String firstName, String surname, String password2) {
