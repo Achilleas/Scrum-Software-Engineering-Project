@@ -40,7 +40,8 @@ public class Investor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Investor(String username2, String password2, String firstName2, String surname2) {
+	public Investor(String username2, String password2, String firstName2,
+			String surname2) {
 		// TODO Auto-generated constructor stub
 	}
 
