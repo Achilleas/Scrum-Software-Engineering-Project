@@ -8,12 +8,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 import servlets.CreateProfile;
+import servlets.ProfileSignin;
 
-/**
- * @author cl72
- * Based on code from Graham Kirby's Servlet lecture
- * creates the server that will handle user requests
- */
 public class JettyServer {
 
 	private static final int MAX_PORT = 65535; //the maximum port number a server can run on
@@ -30,6 +26,7 @@ public class JettyServer {
 		ServletContextHandler handler2 = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		handler2.setContextPath("/servlets"); //configures the server for the servlet
 		handler2.addServlet(new ServletHolder(new CreateProfile()), "/profile"); 
+		handler2.addServlet(new ServletHolder(new ProfileSignin()), "/signin"); 
 
 		HandlerList handlers = new HandlerList(); //stores all the handlers in an array
 		handlers.setHandlers(new Handler[] { handler1, handler2 });

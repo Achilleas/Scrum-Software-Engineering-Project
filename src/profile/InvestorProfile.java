@@ -7,7 +7,7 @@ public class InvestorProfile {
 	private String username;
 	private String password;
 	
-	public InvestorProfile(String firstname, String surname, String username, String password){
+	public InvestorProfile(String username, String password, String firstname, String surname){
 		this.firstname=firstname;
 		this.surname=surname;
 		this.username=username;
@@ -15,26 +15,7 @@ public class InvestorProfile {
 	}
 	
 	public void storeAllDetails(){
-		updateUsername();
-		updatePassword();
-		updateFirstname();
-		updateSurname();
-	}
-	
-	public void updateFirstname(){
-		//TODO store new firstname to file
-	}
-	
-	public void updateSurname(){
-		//TODO store new surname to file
-	}
-	
-	public void updateUsername(){
-		//TODO store new username to file
-	}
-	
-	public void updatePassword(){
-		//TODO store new password to file
+		
 	}
 	
 	public String getFirstname() {

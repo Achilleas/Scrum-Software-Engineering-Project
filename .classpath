@@ -9,21 +9,21 @@
 	<classpathentry kind="lib" path="jaunt0.9.5.jar"/>
 	<classpathentry kind="lib" path="joda-time-2.3.jar"/>
 	<classpathentry kind="lib" path="junit-4.11.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/commons-io-2.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/commons-lang3-3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jaunt0.9.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-continuation-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-http-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-io-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-security-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-server-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-servlet-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-util-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-webapp-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/jetty-xml-8.1.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/joda-time-2.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sony/workspace/Scrum/lib/servlet-api-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jaunt0.9.5.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-continuation-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-http-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-io-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-security-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-server-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-servlet-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-webapp-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-xml-8.1.1.v20120215.jar"/>
+	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

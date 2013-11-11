@@ -19,7 +19,7 @@ public class WriteOut {
 	}
 	
 	/**
-	 * The second part of the standard html code
+	 * The last part of the standard html code
 	 */
 	public void htmlEnd(){
 		out.println("</body>");

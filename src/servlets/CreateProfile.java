@@ -9,15 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.Address;
+import main.DOB;
 import profile.InvestorProfile;
+import webpageOut.CreateError;
+import webpageOut.Profile;
 //import WriteOut.CreateError;
 
 public class CreateProfile extends HttpServlet{
 	
-	String username;
-	String password;
-	String firstname;
-	String surname;
+	String username="";
+	String password="";
+	String firstname="";
+	String surname="";
+	DOB dob;
+	String email="";
+	String homeTel="";
+	String mobTel="";
+	Address add;
 
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
@@ -51,30 +60,32 @@ public class CreateProfile extends HttpServlet{
 					firstname = value;
 				if(name.equals("Surname"))
 					surname = value;	
+				System.out.println("name: "+name+" value: "+value);
 			}
 				//out.println("<p>" + name + " = " + value + "</p>");
 				//System.out.println("name: "+name+" value: "+value);
 		}
-		createNewProfile();
+		createNewProfile(out);
 	}
 
 		
 
 
-	public void createNewProfile(){
-		if(validUsername(username)){
+	public void createNewProfile(PrintWriter out) throws IOException{
+		if(validDetails()){
 			InvestorProfile ip = new InvestorProfile(username, password, firstname, surname);
 			ip.storeAllDetails();
+			Profile pro = new Profile(out, ip);
 			System.out.println("valid");
 		}
 		else{
 			System.out.println("invalid");
-			//CreateError ce = new CreateError(out, "Error!!");
+			CreateError ce = new CreateError(out, "Error!!");
 		}
 	}
-	
-	boolean validUsername(String username){
-		//TODO: SEE IF USERNAME BELONGS TO ANOTHER INVESTOR
+	 
+	boolean validDetails(){
+		//TODO: SEE IF entered details are valid
 		if(username.equals("abc"))
 			return false;
 		else
