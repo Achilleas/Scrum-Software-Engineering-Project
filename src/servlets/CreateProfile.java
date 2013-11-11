@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.Address;
 import main.DOB;
+import main.Investor;
+import main.ProfileWriter;
 import profile.InvestorProfile;
 import webpageOut.CreateError;
 import webpageOut.Profile;
@@ -73,8 +75,10 @@ public class CreateProfile extends HttpServlet{
 
 	public void createNewProfile(PrintWriter out) throws IOException{
 		if(validDetails()){
-			InvestorProfile ip = new InvestorProfile(username, password, firstname, surname);
-			ip.storeAllDetails();
+			Investor ip = new Investor(username, password, firstname, surname);
+			ProfileWriter pw = new ProfileWriter(",");
+			pw.writeProfile("profileDB.csv",ip);
+			//ip.storeAllDetails();
 			Profile pro = new Profile(out, ip);
 			System.out.println("valid");
 		}

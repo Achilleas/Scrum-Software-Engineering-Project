@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.Investor;
 import profile.InvestorProfile;
 import webpageOut.Profile;
 
@@ -52,7 +53,7 @@ public class ProfileSignin extends HttpServlet{
 
 	private void validateUsernamePassword() {
 		// TODO validate user name and password
-		InvestorProfile ip = null;
+		Investor ip = null;
 		if(true){
 			Profile p = new Profile(out, ip);
 		}
