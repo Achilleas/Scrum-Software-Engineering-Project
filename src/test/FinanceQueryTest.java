@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-
 import static main.Constants.*;
 import main.FinanceQuery;
 
@@ -17,7 +15,7 @@ import org.junit.Test;
 
 public class FinanceQueryTest {
 	
-	Date fromDate, toDate;
+	LocalDate fromDate, toDate;
 	
 	@BeforeClass
 	public static void setupBeforeClass() {
@@ -26,8 +24,8 @@ public class FinanceQueryTest {
 	
 	@Before
 	public void setupBefore() {
-		fromDate = new LocalDate(2000,2,15).toDate();
-		toDate = new LocalDate(2010,1,31).toDate();
+		fromDate = new LocalDate(2000,2,15);
+		toDate = new LocalDate(2010,1,31);
 	}
 	
 	@Test
@@ -158,7 +156,7 @@ public class FinanceQueryTest {
 		nextYear = nextYear.plusYears(1);
 		
 		fromDate = toDate;
-		toDate = nextYear.toDate();
+		toDate = nextYear;
 		
 		FinanceQuery query = new FinanceQuery();
 		query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);

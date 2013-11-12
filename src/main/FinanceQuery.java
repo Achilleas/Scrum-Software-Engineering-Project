@@ -6,8 +6,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Date;
-
 import static main.Constants.*;
 
 import org.apache.commons.io.FileUtils;
@@ -18,8 +16,13 @@ import com.jaunt.*;
 
 /**
  * 
- * @author jiaheng Provide method to get financial information from Yahoo
- *         Finance
+ * @author jiaheng 
+ * 
+ * 12/11/2013 UPDATE
+ * - Use LocalDate instead of Date
+ * 
+ * Provide method to get financial information from Yahoo Finance
+ * 
  */
 public class FinanceQuery {
 
@@ -52,22 +55,19 @@ public class FinanceQuery {
 	 * @param interval
 	 * @return
 	 */
-	public File getHistoricalCVS(String symbol, Date fromDate, Date toDate,
+	public File getHistoricalCVS(String symbol, LocalDate fromDate, LocalDate toDate,
 			String interval){
 		Validate.notNull(symbol, "symbol can't be null");
 		Validate.notNull(fromDate, "fromDate can't be null");
 		Validate.notNull(toDate, "toDate can't be null");
 		Validate.notNull(interval, "interval can't be null");
 
-		LocalDate toLocalDate = new LocalDate(toDate);
-		LocalDate fromLocalDate = new LocalDate(fromDate);
-
-		if (fromLocalDate.isAfter(toLocalDate)
-				|| fromLocalDate.isEqual(toLocalDate))
+		if (fromDate.isAfter(toDate)
+				|| fromDate.isEqual(toDate))
 			throw new IllegalArgumentException("fromDate must before toDate");
 
 		LocalDate today = new LocalDate();
-		if (toLocalDate.isAfter(today))
+		if (toDate.isAfter(today))
 			throw new IllegalArgumentException(
 					"toDate can't be later than today");
 
@@ -76,8 +76,7 @@ public class FinanceQuery {
 				&& !interval.equals(MONTHLY_INTERVAL))
 			throw new IllegalArgumentException();
 
-		return requestCSVHistorical(symbol, fromLocalDate, toLocalDate,
-				interval);
+		return requestCSVHistorical(symbol, fromDate, toDate, interval);
 	}
 
 	// get all component of the stock market index into a string separated with
