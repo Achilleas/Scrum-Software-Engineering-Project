@@ -44,12 +44,12 @@ public class Profile extends WriteOut{
 		out.write("<h3>Contact Info</h3>");
 		out.write("<p>E-mail Address: "+ip.getEmail()+"</p>");
 		out.write("<p>Home Telephone: "+ip.getTelephone()+"</p>");
-		out.write("<p>Address</p>");
+		/*out.write("<p>Address</p>");
 		printAddress(ip.getAddress());
 		out.write("<p>Companies Interested In");
 		printList(ip.getCompaniesInterested());
 		out.write("<p>Companies Invested In");
-		printList(ip.getCompaniesInvested());
+		printList(ip.getCompaniesInvested());*/
 	}
 	
 }

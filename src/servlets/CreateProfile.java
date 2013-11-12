@@ -27,10 +27,8 @@ public class CreateProfile extends HttpServlet{
 	String surname="";
 	Date dateOfBirth;
 	String email="";
-	String homeTel="";
-	String mobTel="";
-	Address address;
 	String telephone="";
+	Address address;
 	
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
@@ -64,8 +62,13 @@ public class CreateProfile extends HttpServlet{
 					firstName = value;
 				if(name.equals("Surname"))
 					surname = value;	
+				if(name.equals("Email"))
+					email = value;
+				if(name.equals("Telephone"))
+					telephone = value;
 				//System.out.println("name: "+name+" value: "+value);
 			}
+			
 				//out.println("<p>" + name + " = " + value + "</p>");
 				//System.out.println("name: "+name+" value: "+value);
 		}
