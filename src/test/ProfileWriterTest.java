@@ -17,11 +17,11 @@ public class ProfileWriterTest {
 		System.out.println("r-------------------------------------------Test for profile writer-------------------------------------------");
 		System.out.println("Setting up");
 		/* TODO : Add argument to constructor
-		user = new Investor(surname,firstName,password); */
+		user = new Investor(surname,firstName,password); 
 		user.addInterested("HSBA");
 		user.addInterested("BARC");
 		user.addInvested("BARC");
-		user.addInvested("CMBA");
+		user.addInvested("CMBA");	*/
 	}
 	@Test
 	public void normalTest(){
