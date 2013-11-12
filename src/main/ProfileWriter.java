@@ -1,10 +1,10 @@
 package main;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 
 /**------------------------------------------------------------------------------------------------
- * @version 1.0
+ * @version 1.1
  * ------------------------------------------------------------------------------------------------
  * @author Qiao
  * This class can write users' profile as well as their preferences stored in array list.
@@ -27,28 +27,33 @@ public class ProfileWriter {
 	 * @param list
 	 * @throws IOException
 	 */
-	private void writeList(ArrayList<String> list) throws IOException{
-		if(list==null)
-			return;
+	private void writeList(ArrayList<String> list,int header) throws IOException{
+		bw.write(header+separator);
 		for(int i=0;i<list.size()-1;i++){
 			bw.write(list.get(i)+separator);
 		}
 		bw.write(list.get(list.size()-1));
 		bw.newLine();
 	}
+	private void writeString(String content,int header) throws IOException{
+		if(content!=null&&!content.equals("")){
+			bw.write(header+separator+content);
+			bw.newLine();
+		}
+	}
 	/**
 	 * Write a user's profile
 	 * @param user
 	 */
 	public void writeProfile(String filename,Investor user){
-		System.out.println("Profile write");
 		try{
 			bw=new BufferedWriter(new FileWriter(filename));
-			bw.write(user.getSurname()+separator);
-			bw.write(user.getFirstName());
-			bw.newLine();
-			writeList(user.getInterestList());
-			writeList(user.getInvestedList());
+			writeString(user.getSurname(),Investor.FIRSTNAME);
+			writeString(user.getFirstName(),Investor.SURNAME);
+			writeString(user.getPassword(),Investor.PASSWORD);
+			writeString(user.getEmail(),Investor.EMAIL);
+			writeList(user.getInterestList(),Investor.INTERESTED);
+			writeList(user.getInvestedList(),Investor.INVESTEDED);
 			bw.flush();
 			bw.close();
 		}catch(IOException e){
@@ -56,5 +61,7 @@ public class ProfileWriter {
 			e.printStackTrace();
 		}
 	}
-
+	public static void main(String args[]){
+		
+	}
 }
