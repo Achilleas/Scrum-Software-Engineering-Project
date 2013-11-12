@@ -1,17 +1,6 @@
 package main;
 import java.io.*;
 
-/**------------------------------------------------------------------------------------------------
- * @version 1.1
- * Support address and date of birth reading
- * ------------------------------------------------------------------------------------------------
- * 
- * @author Qiao
- * This class can read a users' profile from local file system.
- * ------------------------------------------------------------------------------------------------
- */
-import java.util.*;
-
 import org.joda.time.LocalDate;
 public class ProfileReader {
 	private String separator;

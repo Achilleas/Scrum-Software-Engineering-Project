@@ -2,16 +2,12 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import main.Address;
 import main.Investor;
 
 import org.joda.time.LocalDate;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class InvestorTest {

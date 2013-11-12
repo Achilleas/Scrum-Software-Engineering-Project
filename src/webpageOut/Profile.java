@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import main.Address;
 import main.Investor;
-import profile.InvestorProfile;
 
 public class Profile extends WriteOut{
 	

@@ -1,8 +1,6 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Date;
-
 import org.apache.commons.lang3.Validate;
 import org.joda.time.LocalDate;
 

@@ -1,11 +1,6 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
-
-import main.Analyzer;
 import main.Investor;
 
 import org.junit.Test;

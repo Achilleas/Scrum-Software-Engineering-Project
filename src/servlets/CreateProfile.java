@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -15,7 +14,6 @@ import org.joda.time.LocalDate;
 import main.Address;
 import main.Investor;
 import main.ProfileWriter;
-import profile.InvestorProfile;
 import webpageOut.CreateError;
 import webpageOut.Profile;
 

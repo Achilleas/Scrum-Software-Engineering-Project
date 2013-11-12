@@ -1,7 +1,5 @@
 package test;
 
-import java.util.ArrayList;
-
 import main.*;
 
 import org.joda.time.LocalDate;

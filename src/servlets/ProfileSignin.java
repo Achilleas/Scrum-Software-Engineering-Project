@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.Investor;
-import profile.InvestorProfile;
 import webpageOut.Profile;
 
 public class ProfileSignin extends HttpServlet{
