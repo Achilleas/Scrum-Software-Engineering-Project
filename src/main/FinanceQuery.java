@@ -147,12 +147,15 @@ public class FinanceQuery {
 		File file = null;
 
 		try {
-			uri = new URI("http", "ichart.yahoo.com", "/table.csv", "s="
-					+ symbol + "&a=" + (fromDate.getMonthOfYear() - 1) + "&b="
-					+ fromDate.getDayOfMonth() + "&c=" + fromDate.getYear()
-					+ "&d=" + (toDate.getMonthOfYear() - 1) + "&e="
-					+ toDate.getDayOfMonth() + "&f=" + toDate.getYear() + "&g="
-					+ interval + STATIC_PART, null);
+			uri = new URI("http", "ichart.yahoo.com", "/table.csv", 
+					"s=" + symbol + 
+					"&a=" + (fromDate.getMonthOfYear() - 1) + 
+					"&b=" + fromDate.getDayOfMonth() + 
+					"&c=" + fromDate.getYear() + 
+					"&d=" + (toDate.getMonthOfYear() - 1) + 
+					"&e=" + toDate.getDayOfMonth() + 
+					"&f=" + toDate.getYear() + 
+					"&g=" + interval + STATIC_PART, null);
 			request = uri.toASCIIString();
 			url = new URL(request);
 
@@ -192,8 +195,9 @@ public class FinanceQuery {
 
 		try {
 			uri = new URI("http", "download.finance.yahoo.com",
-					"/d/quotes.csv", "s=" + symbol + "&f=" + properties
-							+ STATIC_PART, null);
+					"/d/quotes.csv", 
+					"s=" + symbol + 
+					"&f=" + properties + STATIC_PART, null);
 			request = uri.toASCIIString();
 
 			url = new URL(request);
