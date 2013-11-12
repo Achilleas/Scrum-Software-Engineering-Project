@@ -66,6 +66,11 @@ public class CreateProfile extends HttpServlet{
 					email = value;
 				if(name.equals("Telephone"))
 					telephone = value;
+				if(name.equals("Line1")){
+					if(value==null) System.out.println("NULL!!!!");
+					if(value==" ") System.out.println("QUOTES");
+					if(value=="") System.out.println("QUOTES 2");
+				}
 				//System.out.println("name: "+name+" value: "+value);
 			}
 			
