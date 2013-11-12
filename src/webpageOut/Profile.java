@@ -25,30 +25,33 @@ public class Profile extends WriteOut{
 	public void printAddress(Address add){
 		for(int i=0; i<6; i++){
 			if(add.getString()[i]!=""){
-				out.write("<p>"+add.getString()[i]+"</p>");
+				out.write(add.getString()[i]+"<br />");
 			}
+			if(i==5) out.write("</p>");
 		}
 	}
 	
 	public void printList(ArrayList<String> list){
 		for(int i=0; i<list.size();i++){
-			out.write("<p>"+list.get(i)+"</p>");
+			if(i==0) out.write("<p>");
+			out.write(list.get(i)+"<br />");
+			if(i==(list.size()-1)) out.write("</p>");
 		}
 	}
 	
 	public void writeDetails(Investor ip){
 		out.write("<h1> Investor Profile - "+ip.getUsername()+"</h1>");
-		out.write("<p><b>Name: </b>"+ip.getFirstName()+"</p>");
-		out.write("<p><b>Surname: </b>"+ip.getSurname()+"</p>");
-		out.write("<p><b>Date of Birth: </b>"+ip.getDateOfBirth().toString()+"</p>");
+		out.write("<p><b>Name: </b>"+ip.getFirstName()+"<br />");
+		out.write("<b>Surname: </b>"+ip.getSurname()+"<br />");
+		out.write("<b>Date of Birth: </b>"+ip.getDateOfBirth().toString()+"</p>");
 		out.write("<h3><u>Contact Info</u></h3>");
-		out.write("<p><b>E-mail Address: </b>"+ip.getEmail()+"</p>");
-		out.write("<p><b>Home Telephone: </b>"+ip.getTelephone()+"</p>");
-		out.write("<p><b>Address</b></p>");
+		out.write("<p><b>E-mail Address: </b>"+ip.getEmail()+"<br />");
+		out.write("<b>Home Telephone: </b>"+ip.getTelephone()+"</p>");
+		out.write("<p><b>Address</b><br />");
 		printAddress(ip.getAddress());
-		/*out.write("<h3>Companies Interested In</h3>");
+		/*out.write("<h3><u>Companies Interested In</u></h3>");
 		printList(ip.getCompaniesInterested());
-		out.write("<h3>Companies Invested In</h3>");
+		out.write("<h3><u>Companies Invested In</u></h3>");
 		printList(ip.getCompaniesInvested());*/
 	}
 	
