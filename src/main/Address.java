@@ -19,7 +19,7 @@ public class Address {
 	}
 	
 	//Returns String Array containing Address elements
-	public String[] getAddress() {
+	public String[] getString() {
 		String[] add = new String[6];
 		add[0] = line1;
 		add[1] = line2;
