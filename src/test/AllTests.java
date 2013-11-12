@@ -6,9 +6,10 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	FinanceQueryTest.class,
 	AnalyzerTest.class,
-	InvestorTest.class
+	FinanceQueryTest.class,
+	InvestorTest.class,
+	ProfileWriterTest.class
 })
 
 public class AllTests {

@@ -7,7 +7,7 @@ import main.ProfileWriter;
 
 import org.junit.*;
 
-public class ProfileWriterTests {
+public class ProfileWriterTest {
 	String firstName = "Qiao";
 	String surname = "Kang";
 	Investor user;
@@ -16,7 +16,8 @@ public class ProfileWriterTests {
 	public void setupBefore() {
 		System.out.println("r-------------------------------------------Test for profile writer-------------------------------------------");
 		System.out.println("Setting up");
-		user=new Investor(surname,firstName,password);
+		/* TODO : Add argument to constructor
+		user = new Investor(surname,firstName,password); */
 		user.addInterested("HSBA");
 		user.addInterested("BARC");
 		user.addInvested("BARC");
