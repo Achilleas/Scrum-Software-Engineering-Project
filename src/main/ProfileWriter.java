@@ -52,6 +52,10 @@ public class ProfileWriter {
 			writeString(user.getFirstName(),Investor.SURNAME);
 			writeString(user.getPassword(),Investor.PASSWORD);
 			writeString(user.getEmail(),Investor.EMAIL);
+			writeString(user.getTelephone(),Investor.TELEPHONE);
+			//writeString(user.getDateOfBirth().toString(),Investor.DATEOFBIRTH);
+			writeString(user.getUsername(),Investor.USERNAME);
+			//writeString(user.getAddress().toString(),Investor.ADDRESS);
 			writeList(user.getInterestList(),Investor.INTERESTED);
 			writeList(user.getInvestedList(),Investor.INVESTEDED);
 			bw.flush();

@@ -1,5 +1,12 @@
 package main;
 import java.io.*;
+/**------------------------------------------------------------------------------------------------
+ * @version 1.0
+ * ------------------------------------------------------------------------------------------------
+ * @author Qiao
+ * This class can read a users' profile from local file system.
+ * ------------------------------------------------------------------------------------------------
+ */
 import java.util.*;
 public class ProfileReader {
 	private String separator;
@@ -16,7 +23,7 @@ public class ProfileReader {
 			break;
 		}
 		case Investor.SURNAME:{
-			user.setSurName(elements[1]);
+			user.setSurname(elements[1]);
 			break;
 		}
 		case Investor.PASSWORD:{
@@ -38,6 +45,20 @@ public class ProfileReader {
 		case Investor.EMAIL:{
 			user.setEmail(elements[1]);
 			break;
+		}
+		case Investor.TELEPHONE:{
+			user.setTelephone(elements[1]);
+			break;
+		}
+		case Investor.USERNAME:{
+			user.setUsername(elements[1]);
+			break;
+		}
+		case Investor.DATEOFBIRTH:{
+			//unimplemented
+		}
+		case Investor.ADDRESS:{
+			//unimplemented
 		}
 		default:{
 			System.err.println("Unexpected header "+header);

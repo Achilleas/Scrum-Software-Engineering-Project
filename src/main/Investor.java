@@ -7,6 +7,16 @@ import org.apache.commons.lang3.Validate;
 
 public class Investor {
 
+	public static final int FIRSTNAME=0;
+	public static final int SURNAME=1;
+	public static final int INVESTEDED=2;
+	public static final int INTERESTED=3;
+	public static final int EMAIL=4;
+	public static final int PASSWORD = 5;
+	public static final int DATEOFBIRTH=6;
+	public static final int ADDRESS=7;
+	public static final int TELEPHONE=8;
+	public static final int USERNAME=9;
 	private String username;
 	private String password;
 	private Date dateOfBirth;
@@ -17,7 +27,39 @@ public class Investor {
 	private Address address;
 	private ArrayList<String> companiesInvested;
 	private ArrayList<String> companiesInterested;
-
+	/**
+	 * @author Qiao
+	 * New Investor
+	 * Build an investor from scratch
+	 */
+	public Investor(){
+		this.companiesInterested=new ArrayList<String>();
+		this.companiesInvested=new ArrayList<String>();
+	}
+	public Investor(String firstname,String surname,String password){
+		this.firstName=firstname;
+		this.surname=surname;
+		this.password=password;
+		this.companiesInterested=new ArrayList<String>();
+		this.companiesInvested=new ArrayList<String>();
+	}
+	public Investor(String firstname,String surname,String username,String password){
+		this.firstName=firstname;
+		this.surname=surname;
+		this.username=username;
+		this.password=password;
+		this.companiesInterested=new ArrayList<String>();
+		this.companiesInvested=new ArrayList<String>();
+	}
+	public Investor(String firstname,String surname,String username,String password,ArrayList<String> companiesInvested,
+			ArrayList<String> companiesInterested){
+		this.firstName=firstname;
+		this.username=username;
+		this.password=password;
+		this.surname=surname;
+		this.companiesInterested=companiesInterested;
+		this.companiesInvested=companiesInvested;
+	}
 	/**
 	 * 
 	 * Update:
