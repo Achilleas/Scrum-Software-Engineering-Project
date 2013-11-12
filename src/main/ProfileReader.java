@@ -1,13 +1,18 @@
 package main;
 import java.io.*;
+
 /**------------------------------------------------------------------------------------------------
- * @version 1.0
+ * @version 1.1
+ * Support address and date of birth reading
  * ------------------------------------------------------------------------------------------------
+ * 
  * @author Qiao
  * This class can read a users' profile from local file system.
  * ------------------------------------------------------------------------------------------------
  */
 import java.util.*;
+
+import org.joda.time.LocalDate;
 public class ProfileReader {
 	private String separator;
 	private Investor user;
@@ -55,10 +60,13 @@ public class ProfileReader {
 			break;
 		}
 		case Investor.DATEOFBIRTH:{
-			//unimplemented
+			user.setDob(LocalDate.parse(elements[1]));
+			break;
 		}
 		case Investor.ADDRESS:{
-			//unimplemented
+			Address address=new Address(elements[1],elements[2],elements[3],elements[4],elements[5],elements[6]);
+			user.setAddress(address);
+			break;
 		}
 		default:{
 			System.err.println("Unexpected header "+header);
