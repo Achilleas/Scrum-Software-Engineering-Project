@@ -10,6 +10,7 @@ import main.Address;
 import main.DOB;
 import main.Investor;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class InvestorTest {
 	String password = "1234";
 	String firstName = "John";
 	String surname = "Doe";
-	DOB dob = new DOB(23, 11, 1950);
+	Date dateOfBirth = new LocalDate(1950, 11, 23).toDate();
 	String email = "jd@hotmail.co.uk";
 	String telephone = "07754791234";
 	Address address = new Address("5 Hartwell House", "Strawberry Terrace",
@@ -39,12 +40,12 @@ public class InvestorTest {
 
 	@Test
 	public void getterTest() {
-		Investor john = new Investor(username, password, dob, firstName,
+		Investor john = new Investor(username, password, dateOfBirth, firstName,
 				surname, email, telephone, address, companiesInvested,
 				companiesInterested);
 		assertEquals(username, john.getUsername());
 		assertEquals(password, john.getPassword());
-		assertEquals(dob, john.getDob());
+		assertEquals(dateOfBirth, john.getDateOfBirth());
 		assertEquals(firstName, john.getFirstName());
 		assertEquals(surname, john.getSurname());
 		assertEquals(email, john.getEmail());
@@ -53,21 +54,13 @@ public class InvestorTest {
 	}
 
 	@Test
-	public void DOBTest() {
-		Investor john = new Investor(username, password, dob, firstName,
+	public void arrayListTest() {
+		Investor john = new Investor(username, password, dateOfBirth, firstName,
 				surname, email, telephone, address, companiesInvested,
 				companiesInterested);
-		DOB birthday = john.getDob();
-		assertEquals(birthday.getBirthday()[0], 23);
-		assertEquals(birthday.getBirthday()[1], 11);
-		assertEquals(birthday.getBirthday()[2], 1950);
-	}
-
-	@Test
-	public void arrayListTest() {
-		Investor john = new Investor(username, password, firstName, surname,
-				companiesInvested, companiesInterested);
-
+		
+		assertTrue(companiesInvested.contains("BARC"));
+		assertTrue(companiesInterested.contains("HSBA"));
 		assertTrue(john.isInterested("HSBA"));
 		assertTrue(john.isInvested("BARC"));
 
@@ -77,8 +70,9 @@ public class InvestorTest {
 
 	@Test
 	public void addInterestedTest() {
-		Investor john = new Investor(username, password, firstName, surname,
-				companiesInvested, companiesInterested);
+		Investor john = new Investor(username, password, dateOfBirth, firstName,
+				surname, email, telephone, address, companiesInvested,
+				companiesInterested);
 
 		assertTrue(john.isInterested("HSBA"));
 		assertTrue(john.isInvested("BARC"));
@@ -92,7 +86,8 @@ public class InvestorTest {
 	@Test
 	// create a profile with empty list
 	public void createClass() {
-		Investor john = new Investor(username, password, firstName, surname);
+		Investor john = new Investor(username, password, dateOfBirth, firstName,
+				surname, email, telephone, address);
 
 		assertFalse(john.isInterested("BARC"));
 		assertFalse(john.isInvested("BARC"));

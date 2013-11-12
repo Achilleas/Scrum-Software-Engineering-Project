@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -22,14 +23,15 @@ public class CreateProfile extends HttpServlet{
 	
 	String username="";
 	String password="";
-	String firstname="";
+	String firstName="";
 	String surname="";
-	DOB dob;
+	Date dateOfBirth;
 	String email="";
 	String homeTel="";
 	String mobTel="";
-	Address add;
-
+	Address address;
+	String telephone="";
+	
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
@@ -59,7 +61,7 @@ public class CreateProfile extends HttpServlet{
 				if(name.equals("Password"))
 					password = value;
 				if(name.equals("Firstname"))
-					firstname = value;
+					firstName = value;
 				if(name.equals("Surname"))
 					surname = value;	
 				//System.out.println("name: "+name+" value: "+value);
@@ -75,7 +77,9 @@ public class CreateProfile extends HttpServlet{
 
 	public void createNewProfile(PrintWriter out) throws IOException{
 		if(validDetails()){
-			Investor ip = new Investor(username, password, firstname, surname);
+			//TODO: Create New Investor Argument
+			Investor ip = new Investor(username, password, dateOfBirth, firstName,
+					surname, email, telephone, address);
 			Profile pro = new Profile(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
 			pw.writeProfile("profileDB.csv",ip);

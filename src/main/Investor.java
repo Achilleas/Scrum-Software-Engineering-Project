@@ -9,7 +9,7 @@ public class Investor {
 
 	private String username;
 	private String password;
-	private DOB dob;
+	private Date dateOfBirth;
 	private String firstName;
 	private String surname;
 	private String email;
@@ -18,49 +18,52 @@ public class Investor {
 	private ArrayList<String> companiesInvested;
 	private ArrayList<String> companiesInterested;
 
-	public Investor(String username, String password, DOB dob,
+	/**
+	 * 
+	 * Update:
+	 * 2013/11/11	Jia Heng
+	 * 		- Modify constructor to pass the test]
+	 * 		- change Date Class
+	 * 
+	 * @param username
+	 * @param password
+	 * @param dateOfBirth
+	 * @param firstName
+	 * @param surname
+	 * @param email
+	 * @param telephone
+	 * @param address
+	 * @param companiesInvested
+	 * @param companiesInterested
+	 */
+	public Investor(String username, String password, Date dateOfBirth,
 			String firstName, String surname, String email, String telephone,
 			Address address, ArrayList<String> companiesInvested,
 			ArrayList<String> companiesInterested) {
+		
+		Validate.notNull(firstName, "firstName can't be null");
+		Validate.notNull(surname, "surname can't be null");
+		Validate.notNull(username, "username can't be null");
+		
 		this.username = username;
 		this.password = password;
-		this.dob = dob;
+		this.dateOfBirth = dateOfBirth;
 		this.firstName = firstName;
 		this.surname = surname;
 		this.email = email;
 		this.telephone = telephone;
 		this.address = address;
-		this.companiesInvested = companiesInvested;
-		this.companiesInterested = companiesInterested;
+		this.companiesInvested = (companiesInvested==null)?
+				new ArrayList<String>() : companiesInvested;
+		this.companiesInterested = (companiesInterested==null)?
+				new ArrayList<String>() : companiesInterested;
 	}
 
-	public Investor(String username2, String password2, String firstName2,
-			String surname2, ArrayList<String> companiesInvested2,
-			ArrayList<String> companiesInterested2) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Investor(String username, String password, String firstName,
-			String surname) {
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.surname = surname;
-	}
-
-	public Investor(String firstName, String surname, String password2) {
-
-		Validate.notNull(firstName, "firstName can't be null");
-		Validate.notNull(surname, "surname can't be null");
-		// Validate.notNull(username, "username can't be null");
-		// Validate.notNull(password, "password can't be null");
-
-		this.firstName = firstName;
-		this.surname = surname;
-		this.companiesInterested = new ArrayList<String>();
-		this.companiesInvested = new ArrayList<String>();
-		// this.username = username;
-		// this.password = password;
+	public Investor(String username, String password, Date dateOfBirth,
+			String firstName, String surname, String email, String telephone,
+			Address address) {
+		this(username, password, dateOfBirth, firstName,
+				surname, email, telephone, address, null, null);
 	}
 
 	public String getUsername() {
@@ -79,8 +82,8 @@ public class Investor {
 		return surname;
 	}
 
-	public DOB getDob() {
-		return dob;
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
 
 	public String getEmail() {
@@ -111,8 +114,8 @@ public class Investor {
 		this.password = password;
 	}
 
-	public void setDob(DOB dob) {
-		this.dob = dob;
+	public void setDob(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public void setFirstName(String firstName) {
@@ -157,24 +160,32 @@ public class Investor {
 		}
 	}
 
+	/**
+	 * 
+	 * Update
+	 * 2013/11/11	Jia Heng	
+	 * 		-Uses Collection's method
+	 * 
+	 * @param stock
+	 */
 	public void addInterested(String stock) {
-		if (!isStockList(stock, companiesInterested)) {
+		if (!isInterested(stock)) {
 			companiesInterested.add(stock);
 		}
 	}
 
 	public void addInvested(String stock) {
-		if (!isStockList(stock, companiesInvested)) {
+		if (!isInvested(stock)) {
 			companiesInvested.add(stock);
 		}
 	}
 
 	public boolean isInterested(String stock) {
-		return isStockList(stock, companiesInterested);
+		return companiesInterested.contains(stock);
 	}
 
 	public boolean isInvested(String stock) {
-		return isStockList(stock, companiesInvested);
+		return companiesInvested.contains(stock);
 	}
 
 	public ArrayList<String> getInterestList() {
@@ -183,14 +194,5 @@ public class Investor {
 
 	public ArrayList<String> getInvestedList() {
 		return companiesInterested;
-	}
-
-	private static boolean isStockList(String stock, ArrayList<String> list) {
-		for (int i = 0; i < list.size(); i++) {
-			if (stock.equals(list.get(i))) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
