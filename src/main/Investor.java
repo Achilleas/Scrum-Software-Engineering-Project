@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.commons.lang3.Validate;
+import org.joda.time.LocalDate;
 
 public class Investor {
 
@@ -19,7 +20,7 @@ public class Investor {
 	public static final int USERNAME=9;
 	private String username;
 	private String password;
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 	private String firstName;
 	private String surname;
 	private String email;
@@ -78,7 +79,7 @@ public class Investor {
 	 * @param companiesInvested
 	 * @param companiesInterested
 	 */
-	public Investor(String username, String password, Date dateOfBirth,
+	public Investor(String username, String password, LocalDate dateOfBirth,
 			String firstName, String surname, String email, String telephone,
 			Address address, ArrayList<String> companiesInvested,
 			ArrayList<String> companiesInterested) {
@@ -101,7 +102,7 @@ public class Investor {
 				new ArrayList<String>() : companiesInterested;
 	}
 
-	public Investor(String username, String password, Date dateOfBirth,
+	public Investor(String username, String password, LocalDate dateOfBirth,
 			String firstName, String surname, String email, String telephone,
 			Address address) {
 		this(username, password, dateOfBirth, firstName,
@@ -124,7 +125,7 @@ public class Investor {
 		return surname;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
@@ -156,7 +157,7 @@ public class Investor {
 		this.password = password;
 	}
 
-	public void setDob(Date dateOfBirth) {
+	public void setDob(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

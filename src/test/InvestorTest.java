@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import main.Address;
-import main.DOB;
 import main.Investor;
 
 import org.joda.time.LocalDate;
@@ -21,7 +20,7 @@ public class InvestorTest {
 	String password = "1234";
 	String firstName = "John";
 	String surname = "Doe";
-	Date dateOfBirth = new LocalDate(1950, 11, 23).toDate();
+	LocalDate dateOfBirth = new LocalDate(1950, 11, 23);
 	String email = "jd@hotmail.co.uk";
 	String telephone = "07754791234";
 	Address address = new Address("5 Hartwell House", "Strawberry Terrace",

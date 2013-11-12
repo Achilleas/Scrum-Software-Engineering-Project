@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.LocalDate;
+
 import main.Address;
-import main.DOB;
 import main.Investor;
 import main.ProfileWriter;
 import profile.InvestorProfile;
@@ -26,7 +27,7 @@ public class CreateProfile extends HttpServlet {
 	String password = "";
 	String firstName = "";
 	String surname = "";
-	Date dateOfBirth;
+	LocalDate dateOfBirth;
 	String email = "";
 	String telephone = "";
 	Address address;
@@ -59,11 +60,14 @@ public class CreateProfile extends HttpServlet {
 		// creates a map - to gets the value entered by the user
 
 		address = new Address();
-		
+
 		for (String name : parameter_map.keySet()) {
+			int day = 0;
+			int month = 0;
+			int year = 0;
 			for (String value : parameter_map.get(name)) {
 				// If no value entered for text boxes, sets as ""
-				//=======USERNAME + NAME=========
+				// =======USERNAME + NAME=========
 				if (name.equals("Username"))
 					username = value;
 				if (name.equals("Password"))
@@ -72,12 +76,19 @@ public class CreateProfile extends HttpServlet {
 					firstName = value;
 				if (name.equals("Surname"))
 					surname = value;
-				//=======CONTACT INFO=========
+				// =======DATE OF BIRTH=========
+				if (name.equals("Day"))
+					day = Integer.parseInt(value);
+				if (name.equals("Month"))
+					month = Integer.parseInt(value);
+				if (name.equals("Year"))
+					year = Integer.parseInt(value);
+				// =======CONTACT INFO=========
 				if (name.equals("Email"))
 					email = value;
 				if (name.equals("Telephone"))
 					telephone = value;
-				//=======ADDRESS=========
+				// =======ADDRESS=========
 				if (name.equals("Line1"))
 					address.setLine1(value);
 				if (name.equals("Line2"))
@@ -92,6 +103,7 @@ public class CreateProfile extends HttpServlet {
 					address.setCountry(value);
 				// System.out.println("name: "+name+" value: "+value);
 			}
+			dateOfBirth = new LocalDate(year, month, day);
 
 			// out.println("<p>" + name + " = " + value + "</p>");
 			// System.out.println("name: "+name+" value: "+value);

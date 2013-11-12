@@ -40,7 +40,7 @@ public class Profile extends WriteOut{
 		out.write("<h1> Investor Profile - "+ip.getUsername()+"</h1>");
 		out.write("<p><b>Name: </b>"+ip.getFirstName()+"</p>");
 		out.write("<p><b>Surname: </b>"+ip.getSurname()+"</p>");
-		//out.write("<p>Date of Birth: "+ip.getDateOfBirth().toString()+"</p>");
+		out.write("<p>Date of Birth: "+ip.getDateOfBirth().toString()+"</p>");
 		out.write("<h3><u>Contact Info</u></h3>");
 		out.write("<p><b>E-mail Address: </b>"+ip.getEmail()+"</p>");
 		out.write("<p><b>Home Telephone: </b>"+ip.getTelephone()+"</p>");
