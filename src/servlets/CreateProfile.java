@@ -60,11 +60,9 @@ public class CreateProfile extends HttpServlet {
 		// creates a map - to gets the value entered by the user
 
 		address = new Address();
+		dateOfBirth = new LocalDate();
 
 		for (String name : parameter_map.keySet()) {
-			int day = 0;
-			int month = 0;
-			int year = 0;
 			for (String value : parameter_map.get(name)) {
 				// If no value entered for text boxes, sets as ""
 				// =======USERNAME + NAME=========
@@ -78,11 +76,11 @@ public class CreateProfile extends HttpServlet {
 					surname = value;
 				// =======DATE OF BIRTH=========
 				if (name.equals("Day"))
-					day = Integer.parseInt(value);
+					dateOfBirth = dateOfBirth.withDayOfMonth(Integer.parseInt(value));
 				if (name.equals("Month"))
-					month = Integer.parseInt(value);
+					dateOfBirth = dateOfBirth.withMonthOfYear(Integer.parseInt(value));
 				if (name.equals("Year"))
-					year = Integer.parseInt(value);
+					dateOfBirth = dateOfBirth.withYear(Integer.parseInt(value));
 				// =======CONTACT INFO=========
 				if (name.equals("Email"))
 					email = value;
@@ -103,8 +101,6 @@ public class CreateProfile extends HttpServlet {
 					address.setCountry(value);
 				// System.out.println("name: "+name+" value: "+value);
 			}
-			dateOfBirth = new LocalDate(year, month, day);
-
 			// out.println("<p>" + name + " = " + value + "</p>");
 			// System.out.println("name: "+name+" value: "+value);
 		}
