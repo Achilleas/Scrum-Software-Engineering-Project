@@ -53,6 +53,7 @@ public class ProfileWriter {
 			writeString(user.getPassword(),Investor.PASSWORD);
 			writeString(user.getEmail(),Investor.EMAIL);
 			writeString(user.getTelephone(),Investor.TELEPHONE);
+			//pending......
 			//writeString(user.getDateOfBirth().toString(),Investor.DATEOFBIRTH);
 			writeString(user.getUsername(),Investor.USERNAME);
 			//writeString(user.getAddress().toString(),Investor.ADDRESS);
