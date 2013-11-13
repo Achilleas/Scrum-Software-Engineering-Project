@@ -25,11 +25,9 @@ function init() {
 		updateDayDisplay();
 	}
 
-	/* Unused function
 	document.getElementById("day").onchange = function() {
 		selectedDay=this.value;
-		updateDayInWeekDisplay();
-	} */
+	}
 
 	/* Unused function
 	document.getElementById("btnNow").onclick = function() {
@@ -71,7 +69,7 @@ function updateDayDisplay() {
    var options = "";
    for (var day = 1; day <= daysInMonth; day++) {
       options += "<option value='" + day + "'";
-      if (day === selectedDay) {
+      if (day == selectedDay) {
          options += " selected";
       }
       options += ">" + day + "</option>";
@@ -89,7 +87,7 @@ function updateYearOption() {
 	var options = "";
 	for (var year = 1900; year <= thisYear; year++) {
 		options += "<option value='" + year + "'";
-		if (year === selectedYear) {
+		if (year == selectedYear) {
 			options += " selected";
 		}
 		options += ">" + year + "</option>";
