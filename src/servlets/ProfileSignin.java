@@ -19,7 +19,7 @@ public class ProfileSignin extends HttpServlet{
 	PrintWriter out;
 			
 	
-	protected void doGet(HttpServletRequest servlet_request,
+	protected void doPost(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
 		processRequest(servlet_request, servlet_response);
