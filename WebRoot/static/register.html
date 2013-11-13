@@ -19,12 +19,12 @@
 			return false;
 		}
 	}
-	</script>
-
+	</script>	
 </head>
 <body>
 
-<h1>User Registration Form</h1>
+<div id="header" style="text-align:left; background-color:#71C6E2">
+<h1>User Registration Form</h1></div>
 
 <p>Please fill in all fields to create your profile</p>
 <p>All fields marked with a <span class="req">*</span> must be filled in</p>
@@ -87,6 +87,18 @@ Address<br />
 		pattern="[A-Z]{2}[0-9]{2}[ ][0-9][A-Z]{2}"
 		title="Valid Postcode with a space, for example: KY16 9LY"/><span class="req"> *</span><br />
 	<input type="text" name="Country" placeholder="Country" required /><span class="req"> *</span><br />
+</p>
+
+<h2>Companies</h2>
+
+<p>
+Companies Invested in<br />
+<textarea id="textarea" name="Invested" style="resize:none; maxlength:200; height:100px; width:300px" 
+	placeholder="Companies you own shares in (comma separated)"></textarea><br />
+
+<br/>Companies Interested in <br />
+<textarea id="textarea" name="Interested" style="resize:none; maxlength:200; height:100px; width:300px" 
+	placeholder="Companies you are interested in buying shares from (comma separated)"></textarea>
 </p>
 
 <p>

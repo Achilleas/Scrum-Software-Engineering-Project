@@ -48,10 +48,10 @@ public class Profile extends WriteOut{
 		out.write("<b>Home Telephone: </b>"+ip.getTelephone()+"</p>");
 		out.write("<p><b>Address</b><br />");
 		printAddress(ip.getAddress());
-		/*out.write("<h3><u>Companies Interested In</u></h3>");
+		out.write("<h3><u>Companies Interested In</u></h3>");
 		printList(ip.getCompaniesInterested());
 		out.write("<h3><u>Companies Invested In</u></h3>");
-		printList(ip.getCompaniesInvested());*/
+		printList(ip.getCompaniesInvested());
 	}
 	
 }

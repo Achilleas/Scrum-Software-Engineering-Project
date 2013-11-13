@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -29,6 +30,8 @@ public class CreateProfile extends HttpServlet {
 	String email = "";
 	String telephone = "";
 	Address address;
+	ArrayList<String> companiesInvested;
+	ArrayList<String> companiesInterested;
 
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
@@ -59,10 +62,12 @@ public class CreateProfile extends HttpServlet {
 
 		address = new Address();
 		dateOfBirth = new LocalDate();
+		companiesInvested = new ArrayList<String>();
+		companiesInterested = new ArrayList<String>();
 
 		for (String name : parameter_map.keySet()) {
 			for (String value : parameter_map.get(name)) {
-				// If no value entered for text boxes, sets as ""
+				// Note: If no value entered for text boxes, sets as ""
 				// =======USERNAME + NAME=========
 				if (name.equals("Username"))
 					username = value;
@@ -74,9 +79,11 @@ public class CreateProfile extends HttpServlet {
 					surname = value;
 				// =======DATE OF BIRTH=========
 				if (name.equals("Day"))
-					dateOfBirth = dateOfBirth.withDayOfMonth(Integer.parseInt(value));
+					dateOfBirth = dateOfBirth.withDayOfMonth(Integer
+							.parseInt(value));
 				if (name.equals("Month"))
-					dateOfBirth = dateOfBirth.withMonthOfYear(Integer.parseInt(value));
+					dateOfBirth = dateOfBirth.withMonthOfYear(Integer
+							.parseInt(value));
 				if (name.equals("Year"))
 					dateOfBirth = dateOfBirth.withYear(Integer.parseInt(value));
 				// =======CONTACT INFO=========
@@ -97,10 +104,12 @@ public class CreateProfile extends HttpServlet {
 					address.setPostcode(value);
 				if (name.equals("Country"))
 					address.setCountry(value);
-				// System.out.println("name: "+name+" value: "+value);
+				// =======COMPANIES=========
+				if (name.equals("Invested"))
+					parseCompanies(value, companiesInvested);
+				if (name.equals("Interested"))
+					parseCompanies(value, companiesInterested);
 			}
-			// out.println("<p>" + name + " = " + value + "</p>");
-			// System.out.println("name: "+name+" value: "+value);
 		}
 		createNewProfile(out);
 	}
@@ -109,7 +118,8 @@ public class CreateProfile extends HttpServlet {
 		if (validDetails()) {
 			// TODO: Create New Investor Argument
 			Investor ip = new Investor(username, password, dateOfBirth,
-					firstName, surname, email, telephone, address);
+					firstName, surname, email, telephone, address,
+					companiesInvested, companiesInterested);
 			Profile pro = new Profile(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
 			pw.writeProfile("profileDB.csv", ip);
@@ -118,6 +128,16 @@ public class CreateProfile extends HttpServlet {
 		} else {
 			System.out.println("invalid");
 			CreateError ce = new CreateError(out, "Error!!");
+		}
+	}
+
+	public void parseCompanies(String str, ArrayList<String> list) {
+		if (str == "") {
+			str = "none";
+		}
+		String[] a = str.split(",");
+		for (int i = 0; i < a.length; i++) {
+			list.add(a[i]);
 		}
 	}
 
