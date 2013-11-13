@@ -135,10 +135,25 @@ public class CreateProfile extends HttpServlet {
 		if (str == "") {
 			str = "none";
 		}
+		str = removeWhiteSpace(str);
 		String[] a = str.split(",");
 		for (int i = 0; i < a.length; i++) {
 			list.add(a[i]);
 		}
+	}
+
+	public String removeWhiteSpace(String str) {
+		String[] a = str.split("\\s+");
+		String b = "";
+		for (int i = 0; i < a.length; i++) {
+			if (a[i].compareTo(",") != 0) {
+				b += a[i];
+				if (!a[i].contains(",")) {
+					b += ",";
+				}
+			}
+		}
+		return b;
 	}
 
 	boolean validDetails() {
