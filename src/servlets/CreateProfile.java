@@ -3,12 +3,14 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.joda.time.LocalDate;
 
@@ -49,6 +51,8 @@ public class CreateProfile extends HttpServlet {
 	 */
 	private void processRequest(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws IOException {
+		HttpSession session = servlet_request.getSession(true);
+		
 		servlet_response.setContentType("text/html"); // the response will be of
 														// the type html
 		servlet_response.setStatus(HttpServletResponse.SC_OK); // and the HTTP
@@ -111,8 +115,48 @@ public class CreateProfile extends HttpServlet {
 					parseCompanies(value, companiesInterested);
 			}
 		}
-		createNewProfile(out);
-	}
+		 String heading;
+		    Integer accessCount = new Integer(0);;
+		    if (session.isNew()) {
+		      heading = "Welcome, Newcomer";
+		    } else {
+		      heading = "Welcome Back";
+		      Integer oldAccessCount =
+		        // Use getAttribute, not getValue, in version
+		        // 2.2 of servlet API.
+		        (Integer)session.getValue("accessCount"); 
+		      if (oldAccessCount != null) {
+		        accessCount =
+		          new Integer(oldAccessCount.intValue() + 1);
+		      }
+		    }
+		    // Use putAttribute in version 2.2 of servlet API.
+		    session.putValue("accessCount", accessCount); 
+		      
+		    out.println("<BODY BGCOLOR=\"#FDF5E6\">\n" +
+		                "<H1 ALIGN=\"CENTER\">" + heading + "</H1>\n" +
+		                "<H2>Information on Your Session:</H2>\n" +
+		                "<TABLE BORDER=1 ALIGN=CENTER>\n" +
+		                "<TR BGCOLOR=\"#FFAD00\">\n" +
+		                "  <TH>Info Type<TH>Value\n" +
+		                "<TR>\n" +
+		                "  <TD>ID\n" +
+		                "  <TD>" + session.getId() + "\n" +
+		                "<TR>\n" +
+		                "  <TD>Creation Time\n" +
+		                "  <TD>" + new Date(session.getCreationTime()) + "\n" +
+		                "<TR>\n" +
+		                "  <TD>Time of Last Access\n" +
+		                "  <TD>" + new Date(session.getLastAccessedTime()) + "\n" +
+		                "<TR>\n" +
+		                "  <TD>Number of Previous Accesses\n" +
+		                "  <TD>" + accessCount + "\n" +
+		                "</TABLE>\n" +
+		                "</BODY></HTML>");
+
+		  }
+		//createNewProfile(out);
+	//}
 
 	public void createNewProfile(PrintWriter out) throws IOException {
 		if (validDetails()) {
@@ -122,7 +166,7 @@ public class CreateProfile extends HttpServlet {
 					companiesInvested, companiesInterested);
 			Profile pro = new Profile(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
-			pw.writeProfile("profileDB.csv", ip);
+			pw.writeProfile(ip.getUsername()+".csv", ip);
 			// ip.storeAllDetails();
 			System.out.println("valid");
 		} else {
