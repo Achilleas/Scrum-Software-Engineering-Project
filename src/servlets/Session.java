@@ -42,10 +42,21 @@ public class Session extends HttpServlet{
 		//used to send the html page to the client
 		
 		
-		
 		Investor ip = (Investor) s.getAttribute("user");
-		
-		out.println("ALREADY SIGNED IN!"+ip.getUsername());
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<meta charset=\"utf-8\">");
+		out.println("<title> Individual Details </title>");
+		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"Style.css\" />");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<h1>ALREADY SIGNED IN AS USER: "+ip.getUsername()+"</h1>");
+		out.println("<p>Name: "+ip.getFirstName()+"</p>");
+		out.println("<p>Name: "+ip.getSurname()+"</p>");
+		out.println("</body>");
+		out.println("</html>");
+		out.close(); 
 		
 		out.close(); 
 		}
