@@ -9,6 +9,9 @@ import java.util.*;
  * @author Qiao
  *------------------------------------------------------------------------------------------------
  * @version 1.2
+ * Support defalt path
+ *------------------------------------------------------------------------------------------------
+ * @version 1.2
  * Support writing address and date.
  * ------------------------------------------------------------------------------------------------
  * @version 1.1
@@ -90,6 +93,13 @@ public class ProfileWriter {
 			System.err.println("Writing errors.");
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * Write an investor profile to local file system
+	 * filename is the user name of user +".txt"
+	 */
+	public void writeProfile(Investor user){
+		writeProfile("Profiles"+user.getUsername()+".txt",user);
 	}
 	public static void main(String args[]){
 		
