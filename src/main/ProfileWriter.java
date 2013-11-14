@@ -107,13 +107,13 @@ public class ProfileWriter {
 	 * @param filename
 	 * @return
 	 */
-	public boolean checkDuplication(String filename){
+	public static boolean checkDuplication(String filename){
 		return new File(filename).exists();
 	}
 	/**
 	 * This method check if the profile of an investor exists
 	 */
-	public boolean checkDuplication(Investor user){
+	public static boolean checkDuplication(Investor user){
 		return checkDuplication("Profiles\\"+user.getUsername()+".txt");
 	}
 	public static void main(String args[]){
