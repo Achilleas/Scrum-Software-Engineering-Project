@@ -31,7 +31,7 @@ public class ProfileWriterTest {
 		System.out.println("Normal Test");
 		ProfileWriter pw=new ProfileWriter(",");
 		try {
-			pw.writeProfile("example.txt", user);
+			pw.writeProfile("example.txt", user,true);
 		} catch (UserExistException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
