@@ -41,6 +41,20 @@
 </head>
 <body>
 
+<script type="text/javascript">
+	   var request = new XMLHttpRequest();
+	   request.open("GET","/servlets/session");
+	     
+		request.onreadystatechange = function(){
+			if(request.readyState === XMLHttpRequest.DONE && request.status === 200){
+				if(request.responseText!="")
+					document.write(request.responseText);
+			}
+	   }
+		 
+	   request.send();
+</script>
+
 <div id="header" style="text-align:left; background-color:#71C6E2">
 <h1>User Registration Form</h1></div>
 
