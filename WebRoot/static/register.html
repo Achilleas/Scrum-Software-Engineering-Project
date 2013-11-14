@@ -20,6 +20,8 @@
 		}
 	}
 	</script>	
+	<script type="text/javascript" src="DateUtil.js"></script>
+	<script type="text/javascript" src="DateChooser.js"></script>
 </head>
 <body>
 
@@ -51,20 +53,22 @@
 
 <p>
 Date of Birth <span class="req">*</span><br />
-	<select id="Menu" name="Day">
-		<option value="Day">Day</option>
-		<option value="1">1</option>
-		<option value="2">2</option>
-	</select>
-	<select id="Menu" name="Month">
-		<option value="Month">Month</option>
-		<option value="1">1</option>
-		<option value="2">2</option>
-	</select>
-	<select id="Menu" name="Year">
-		<option value="Year">Year</option>
-		<option value="1900">1900</option>
-		<option value="1901">1901</option>
+	<select name="Day" id="day"></select>
+	<select name="Month" id="month">
+		<option id="month1" value="1">Jan</option>
+		<option id="month2" value="2">Feb</option>
+		<option id="month3" value="3">Mar</option>
+		<option id="month4" value="4">Apr</option>
+		<option id="month5" value="5">May</option>
+		<option id="month6" value="6">Jun</option>
+		<option id="month7" value="7">Jul</option>
+		<option id="month8" value="8">Aug</option>
+		<option id="month9" value="9">Sep</option>
+		<option id="month10" value="10">Oct</option>
+		<option id="month11" value="11">Nov</option>
+		<option id="month12" value="12">Dec</option>
+    </select>
+	<select id="year" name="Year">
 	</select>
 </p>
 
