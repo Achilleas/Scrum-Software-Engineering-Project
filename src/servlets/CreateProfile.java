@@ -17,6 +17,7 @@ import org.joda.time.LocalDate;
 import main.Address;
 import main.Investor;
 import main.ProfileWriter;
+import main.UserExistException;
 import webpageOut.CreateError;
 import webpageOut.Profile;
 
@@ -164,7 +165,12 @@ public class CreateProfile extends HttpServlet {
 					companiesInvested, companiesInterested);
 			Profile pro = new Profile(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
-			pw.writeProfile(ip.getUsername()+".csv", ip);
+			try {
+				pw.writeProfile(ip);
+			} catch (UserExistException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// ip.storeAllDetails();
 			System.out.println("valid");
 		} else {

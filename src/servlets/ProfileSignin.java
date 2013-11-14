@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.Investor;
+import main.ProfileWriter;
 import webpageOut.Profile;
 
 public class ProfileSignin extends HttpServlet{
@@ -38,14 +39,19 @@ public class ProfileSignin extends HttpServlet{
 		
 		for (String name : parameter_map.keySet()) {
 			for (String value : parameter_map.get(name)) {
-				if(value.equals("username"))
+				if(name.equals("Username"))
 					username = value;
-				if(value.equals("password"))
+				if(name.equals("Password"))
 					password=value;
-				System.out.println("name: "+name+" value: "+value);
+				//System.out.println("name: "+name+" value: "+value);
 			}
-			
 		}
+		
+		if(ProfileWriter.checkDuplication(username)){
+			System.out.println(username+"EXISTS!!");
+		}
+		else servlet_response.sendRedirect("/static/NonExisting.html");
+		
 		validateUsernamePassword();
 
 	}
