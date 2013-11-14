@@ -7,6 +7,10 @@ import java.util.*;
 
 /**------------------------------------------------------------------------------------------------
  * @author Qiao
+ * ------------------------------------------------------------------------------------------------
+ * @version 1.3.1 Updated: Jia Heng
+ * change directory separator from \\ to /
+ * possible fix to create file for multiple platform
  *------------------------------------------------------------------------------------------------
  * @version 1.3
  * Support default path
@@ -104,7 +108,7 @@ public class ProfileWriter {
 	 * @throws UserExistException 
 	 */
 	public void writeProfile(Investor user) throws UserExistException{
-		writeProfile("Profiles\\"+user.getUsername()+".txt",user);
+		writeProfile("profiles/"+user.getUsername()+".txt",user);
 	}
 	/**
 	 * This method check if a specific file exist
@@ -112,15 +116,12 @@ public class ProfileWriter {
 	 * @return
 	 */
 	public static boolean checkDuplication(String username){
-		return new File("Profiles\\"+username+".txt").exists();
+		return new File("profiles/"+username+".txt").exists();
 	}
 	/**
 	 * This method check if the profile of an investor exists
 	 */
 	public static boolean checkDuplication(Investor user){
 		return checkDuplication(user.getUsername());
-	}
-	public static void main(String args[]){
-		
 	}
 }
