@@ -169,7 +169,7 @@ public class CreateProfile extends HttpServlet {
 			Profile pro = new Profile(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
 			try {
-				pw.writeProfile(ip);
+				pw.writeProfile(ip,true);
 			} catch (UserExistException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
