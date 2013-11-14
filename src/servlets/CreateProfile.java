@@ -33,7 +33,7 @@ public class CreateProfile extends HttpServlet {
 	ArrayList<String> companiesInvested;
 	ArrayList<String> companiesInterested;
 
-	protected void doGet(HttpServletRequest servlet_request,
+	protected void doPost(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
 		processRequest(servlet_request, servlet_response);
