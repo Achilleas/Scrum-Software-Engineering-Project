@@ -45,7 +45,6 @@ public class ProfileSignin extends HttpServlet {
 					username = value;
 				if (name.equals("Password"))
 					password = value;
-				// System.out.println("name: "+name+" value: "+value);
 			}
 		}
 
