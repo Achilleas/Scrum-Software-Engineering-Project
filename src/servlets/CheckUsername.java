@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.ProfileReader;
 import main.ProfileWriter;
 
 /**
@@ -19,7 +20,7 @@ import main.ProfileWriter;
  * @author jiaheng
  *
  */
-public class CheckUser extends HttpServlet {
+public class CheckUsername extends HttpServlet {
 	
 	String username = "";
 	PrintWriter out;
@@ -38,17 +39,11 @@ public class CheckUser extends HttpServlet {
 		out = servlet_response.getWriter(); //creates writer
 		//used to send the html page to the client
 		
-		Map<String, String[]> parameter_map = servlet_request.getParameterMap();
-		//creates a map - to gets the value entered by the user
-		
-		for (String name : parameter_map.keySet()) {
-			for (String value : parameter_map.get(name)) {
-				if(name.equals("username"))
-					username = value;
-			}
-		}
+		username = servlet_request.getParameter("username");
 			
-		if (ProfileWriter.checkDuplication(username) || username.equals("")) {
+		ProfileReader profileReader = new ProfileReader(",");
+		
+		if (profileReader.readProfile(username)==null || username.equals("")) {
 			out.write("false");
 		} else {
 			out.write("true");
