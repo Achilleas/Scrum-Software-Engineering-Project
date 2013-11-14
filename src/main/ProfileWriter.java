@@ -76,9 +76,9 @@ public class ProfileWriter {
 	 * Write a user's profile
 	 * @param user
 	 */
-	public void writeProfile(String filename,Investor user) throws UserExistException{
+	public void writeProfile(String filename,Investor user,boolean overwrite) throws UserExistException{
 		try{
-			if(checkDuplication(user)){
+			if(checkDuplication(user)&&overwrite){
 				throw new UserExistException();
 			}
 			bw=new BufferedWriter(new FileWriter(filename));
@@ -107,9 +107,10 @@ public class ProfileWriter {
 	 * filename is the user name of user +".txt"
 	 * @throws UserExistException 
 	 */
-	public void writeProfile(Investor user) throws UserExistException{
-		writeProfile(PROFILE_PATH+user.getUsername()+".txt",user);
-	}
+	 public void writeProfile(Investor user,boolean overwrite) throws UserExistException{
+         writeProfile(PROFILE_PATH+user.getUsername()+".txt",user,overwrite);
+	 }
+	
 	/**
 	 * This method check if a specific file exist
 	 * @param filename

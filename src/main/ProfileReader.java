@@ -70,10 +70,9 @@ public class ProfileReader {
 
 	/**
 	 * 
-	 * UPDATED (Jia Heng): 
-	 * change argument from filename to user
-	 * previously, this method will return nothing if the file/user not found
-	 * now it will RETURN NULL IF USER NOT FOUND
+	 * UPDATED (Jia Heng): change argument from filename to user previously,
+	 * this method will return nothing if the file/user not found now it will
+	 * RETURN NULL IF USER NOT FOUND
 	 * 
 	 * @param username
 	 * @return
