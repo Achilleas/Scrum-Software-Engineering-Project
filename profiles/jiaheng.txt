@@ -1,0 +1,10 @@
+0,Eik
+1,Jia Heng
+5,123456
+4,jhe3@st-andrews.ac.uk
+8,12345 678901
+9,jiaheng
+6,1995-04-09
+3,none
+2,none
+7,Strathkinness High Road,,ST. ANDREWS,Fife,KY16 9UE,United Kingdom
