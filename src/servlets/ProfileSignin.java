@@ -51,7 +51,7 @@ public class ProfileSignin extends HttpServlet {
 		// Check User account exists
 		if (ProfileWriter.checkDuplication(username)) {
 			ProfileReader pr = new ProfileReader(",");
-			Investor ip = pr.readProfile("Profiles\\" + username + ".txt");
+			Investor ip = pr.readProfile(username);
 
 			if (ip.verifyPassword(password)) {
 				System.out.println("Password matches!");

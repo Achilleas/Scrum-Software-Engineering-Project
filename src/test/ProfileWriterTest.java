@@ -12,6 +12,7 @@ public class ProfileWriterTest {
 	String password="123";
 	LocalDate date;
 	Address address;
+	
 	@Before
 	public void setupBefore() {
 		System.out.println("r-------------------------------------------Test for profile writer-------------------------------------------");
@@ -26,6 +27,7 @@ public class ProfileWriterTest {
 		address=new Address("address1","address2","address3","address4","address5","address6");
 		user.setAddress(address);
 	}
+	
 	@Test
 	public void normalTest() throws UserExistException{
 		System.out.println("Normal Test");
@@ -37,7 +39,7 @@ public class ProfileWriterTest {
 			e.printStackTrace();
 		}
 		ProfileReader pr=new ProfileReader(",");
-		user=pr.readProfile("example.txt");
+		user=pr.readProfile("james");
 		System.out.println("----------------------user's attributes----------------------");
 		System.out.println(user.getFirstName());
 		System.out.println(user.getSurname());

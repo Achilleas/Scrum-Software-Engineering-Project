@@ -1,7 +1,7 @@
 package main;
 
 import java.io.*;
-
+import static main.Constants.*;
 import org.joda.time.LocalDate;
 import java.util.*;
 
@@ -108,7 +108,7 @@ public class ProfileWriter {
 	 * @throws UserExistException 
 	 */
 	public void writeProfile(Investor user) throws UserExistException{
-		writeProfile("profiles/"+user.getUsername()+".txt",user);
+		writeProfile(PROFILE_PATH+user.getUsername()+".txt",user);
 	}
 	/**
 	 * This method check if a specific file exist
@@ -116,7 +116,7 @@ public class ProfileWriter {
 	 * @return
 	 */
 	public static boolean checkDuplication(String username){
-		return new File("profiles/"+username+".txt").exists();
+		return new File(PROFILE_PATH + username+".txt").exists();
 	}
 	/**
 	 * This method check if the profile of an investor exists
