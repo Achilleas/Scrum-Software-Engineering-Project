@@ -161,4 +161,29 @@ public class FinanceQueryTest {
 		FinanceQuery query = new FinanceQuery();
 		query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 	}
+	
+	@Test
+	public void retrieveAnotherIndex() {
+		// test for other index (NASDAQ-100)
+		File file1, file2, sample_file;
+		String symbols;
+		FinanceQuery query = new FinanceQuery();
+		
+		symbols = query.getComponents("^NDX");
+		System.out.println("The list of symbols are \n" + symbols);
+		
+		file1 = query.getDailyPriceCSV(symbols);
+		file2 = query.getDailyPriceCSV(symbols);
+		
+		sample_file = new File("sample-daily-price-NASDAQ.csv");
+		
+		assertNotNull(file1);
+		assertNotNull(file2);
+		assertNotEquals(file1.getPath(), file2.getPath());
+		try {
+			FileUtils.copyFile(file1, sample_file);
+		} catch (IOException e) {
+			System.out.println("Unable to copy sample csv file");
+		}
+	}
 }
