@@ -27,7 +27,7 @@ public class ProfileWriterTest {
 		user.setAddress(address);
 	}
 	@Test
-	public void normalTest(){
+	public void normalTest() throws UserExistException{
 		System.out.println("Normal Test");
 		ProfileWriter pw=new ProfileWriter(",");
 		pw.writeProfile("example.txt", user);
