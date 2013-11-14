@@ -41,7 +41,11 @@ public class Session extends HttpServlet{
 		out = servlet_response.getWriter(); //creates writer
 		//used to send the html page to the client
 		
-		out.println("ALREADY SIGNED IN!");
+		
+		
+		Investor ip = (Investor) s.getAttribute("user");
+		
+		out.println("ALREADY SIGNED IN!"+ip.getUsername());
 		
 		out.close(); 
 		}
