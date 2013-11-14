@@ -72,8 +72,11 @@ public class ProfileWriter {
 	 * Write a user's profile
 	 * @param user
 	 */
-	public void writeProfile(String filename,Investor user){
+	public void writeProfile(String filename,Investor user) throws UserExistException{
 		try{
+			if(checkDuplication(user)){
+				throw new UserExistException();
+			}
 			bw=new BufferedWriter(new FileWriter(filename));
 			/*
 			 * Write everything!
@@ -98,8 +101,9 @@ public class ProfileWriter {
 	/**
 	 * Write an investor profile to local file system
 	 * filename is the user name of user +".txt"
+	 * @throws UserExistException 
 	 */
-	public void writeProfile(Investor user){
+	public void writeProfile(Investor user) throws UserExistException{
 		writeProfile("Profiles\\"+user.getUsername()+".txt",user);
 	}
 	/**
