@@ -153,10 +153,8 @@ public class CreateProfile extends HttpServlet {
 		                "  <TD>" + accessCount + "\n" +
 		                "</TABLE>\n" +
 		                "</BODY></HTML>");
-
+		    createNewProfile(out);
 		  }
-		//createNewProfile(out);
-	//}
 
 	public void createNewProfile(PrintWriter out) throws IOException {
 		if (validDetails()) {
