@@ -6,7 +6,6 @@
 	<link rel="stylesheet" type="text/css" href="Style.css" />
 	<script type="text/javascript">
 	function validate() {
-		console.log("validating");
 		var now = new Date();
 		var elm = document.getElementById("year");
 		
@@ -29,8 +28,9 @@
 		return true;
 	}
 	</script>
-	<script type="text/javascript" src="./javascript/DateUtil.js"></script>
-	<script type="text/javascript" src="./javascript/DateChooser.js"></script>
+	<script type="text/javascript" src="./javascript/date-util.js"></script>
+	<script type="text/javascript" src="./javascript/date-chooser.js"></script>
+	<script type="text/javascript" src="./javascript/user-ajax.js"></script>
 </head>
 <body>
 
@@ -46,7 +46,7 @@
 	<span class="req">*</span>
 	<span class="sub">(if available)</span>
 		<br />
-		<input type="text" name="Username" required /></p>
+		<input id="username" type="text" name="Username" onchange="userCheck();" required /></p>
 
 <p><span class="top">Password</span>
 	<span class="req">*</span>
