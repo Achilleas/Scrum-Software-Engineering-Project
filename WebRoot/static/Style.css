@@ -9,3 +9,15 @@ a:active {color: white}
 .top {color: white; font-weight: bold; font-size: 18px}
 .sub {color: gray; font-style: italic}
 .req {color: red}
+
+#username-error {
+    font-size: 14px;
+    color: red;
+    display: none;
+}
+
+#username-available {
+    font-size: 14px;
+    color: green;
+    display: none;
+}

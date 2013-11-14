@@ -5,9 +5,17 @@
 	<title>User Registration Form</title>
 	<link rel="stylesheet" type="text/css" href="Style.css" />
 	<script type="text/javascript">
+	
+	var username_available = false;
+	
 	function validate() {
 		var now = new Date();
 		var elm = document.getElementById("year");
+		
+		if (!username_available) {
+			alert("This username has been used. Please choose another username");
+			return false;
+		}
 		
 		// the date cannot be later than today
 		if (elm.value == now.getFullYear()) {
@@ -24,7 +32,6 @@
 				}
 			}
 		}
-		console.log("pass");
 		return true;
 	}
 	</script>
@@ -46,7 +53,10 @@
 	<span class="req">*</span>
 	<span class="sub">(if available)</span>
 		<br />
-		<input id="username" type="text" name="Username" onchange="userCheck();" required /></p>
+		<input id="username" type="text" name="Username" onchange="userCheck();" required />
+		<span id="username-error" class="status">username name exist! Please use another username</span>
+		<span id="username-available" class="status">username available!</span>
+</p>
 
 <p><span class="top">Password</span>
 	<span class="req">*</span>

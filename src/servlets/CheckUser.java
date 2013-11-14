@@ -9,6 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.ProfileWriter;
+
+/**
+ * 
+ * Check username availability
+ * response true if the username is available
+ * 
+ * @author jiaheng
+ *
+ */
 public class CheckUser extends HttpServlet {
 	
 	String username = "";
@@ -35,13 +45,13 @@ public class CheckUser extends HttpServlet {
 			for (String value : parameter_map.get(name)) {
 				if(name.equals("username"))
 					username = value;
-				System.out.println("name: "+name+" value: "+value);
 			}
 		}
-		
-		if (username.equals(""))
+			
+		if (ProfileWriter.checkDuplication(username) || username.equals("")) {
 			out.write("false");
-		else
+		} else {
 			out.write("true");
+		}
 	}
 }

@@ -18,7 +18,15 @@ function genXmlHttp() {
 // state change handler function
 function stateHandler() {
 	if(xmlHttp.readyState == 4)	{ // when request is complete
-    	console.log(xmlHttp.responseText);
+    	if (xmlHttp.responseText == "true") {
+    		username_available = true;
+    		document.getElementById('username-available').style.display = 'inline';
+    		document.getElementById('username-error').style.display = 'none';
+    	} else {
+    		username_available = false;
+    		document.getElementById('username-available').style.display = 'none';
+    		document.getElementById('username-error').style.display = 'inline';
+    	}
     }
 }
 
