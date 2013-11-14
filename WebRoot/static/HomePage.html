@@ -7,6 +7,22 @@
 </head>
 <body>
 
+<script type="text/javascript">
+		document.write("<p>Here<\/p>");
+	   var request = new XMLHttpRequest();
+	   document.write("<p>Client time = " + Date() + "<\/p>");
+	   request.open("GET","/servlets/session");
+	     
+		request.onreadystatechange = function(){
+			if(request.readyState === XMLHttpRequest.DONE && request.status === 200){
+				if(request.responseText!="")
+					document.write("<p>"+request.responseText+"<\/p>");
+			}
+	   }
+		 
+	   request.send();
+</script>
+
 <div id="header" style="text-align:center; background-color:#71C6E2">
 <h1>CS3098 Stock Analyser</h1></div>
 
@@ -16,7 +32,7 @@
 
 <div id="login" style="margin-left:auto;margin-right:auto;height:180px;width:250px;
 	text-align:center; background-color:#FFFFFF; border:2px solid black">
-
+	
 <form method="post" action = "/servlets/signin">
 <p style="color:black">Username<br />
 	<input type="text" name="Username" /><br />
