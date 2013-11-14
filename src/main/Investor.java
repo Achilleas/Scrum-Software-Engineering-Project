@@ -32,6 +32,7 @@ public class Investor {
 	 * Build an investor from scratch
 	 */
 	public Investor(){
+		this.password = ""; //DO NOT REMOVE - IMPORTANT FOR PASSWORD CHANGE & PROFILE WRITER!!
 		this.companiesInterested=new ArrayList<String>();
 		this.companiesInvested=new ArrayList<String>();
 	}
