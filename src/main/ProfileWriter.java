@@ -8,6 +8,10 @@ import java.util.*;
 /**------------------------------------------------------------------------------------------------
  * @author Qiao
  *------------------------------------------------------------------------------------------------
+ * @version 1.3
+ * Support default path
+ * Add functionality that can verify if a user exit.
+ *------------------------------------------------------------------------------------------------
  * @version 1.2
  * Support writing address and date.
  * ------------------------------------------------------------------------------------------------
@@ -90,6 +94,27 @@ public class ProfileWriter {
 			System.err.println("Writing errors.");
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * Write an investor profile to local file system
+	 * filename is the user name of user +".txt"
+	 */
+	public void writeProfile(Investor user){
+		writeProfile("Profiles\\"+user.getUsername()+".txt",user);
+	}
+	/**
+	 * This method check if a specific file exist
+	 * @param filename
+	 * @return
+	 */
+	public static boolean checkDuplication(String filename){
+		return new File(filename).exists();
+	}
+	/**
+	 * This method check if the profile of an investor exists
+	 */
+	public static boolean checkDuplication(Investor user){
+		return checkDuplication("Profiles\\"+user.getUsername()+".txt");
 	}
 	public static void main(String args[]){
 		
