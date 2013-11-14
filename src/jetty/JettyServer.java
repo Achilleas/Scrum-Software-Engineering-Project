@@ -10,6 +10,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import servlets.CheckUser;
 import servlets.CreateProfile;
 import servlets.ProfileSignin;
+import servlets.Session;
 
 public class JettyServer {
 
@@ -27,6 +28,7 @@ public class JettyServer {
 		handler2.setContextPath("/servlets"); //configures the server for the servlet
 		handler2.addServlet(new ServletHolder(new CreateProfile()), "/profile"); 
 		handler2.addServlet(new ServletHolder(new ProfileSignin()), "/signin");
+		handler2.addServlet(new ServletHolder(new Session()), "/session");
 		handler2.addServlet(new ServletHolder(new CheckUser()), "/user-check");
 
 		HandlerList handlers = new HandlerList(); //stores all the handlers in an array

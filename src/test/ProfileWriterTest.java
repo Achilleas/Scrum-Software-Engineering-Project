@@ -30,7 +30,12 @@ public class ProfileWriterTest {
 	public void normalTest() throws UserExistException{
 		System.out.println("Normal Test");
 		ProfileWriter pw=new ProfileWriter(",");
-		pw.writeProfile("example.txt", user);
+		try {
+			pw.writeProfile("example.txt", user);
+		} catch (UserExistException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ProfileReader pr=new ProfileReader(",");
 		user=pr.readProfile("example.txt");
 		System.out.println("----------------------user's attributes----------------------");

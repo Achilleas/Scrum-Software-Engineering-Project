@@ -54,6 +54,7 @@ public class CreateProfile extends HttpServlet {
 			HttpServletResponse servlet_response) throws IOException {
 		HttpSession session = servlet_request.getSession(true);
 		
+		
 		servlet_response.setContentType("text/html"); // the response will be of
 														// the type html
 		servlet_response.setStatus(HttpServletResponse.SC_OK); // and the HTTP
@@ -116,6 +117,7 @@ public class CreateProfile extends HttpServlet {
 					parseCompanies(value, companiesInterested);
 			}
 		}
+		
 		 String heading;
 		    Integer accessCount = new Integer(0);;
 		    if (session.isNew()) {
@@ -154,15 +156,16 @@ public class CreateProfile extends HttpServlet {
 		                "  <TD>" + accessCount + "\n" +
 		                "</TABLE>\n" +
 		                "</BODY></HTML>");
-		    createNewProfile(out);
+		    createNewProfile(out, session);
 		  }
 
-	public void createNewProfile(PrintWriter out) throws IOException {
+	public void createNewProfile(PrintWriter out, HttpSession session) throws IOException {
 		if (validDetails()) {
 			// TODO: Create New Investor Argument
 			Investor ip = new Investor(username, password, dateOfBirth,
 					firstName, surname, email, telephone, address,
 					companiesInvested, companiesInterested);
+			session.setAttribute("user", ip);
 			Profile pro = new Profile(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
 			try {
