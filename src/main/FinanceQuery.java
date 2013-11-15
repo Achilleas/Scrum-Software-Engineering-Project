@@ -44,15 +44,33 @@ public class FinanceQuery {
 	 * @param symbol
 	 * @return LinkedList of price information for a given stock
 	 */
-	public LinkedList<Stock> getHistorical(String symbol) {
+	public LinkedList<Stock> getHistorical(String symbol, LocalDate fromDate, LocalDate toDate,
+			String interval) {
 		File file;
 		CSVParser parser = new CSVParser();
 		
 		Validate.notNull(symbol, "symbol can't be null");
 		if (symbol.contains(","))
 			throw new IllegalArgumentException("only one stock can be retrieved");
-		
-		file = requestCSVQuote(symbol, DAILY_PRICE_PROP);
+		Validate.notNull(fromDate, "fromDate can't be null");
+		Validate.notNull(toDate, "toDate can't be null");
+		Validate.notNull(interval, "interval can't be null");
+
+		if (fromDate.isAfter(toDate)
+				|| fromDate.isEqual(toDate))
+			throw new IllegalArgumentException("fromDate must before toDate");
+
+		LocalDate today = new LocalDate();
+		if (toDate.isAfter(today))
+			throw new IllegalArgumentException(
+					"toDate can't be later than today");
+
+		if (!interval.equals(DAILY_INTERVAL)
+				&& !interval.equals(WEEKLY_INTERVAL)
+				&& !interval.equals(MONTHLY_INTERVAL))
+			throw new IllegalArgumentException();
+
+		file = requestCSVHistorical(symbol, fromDate, toDate, interval);
 		return parser.parseHistoricalCSV(file, symbol);
 	}
 	
