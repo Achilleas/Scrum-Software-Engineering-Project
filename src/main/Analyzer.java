@@ -9,7 +9,7 @@ import org.apache.commons.lang3.Validate;
 public class Analyzer {
 	public static final int HIGH_GRANULARITY=1;
 	public static final int LOW_GRANULARITY=2;
-	private LinkedList<DailyPrice> prices;
+	private LinkedList<Stock> prices;
 	private Investor user;
 	private String result;
 	public Analyzer(Investor user, String filename,String separator){

@@ -6,6 +6,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.LinkedList;
+
 import static main.Constants.*;
 
 import org.apache.commons.io.FileUtils;
@@ -26,8 +28,29 @@ import com.jaunt.*;
  */
 public class FinanceQuery {
 
-	private final static String DAILY_PRICE_PROP = "snohgpv";
+	// id,name,latestValue,open,high,low,closing,volume,marketCap
+	private final static String DAILY_PRICE_PROP = "snl1ohgpvj1";
 
+	/**
+	 * 
+	 * get daily pricing information of stock(s) To get multiple stock, put
+	 * symbols into a string and separate them with "," the fields are: 
+	 * StockID, Name, latestValue, Open, High, Low, Previous Close, Volume, MarketCap
+	 * 
+	 * @param symbol
+	 * @return	linkedList of Stock
+	 */
+	public LinkedList<Stock> getLatestPrice(String symbol) {
+		
+		File file;
+		CSVParser parser = new CSVParser();
+		
+		Validate.notNull(symbol, "symbol can't be null");
+		
+		file = requestCSVQuote(symbol, DAILY_PRICE_PROP);
+		return parser.parseLatestPriceCSV(file, LocalDate.now());
+	}
+	
 	/**
 	 * 
 	 * get daily pricing information of stock(s) To get multiple stock, put
@@ -37,12 +60,12 @@ public class FinanceQuery {
 	 * @param symbol
 	 * @return
 	 */
-	public File getDailyPriceCSV(String symbol) {
+	public File getLatestPriceCSV(String symbol) {
 		Validate.notNull(symbol, "symbol can't be null");
 
 		return requestCSVQuote(symbol, DAILY_PRICE_PROP);
 	}
-
+	
 	/**
 	 * 
 	 * get historical price for a given share in csv file you are not allowed to
@@ -79,12 +102,11 @@ public class FinanceQuery {
 		return requestCSVHistorical(symbol, fromDate, toDate, interval);
 	}
 
-	// get all component of the stock market index into a string separated with
-	// ","
+	// get all component of the stock market index into a String separated by ","
 	public String getComponents(String index) {
 
 		String components = "";
-
+		
 		try {
 			index = URLEncoder.encode(index, "ISO-8859-1");
 			UserAgent userAgent = new UserAgent();

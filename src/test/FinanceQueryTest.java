@@ -35,8 +35,8 @@ public class FinanceQueryTest {
 		File file1, file2, sample_file;
 		FinanceQuery query = new FinanceQuery();
 		
-		file1 = query.getDailyPriceCSV(FTSE100);
-		file2 = query.getDailyPriceCSV(FTSE100);
+		file1 = query.getLatestPriceCSV(FTSE100);
+		file2 = query.getLatestPriceCSV(FTSE100);
 		
 		sample_file = new File("sample-daily-price.csv");
 		
@@ -60,8 +60,8 @@ public class FinanceQueryTest {
 		symbols = query.getComponents("^FTSE");
 		System.out.println("The list of symbols are \n" + symbols);
 		
-		file1 = query.getDailyPriceCSV(symbols);
-		file2 = query.getDailyPriceCSV(symbols);
+		file1 = query.getLatestPriceCSV(symbols);
+		file2 = query.getLatestPriceCSV(symbols);
 		
 		sample_file = new File("sample-daily-price2.csv");
 		
@@ -79,7 +79,7 @@ public class FinanceQueryTest {
 	public void getDailyPriceNullTest() {
 		FinanceQuery query = new FinanceQuery();
 		
-		query.getDailyPriceCSV(null);
+		query.getLatestPriceCSV(null);
 	}
 	
 	@Test
@@ -172,8 +172,8 @@ public class FinanceQueryTest {
 		symbols = query.getComponents("^NDX");
 		System.out.println("The list of symbols are \n" + symbols);
 		
-		file1 = query.getDailyPriceCSV(symbols);
-		file2 = query.getDailyPriceCSV(symbols);
+		file1 = query.getLatestPriceCSV(symbols);
+		file2 = query.getLatestPriceCSV(symbols);
 		
 		sample_file = new File("sample-daily-price-NASDAQ.csv");
 		
