@@ -33,9 +33,37 @@ public class FinanceQuery {
 
 	/**
 	 * 
+	 * get historical price information for a given stock
+	 * you are not allowed to download historical quotes of several stocks or indices
+	 * the price information are arranged from latest to oldest
+	 * 
+	 * Note:	Not all data will be available, Name will be NULL
+	 * 			latestValue and market Capitalization will be -1
+	 * 	The getClose() from stock class will retrieve close price of that date
+	 * 
+	 * @param symbol
+	 * @return LinkedList of price information for a given stock
+	 */
+	public LinkedList<Stock> getHistorical(String symbol) {
+		File file;
+		CSVParser parser = new CSVParser();
+		
+		Validate.notNull(symbol, "symbol can't be null");
+		if (symbol.contains(","))
+			throw new IllegalArgumentException("only one stock can be retrieved");
+		
+		file = requestCSVQuote(symbol, DAILY_PRICE_PROP);
+		return parser.parseHistoricalCSV(file, symbol);
+	}
+	
+	/**
+	 * 
 	 * get daily pricing information of stock(s) To get multiple stock, put
 	 * symbols into a string and separate them with "," the fields are: 
 	 * StockID, Name, latestValue, Open, High, Low, Previous Close, Volume, MarketCap
+	 * 
+	 * Note: MarketCapitalizationwill be -1 if unavailable
+	 * 		The getClose() from stock class will retrieve previous close
 	 * 
 	 * @param symbol
 	 * @return	linkedList of Stock

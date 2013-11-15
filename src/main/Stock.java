@@ -12,13 +12,13 @@ public class Stock {
 	private double open;
 	private double high;
 	private double low;
-	private double previousClose; // Previous close price
+	private double close; // Previous close price
 	private int volume;
 	private double marketCap; // market capitalization in billion
 
 	public Stock(LocalDate date, String stock_id, String stock_name,
 			double latest, double open, double high, double low,
-			double previous_close, int volume, double marketCap) {
+			double close, int volume, double marketCap) {
 
 		Validate.notNull(stock_id);
 		Validate.notNull(date);
@@ -30,7 +30,7 @@ public class Stock {
 		this.open = open;
 		this.high = high;
 		this.low = low;
-		this.previousClose = previous_close;
+		this.close = close;
 		this.volume = volume;
 		this.marketCap = marketCap;
 	}
@@ -63,8 +63,8 @@ public class Stock {
 		return low;
 	}
 
-	public double getPreviousClose() {
-		return previousClose;
+	public double getClose() {
+		return close;
 	}
 
 	public int getVolume() {

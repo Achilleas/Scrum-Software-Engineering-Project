@@ -9,7 +9,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	AnalyzerTest.class,
 	FinanceQueryTest.class,
 	InvestorTest.class,
-	ProfileWriterTest.class
+	ProfileWriterTest.class,
+	ParserTest.class
 })
 
 public class AllTests {
