@@ -4,8 +4,11 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+
 import static main.Constants.*;
 import main.FinanceQuery;
+import main.Stock;
 
 import org.apache.commons.io.FileUtils;
 import org.joda.time.LocalDate;
@@ -185,5 +188,21 @@ public class FinanceQueryTest {
 		} catch (IOException e) {
 			System.out.println("Unable to copy sample csv file");
 		}
+	}
+	
+	@Test
+	public void simpleMethodTest() {
+		
+		String symbol = "AAL.L";
+		LinkedList<Stock> stocks = null;
+		LinkedList<Stock> historical = null;
+		FinanceQuery query = new FinanceQuery();
+		
+		stocks = query.getLatestPrice(symbol);
+		historical = query.getHistorical(symbol, fromDate, toDate, WEEKLY_INTERVAL);
+		
+		assertNotNull(stocks);
+		assertNotNull(historical);
+		assertEquals(stocks.size(),1);
 	}
 }
