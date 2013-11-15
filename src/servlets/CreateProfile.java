@@ -64,6 +64,11 @@ public class CreateProfile extends HttpServlet {
 		PrintWriter out = servlet_response.getWriter(); // creates writer
 		// used to send the html page to the client
 
+		address = new Address();
+        dateOfBirth = new LocalDate();
+        companiesInvested = new ArrayList<String>();
+        companiesInterested = new ArrayList<String>();
+		
 		// Note: If no value entered for text boxes, sets as ""
         // =======USERNAME + NAME=========
 		username = servlet_request.getParameter("Username");

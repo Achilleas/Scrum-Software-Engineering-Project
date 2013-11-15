@@ -43,7 +43,7 @@ public class CheckUsername extends HttpServlet {
 			
 		ProfileReader profileReader = new ProfileReader(",");
 		
-		if (profileReader.readProfile(username)==null || username.equals("")) {
+		if (profileReader.readProfile(username)!=null || username.equals("")) {
 			out.write("false");
 		} else {
 			out.write("true");
