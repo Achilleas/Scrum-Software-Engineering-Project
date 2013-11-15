@@ -54,6 +54,7 @@ public class CreateProfile extends HttpServlet {
 			HttpServletResponse servlet_response) throws IOException {
 		HttpSession session = servlet_request.getSession(true);
 		
+		String value;
 		
 		servlet_response.setContentType("text/html"); // the response will be of
 														// the type html
@@ -63,60 +64,46 @@ public class CreateProfile extends HttpServlet {
 		PrintWriter out = servlet_response.getWriter(); // creates writer
 		// used to send the html page to the client
 
-		Map<String, String[]> parameter_map = servlet_request.getParameterMap();
-		// creates a map - to gets the value entered by the user
+		// Note: If no value entered for text boxes, sets as ""
+        // =======USERNAME + NAME=========
+		username = servlet_request.getParameter("Username");
+		password = servlet_request.getParameter("Password");
+		firstName = servlet_request.getParameter("Firstname");
+		surname = servlet_request.getParameter("Surname");
+		
+        // =======DATE OF BIRTH=========
+		value = servlet_request.getParameter("Day");
+		dateOfBirth = dateOfBirth.withDayOfMonth(Integer
+				.parseInt(value));
+		value = servlet_request.getParameter("Month");
+		dateOfBirth = dateOfBirth.withMonthOfYear(Integer
+				.parseInt(value));
+		value = servlet_request.getParameter("Year");
+		dateOfBirth = dateOfBirth.withYear(Integer.parseInt(value));
+		
+		// =======CONTACT INFO=========
+		email = servlet_request.getParameter("Telephone");
+		telephone = servlet_request.getParameter("Password");
 
-		address = new Address();
-		dateOfBirth = new LocalDate();
-		companiesInvested = new ArrayList<String>();
-		companiesInterested = new ArrayList<String>();
-
-		for (String name : parameter_map.keySet()) {
-			for (String value : parameter_map.get(name)) {
-				// Note: If no value entered for text boxes, sets as ""
-				// =======USERNAME + NAME=========
-				if (name.equals("Username"))
-					username = value;
-				if (name.equals("Password"))
-					password = value;
-				if (name.equals("Firstname"))
-					firstName = value;
-				if (name.equals("Surname"))
-					surname = value;
-				// =======DATE OF BIRTH=========
-				if (name.equals("Day"))
-					dateOfBirth = dateOfBirth.withDayOfMonth(Integer
-							.parseInt(value));
-				if (name.equals("Month"))
-					dateOfBirth = dateOfBirth.withMonthOfYear(Integer
-							.parseInt(value));
-				if (name.equals("Year"))
-					dateOfBirth = dateOfBirth.withYear(Integer.parseInt(value));
-				// =======CONTACT INFO=========
-				if (name.equals("Email"))
-					email = value;
-				if (name.equals("Telephone"))
-					telephone = value;
-				// =======ADDRESS=========
-				if (name.equals("Line1"))
-					address.setLine1(value);
-				if (name.equals("Line2"))
-					address.setLine2(value);
-				if (name.equals("Town"))
-					address.setTown(value);
-				if (name.equals("County"))
-					address.setCounty(value);
-				if (name.equals("Postcode"))
-					address.setPostcode(value);
-				if (name.equals("Country"))
-					address.setCountry(value);
-				// =======COMPANIES=========
-				if (name.equals("Invested"))
-					parseCompanies(value, companiesInvested);
-				if (name.equals("Interested"))
-					parseCompanies(value, companiesInterested);
-			}
-		}
+		// =======ADDRESS=========
+		value = servlet_request.getParameter("Line1");
+		address.setLine1(value);
+		value = servlet_request.getParameter("Line2");
+		address.setLine2(value);
+		value = servlet_request.getParameter("Town");
+		address.setTown(value);
+		value = servlet_request.getParameter("County");
+		address.setCounty(value);
+		value = servlet_request.getParameter("Postcode");
+		address.setPostcode(value);
+		value = servlet_request.getParameter("Country");
+		address.setCountry(value);
+		
+		// =======COMPANIES=========
+		value = servlet_request.getParameter("Invested");
+		parseCompanies(value, companiesInvested);
+		value = servlet_request.getParameter("Interested");
+		parseCompanies(value, companiesInterested);
 		
 		 String heading;
 		    Integer accessCount = new Integer(0);;

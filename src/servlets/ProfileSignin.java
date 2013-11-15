@@ -36,17 +36,8 @@ public class ProfileSignin extends HttpServlet {
 		out = servlet_response.getWriter(); // creates writer
 		// used to send the html page to the client
 
-		Map<String, String[]> parameter_map = servlet_request.getParameterMap();
-		// creates a map - to gets the value entered by the user
-
-		for (String name : parameter_map.keySet()) {
-			for (String value : parameter_map.get(name)) {
-				if (name.equals("Username"))
-					username = value;
-				if (name.equals("Password"))
-					password = value;
-			}
-		}
+		username = servlet_request.getParameter("Username");
+		password = servlet_request.getParameter("Password");
 
 		// Check User account exists
 		if (ProfileWriter.checkDuplication(username)) {
