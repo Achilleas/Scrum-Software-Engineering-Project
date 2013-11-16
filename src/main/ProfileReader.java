@@ -6,13 +6,12 @@ import org.joda.time.LocalDate;
 
 public class ProfileReader {
 	private String separator;
-	private Investor user;
 
 	public ProfileReader(String separator) {
 		this.separator = separator;
 	}
 
-	private void readElement(String line) {
+	private void readElement(String line, Investor user) {
 		String[] elements = line.split(separator);
 		int header = Integer.parseInt(elements[0]);
 		switch (header) {
@@ -79,14 +78,14 @@ public class ProfileReader {
 	 * @return
 	 */
 	public Investor readProfile(String username) {
+		Investor user = new Investor();
 		String filename = PROFILE_PATH + username + ".txt";
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
-			user = new Investor();
 			String line;
 			while ((line = br.readLine()) != null) {
 				System.out.println(line);
-				readElement(line);
+				readElement(line, user);
 			}
 			br.close();
 		} catch (FileNotFoundException e1) {
