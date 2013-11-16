@@ -2,7 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
+//import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import main.Investor;
 import main.ProfileReader;
 import main.ProfileWriter;
-import webpageOut.ProfileWrite;
+//import webpageOut.ProfileWrite;
 
 //Checks username + password entered on login screen
 public class ProfileSignin extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2301464661383582935L;
 	String username = "";
 	String password = "";
 	PrintWriter out;

@@ -82,7 +82,7 @@ public class InvestorTest {
 	// create a profile with empty list
 	public void createClass() {
 		Investor john = new Investor(username, password, dateOfBirth, firstName,
-				surname, email, telephone, address);
+				surname, email, telephone, address,null,null);
 
 		assertFalse(john.isInterested("BARC"));
 		assertFalse(john.isInvested("BARC"));

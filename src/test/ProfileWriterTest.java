@@ -6,6 +6,7 @@ import org.joda.time.LocalDate;
 import org.junit.*;
 
 public class ProfileWriterTest {
+	String username = "QK";
 	String firstName = "Qiao";
 	String surname = "Kang";
 	Investor user;
@@ -17,7 +18,7 @@ public class ProfileWriterTest {
 	public void setupBefore() {
 		System.out.println("r-------------------------------------------Test for profile writer-------------------------------------------");
 		System.out.println("Setting up");
-		user = new Investor(surname,firstName,password); 
+		user = new Investor(username,password,date, firstName, surname, null, null, address, null, null); 
 		user.addInterested("HSBA");
 		user.addInterested("BARC");
 		user.addInvested("BARC");

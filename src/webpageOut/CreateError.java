@@ -40,6 +40,7 @@ public class CreateError extends WriteOut{
 					out.write(value2+"\n");
 					value2 = reader2.readLine();
 				}
+				reader2.close();
 			}
 			//	out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"./WebRoot/static/Style.css\" />");
 			//else
@@ -54,6 +55,7 @@ public class CreateError extends WriteOut{
 		//printMessage(message); 
 		//htmlEnd(); //method in the WriteOut class
 		out.close(); //close the data stream
+		reader.close();
 	}
 	
 	/**

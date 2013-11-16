@@ -36,30 +36,6 @@ public class Investor {
 		this.companiesInterested=new ArrayList<String>();
 		this.companiesInvested=new ArrayList<String>();
 	}
-	public Investor(String firstname,String surname,String password){
-		this.firstName=firstname;
-		this.surname=surname;
-		this.password=password;
-		this.companiesInterested=new ArrayList<String>();
-		this.companiesInvested=new ArrayList<String>();
-	}
-	public Investor(String firstname,String surname,String username,String password){
-		this.firstName=firstname;
-		this.surname=surname;
-		this.username=username;
-		this.password=password;
-		this.companiesInterested=new ArrayList<String>();
-		this.companiesInvested=new ArrayList<String>();
-	}
-	public Investor(String firstname,String surname,String username,String password,ArrayList<String> companiesInvested,
-			ArrayList<String> companiesInterested){
-		this.firstName=firstname;
-		this.username=username;
-		this.password=password;
-		this.surname=surname;
-		this.companiesInterested=companiesInterested;
-		this.companiesInvested=companiesInvested;
-	}
 	/**
 	 * 
 	 * Update:
@@ -99,13 +75,6 @@ public class Investor {
 				new ArrayList<String>() : companiesInvested;
 		this.companiesInterested = (companiesInterested==null)?
 				new ArrayList<String>() : companiesInterested;
-	}
-
-	public Investor(String username, String password, LocalDate dateOfBirth,
-			String firstName, String surname, String email, String telephone,
-			Address address) {
-		this(username, password, dateOfBirth, firstName,
-				surname, email, telephone, address, null, null);
 	}
 
 	public String getUsername() {

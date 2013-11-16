@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
+//import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +18,7 @@ import main.Address;
 import main.Investor;
 import main.ProfileWriter;
 import main.UserExistException;
-import webpageOut.CreateError;
+//import webpageOut.CreateError;
 import webpageOut.ProfileWrite;
 
 //import WriteOut.CreateError;
@@ -26,6 +26,7 @@ import webpageOut.ProfileWrite;
 //Takes values from registration form and creates an Investor object for user
 public class CreateProfile extends HttpServlet {
 
+	private static final long serialVersionUID = -1922391698617055744L;
 	String username = "";
 	String password = "";
 	String firstName = "";
