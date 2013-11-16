@@ -7,9 +7,9 @@ import main.Address;
 import main.Investor;
 
 //Writes HTML showing user information
-public class ProfileWrite extends WriteOut{
+public class ProfileHTML extends WriteOut{
 	
-	public ProfileWrite(PrintWriter out, Investor ip){
+	public ProfileHTML(PrintWriter out, Investor ip){
 		this.out=out;
 		this.title="Investor Profile";
 		writeProfile(ip);

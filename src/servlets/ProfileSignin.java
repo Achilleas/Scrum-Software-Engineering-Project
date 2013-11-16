@@ -4,15 +4,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 //import java.util.Map;
 
+
+
+
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import webpageOut.ProfileHTML;
 import main.Investor;
 import main.ProfileReader;
 import main.ProfileWriter;
 //import webpageOut.ProfileWrite;
+import main.UserExistException;
 
 //Checks username + password entered on login screen
 public class ProfileSignin extends HttpServlet {
@@ -53,6 +61,16 @@ public class ProfileSignin extends HttpServlet {
 			//Check input password against password associated with username in db
 			if (ip.verifyPassword(password)) {
 				System.out.println("Password matches!");
+				//Create Session
+				HttpSession session = servlet_request.getSession(true);
+				Integer accessCount = (Integer)session.getAttribute("accessCount"); 
+				System.out.println("AC: "+accessCount);
+				if (accessCount != null) accessCount +=1;
+				else accessCount = 0;
+				session.setAttribute("accessCount", accessCount); 
+				session.setAttribute("user", ip);
+				
+				ProfileHTML pro = new ProfileHTML(out, ip);			 
 			} else
 				// Password was incorrect
 				servlet_response.sendRedirect("/static/WrongPassword.html");

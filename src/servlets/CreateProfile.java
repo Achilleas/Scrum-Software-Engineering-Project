@@ -19,7 +19,7 @@ import main.Investor;
 import main.ProfileWriter;
 import main.UserExistException;
 //import webpageOut.CreateError;
-import webpageOut.ProfileWrite;
+import webpageOut.ProfileHTML;
 
 //import WriteOut.CreateError;
 
@@ -89,8 +89,8 @@ public class CreateProfile extends HttpServlet {
 		dateOfBirth = dateOfBirth.withYear(Integer.parseInt(value));
 		
 		// =======CONTACT INFO=========
-		email = servlet_request.getParameter("Telephone");
-		telephone = servlet_request.getParameter("Password");
+		email = servlet_request.getParameter("Email");
+		telephone = servlet_request.getParameter("Telephone");
 
 		// =======ADDRESS=========
 		value = servlet_request.getParameter("Line1");
@@ -121,14 +121,14 @@ public class CreateProfile extends HttpServlet {
 		      Integer oldAccessCount =
 		        // Use getAttribute, not getValue, in version
 		        // 2.2 of servlet API.
-		        (Integer)session.getValue("accessCount"); 
+		        (Integer)session.getAttribute("accessCount"); 
 		      if (oldAccessCount != null) {
 		        accessCount =
 		          new Integer(oldAccessCount.intValue() + 1);
 		      }
 		    }
 		    // Use putAttribute in version 2.2 of servlet API.
-		    session.putValue("accessCount", accessCount); 
+		    session.setAttribute("accessCount", accessCount); 
 		      
 		    out.println("<BODY BGCOLOR=\"#FDF5E6\">\n" +
 		                "<H1 ALIGN=\"CENTER\">" + heading + "</H1>\n" +
@@ -155,11 +155,11 @@ public class CreateProfile extends HttpServlet {
 
 	public void createNewProfile(PrintWriter out, HttpSession session) throws IOException {
 			// TODO: Create New Investor Argument
-			Investor ip = new Investor(username, password, dateOfBirth,
+		Investor ip = new Investor(username, password, dateOfBirth,
 					firstName, surname, email, telephone, address,
 					companiesInvested, companiesInterested);
 			session.setAttribute("user", ip);
-			ProfileWrite pro = new ProfileWrite(out, ip);
+			ProfileHTML pro = new ProfileHTML(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
 			try {
 				pw.writeProfile(ip,true);
@@ -171,6 +171,7 @@ public class CreateProfile extends HttpServlet {
 			System.out.println("valid");
 	}
 
+	//Method for parsing companies (given by Strings) from text area input
 	public void parseCompanies(String str, ArrayList<String> list) {
 		if (str == "") {
 			str = "none";
