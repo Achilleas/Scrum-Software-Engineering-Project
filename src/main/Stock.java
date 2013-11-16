@@ -15,6 +15,7 @@ public class Stock {
 	private double close; // Previous close price
 	private int volume;
 	private double marketCap; // market capitalization in billion
+	private boolean recommended=false;
 
 	public Stock(LocalDate date, String stock_id, String stock_name,
 			double latest, double open, double high, double low,
