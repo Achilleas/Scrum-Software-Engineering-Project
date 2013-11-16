@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import main.Investor;
-import webpageOut.Profile;
+import webpageOut.ProfileWrite;
 
 public class Session extends HttpServlet{
 

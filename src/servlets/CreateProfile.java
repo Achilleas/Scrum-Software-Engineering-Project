@@ -19,10 +19,11 @@ import main.Investor;
 import main.ProfileWriter;
 import main.UserExistException;
 import webpageOut.CreateError;
-import webpageOut.Profile;
+import webpageOut.ProfileWrite;
 
 //import WriteOut.CreateError;
 
+//Takes values from registration form and creates an Investor object for user
 public class CreateProfile extends HttpServlet {
 
 	String username = "";
@@ -152,13 +153,12 @@ public class CreateProfile extends HttpServlet {
 		  }
 
 	public void createNewProfile(PrintWriter out, HttpSession session) throws IOException {
-		if (validDetails()) {
 			// TODO: Create New Investor Argument
 			Investor ip = new Investor(username, password, dateOfBirth,
 					firstName, surname, email, telephone, address,
 					companiesInvested, companiesInterested);
 			session.setAttribute("user", ip);
-			Profile pro = new Profile(out, ip);
+			ProfileWrite pro = new ProfileWrite(out, ip);
 			ProfileWriter pw = new ProfileWriter(",");
 			try {
 				pw.writeProfile(ip,true);
@@ -168,10 +168,6 @@ public class CreateProfile extends HttpServlet {
 			}
 			// ip.storeAllDetails();
 			System.out.println("valid");
-		} else {
-			System.out.println("invalid");
-			CreateError ce = new CreateError(out, "Error!!");
-		}
 	}
 
 	public void parseCompanies(String str, ArrayList<String> list) {
@@ -185,6 +181,7 @@ public class CreateProfile extends HttpServlet {
 		}
 	}
 
+	//Removes whitespace from text area input for companies
 	public String removeWhiteSpace(String str) {
 		String[] a = str.split("\\s+");
 		String b = "";
@@ -198,12 +195,5 @@ public class CreateProfile extends HttpServlet {
 		}
 		return b;
 	}
-
-	boolean validDetails() {
-		// TODO: SEE IF entered details are valid
-		if (username.equals("abc"))
-			return false;
-		else
-			return true;
-	}
+	
 }

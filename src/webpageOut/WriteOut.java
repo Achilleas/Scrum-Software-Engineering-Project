@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 public class WriteOut {
 	
+	protected String title;
 	protected PrintWriter out;
 	
 	/**
@@ -14,7 +15,7 @@ public class WriteOut {
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<meta charset=\"utf-8\">");
-		out.println("<title> Individual Details </title>");
+		out.println("<title>"+title+"</title>");
 		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"Style.css\" />");
 		out.println("</head>");
 		out.println("<body>");

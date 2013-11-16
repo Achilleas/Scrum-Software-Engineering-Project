@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import main.Address;
 import main.Investor;
 
-public class Profile extends WriteOut{
+//Writes HTML showing user information
+public class ProfileWrite extends WriteOut{
 	
-	public Profile(PrintWriter out, Investor ip){
+	public ProfileWrite(PrintWriter out, Investor ip){
 		this.out=out;
+		this.title="Investor Profile";
 		writeProfile(ip);
 	}
 
+	//Writes HTML
 	public void writeProfile(Investor ip){
 		htmlStart();
 		if(ip!=null)
@@ -21,6 +24,7 @@ public class Profile extends WriteOut{
 		out.close();
 	}
 	
+	//Writes out all non-empty fields of Address
 	public void printAddress(Address add){
 		for(int i=0; i<6; i++){
 			if(add.getString()[i]!=""){
@@ -30,6 +34,7 @@ public class Profile extends WriteOut{
 		}
 	}
 	
+	//Prints list of companies invested / interested in
 	public void printList(ArrayList<String> list){
 		for(int i=0; i<list.size();i++){
 			if(i==0) out.write("<p>");

@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import main.Investor;
 import main.ProfileReader;
 import main.ProfileWriter;
-import webpageOut.Profile;
+import webpageOut.ProfileWrite;
 
+//Checks username + password entered on login screen
 public class ProfileSignin extends HttpServlet {
 
 	String username = "";
@@ -36,6 +37,7 @@ public class ProfileSignin extends HttpServlet {
 		out = servlet_response.getWriter(); // creates writer
 		// used to send the html page to the client
 
+		//Get username + password parameters
 		username = servlet_request.getParameter("Username");
 		password = servlet_request.getParameter("Password");
 
@@ -44,6 +46,7 @@ public class ProfileSignin extends HttpServlet {
 			ProfileReader pr = new ProfileReader(",");
 			Investor ip = pr.readProfile(username);
 
+			//Check input password against password associated with username in db
 			if (ip.verifyPassword(password)) {
 				System.out.println("Password matches!");
 			} else
