@@ -129,7 +129,8 @@ public class CreateProfile extends HttpServlet {
 		    }
 		    // Use putAttribute in version 2.2 of servlet API.
 		    session.setAttribute("accessCount", accessCount); 
-		      
+		    
+		    //Print Session Info
 		    out.println("<BODY BGCOLOR=\"#FDF5E6\">\n" +
 		                "<H1 ALIGN=\"CENTER\">" + heading + "</H1>\n" +
 		                "<H2>Information on Your Session:</H2>\n" +

@@ -23,6 +23,7 @@ import main.ProfileWriter;
 import main.UserExistException;
 
 //Checks username + password entered on login screen
+//If successful, redirects to user profile page
 public class ProfileSignin extends HttpServlet {
 
 	/**
@@ -62,6 +63,7 @@ public class ProfileSignin extends HttpServlet {
 			if (ip.verifyPassword(password)) {
 				System.out.println("Password matches!");
 				//Create Session
+				System.out.println("PATH: "+servlet_request.getContextPath());
 				HttpSession session = servlet_request.getSession(true);
 				Integer accessCount = (Integer)session.getAttribute("accessCount"); 
 				System.out.println("AC: "+accessCount);
@@ -69,7 +71,6 @@ public class ProfileSignin extends HttpServlet {
 				else accessCount = 0;
 				session.setAttribute("accessCount", accessCount); 
 				session.setAttribute("user", ip);
-				
 				ProfileHTML pro = new ProfileHTML(out, ip);			 
 			} else
 				// Password was incorrect
