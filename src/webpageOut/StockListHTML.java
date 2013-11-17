@@ -15,7 +15,7 @@ public class StockListHTML extends WriteOut {
 		htmlStart();
 		writeHeader();
 		out.println("<p>List of current FTSE 100 Stocks goes here. <br/>");
-		out.println("Users can then click on stock to look at, which will redirect to granurity visualisation. </p>");
+		out.println("Users can then click on stock to look at, which will redirect to granularity visualisation. </p>");
 		htmlEnd();
 	}
 
