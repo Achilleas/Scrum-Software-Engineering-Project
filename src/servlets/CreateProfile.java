@@ -149,7 +149,7 @@ public class CreateProfile extends HttpServlet {
 		createNewProfile(out, session);
 	}
 
-	public void createNewProfile(PrintWriter out, HttpSession session) throws IOException {
+	private void createNewProfile(PrintWriter out, HttpSession session) throws IOException {
 		Investor ip = new Investor(username, password, dateOfBirth, firstName, 
 				surname, email, telephone, address,
 				companiesInvested, companiesInterested);
@@ -167,7 +167,7 @@ public class CreateProfile extends HttpServlet {
 	}
 
 	// Method for parsing companies (given by Strings) from text area input
-	public void parseCompanies(String str, ArrayList<String> list) {
+	private void parseCompanies(String str, ArrayList<String> list) {
 		if (str == "") {
 			str = "none";
 		}
@@ -179,7 +179,7 @@ public class CreateProfile extends HttpServlet {
 	}
 
 	// Removes whitespace from text area input for companies
-	public String removeWhiteSpace(String str) {
+	private String removeWhiteSpace(String str) {
 		String[] a = str.split("\\s+");
 		String b = "";
 		for (int i = 0; i < a.length; i++) {
