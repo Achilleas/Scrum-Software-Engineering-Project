@@ -44,7 +44,7 @@ public class FinanceQuery {
 	 * @param symbol
 	 * @return LinkedList of price information for a given stock
 	 */
-	public LinkedList<Stock> getHistorical(String symbol, LocalDate fromDate, LocalDate toDate,
+	public static LinkedList<Stock> getHistorical(String symbol, LocalDate fromDate, LocalDate toDate,
 			String interval) {
 		File file;
 		CSVParser parser = new CSVParser();
@@ -86,7 +86,7 @@ public class FinanceQuery {
 	 * @param symbol
 	 * @return	linkedList of Stock
 	 */
-	public LinkedList<Stock> getLatestPrice(String symbol) {
+	public static LinkedList<Stock> getLatestPrice(String symbol) {
 		
 		File file;
 		CSVParser parser = new CSVParser();
@@ -106,7 +106,7 @@ public class FinanceQuery {
 	 * @param symbol
 	 * @return
 	 */
-	public File getLatestPriceCSV(String symbol) {
+	public static File getLatestPriceCSV(String symbol) {
 		Validate.notNull(symbol, "symbol can't be null");
 
 		return requestCSVQuote(symbol, DAILY_PRICE_PROP);
@@ -124,7 +124,7 @@ public class FinanceQuery {
 	 * @param interval
 	 * @return
 	 */
-	public File getHistoricalCVS(String symbol, LocalDate fromDate, LocalDate toDate,
+	public static File getHistoricalCVS(String symbol, LocalDate fromDate, LocalDate toDate,
 			String interval){
 		Validate.notNull(symbol, "symbol can't be null");
 		Validate.notNull(fromDate, "fromDate can't be null");
@@ -149,7 +149,7 @@ public class FinanceQuery {
 	}
 
 	// get all component of the stock market index into a String separated by ","
-	public String getComponents(String index) {
+	public static String getComponents(String index) {
 
 		String components = "";
 		
@@ -203,7 +203,7 @@ public class FinanceQuery {
 		return components;
 	}
 
-	private File requestCSVHistorical(String symbol, LocalDate fromDate,
+	private static File requestCSVHistorical(String symbol, LocalDate fromDate,
 			LocalDate toDate, String interval) {
 
 		final String STATIC_PART = "&ignore=.csv";
@@ -251,7 +251,7 @@ public class FinanceQuery {
 		return file;
 	}
 
-	private File requestCSVQuote(String symbol, String properties) {
+	private static File requestCSVQuote(String symbol, String properties) {
 
 		final String STATIC_PART = "&e=.csv";
 

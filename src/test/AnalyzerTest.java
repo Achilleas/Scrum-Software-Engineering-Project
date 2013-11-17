@@ -1,6 +1,9 @@
 package test;
 
 import java.util.ArrayList;
+
+import main.Analyzer;
+import main.HtmlWriter;
 import main.Investor;
 
 import org.junit.Test;
@@ -13,13 +16,16 @@ public class AnalyzerTest {
 	Investor user;
 	String password="123";
 	@Test
-	public void test() {
-		String file = "example_table.csv";
-		/* TODO: Add more argument to the constructor
-		Investor user=new Investor("Qiao","Kang","123"); 
-		Analyzer analyzer=new Analyzer(user,file,";");
+	public void normalTest(){
+		Analyzer analyzer = new Analyzer( ",");
 		analyzer.analyze();
-		System.out.println(analyzer.report(Analyzer.HIGH_GRANULARITY)); */
+		HtmlWriter html = new HtmlWriter("Analysis");
+		html.append(HtmlWriter.getCSS());
+		html.append(HtmlWriter.getJavaScript());
+		html.closeHead();
+		html.append(analyzer.report(new Investor(),Analyzer.HIGH_GRANULARITY));
+		html.append("<button type=\"button\" onclick=\"ChangeStyle();\">Highlight</button>");
+		html.closeHtml();
+		System.out.println(html.getContent());
 	}
-
 }

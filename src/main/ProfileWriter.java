@@ -85,8 +85,8 @@ public class ProfileWriter {
 			/*
 			 * Write everything!
 			 */
-			writeString(user.getSurname(),Investor.FIRSTNAME);
-			writeString(user.getFirstName(),Investor.SURNAME);
+			writeString(user.getSurname(),Investor.SURNAME);
+			writeString(user.getFirstName(),Investor.FIRSTNAME);
 			writeString(user.getPassword(),Investor.PASSWORD);
 			writeString(user.getEmail(),Investor.EMAIL);
 			writeString(user.getTelephone(),Investor.TELEPHONE);
