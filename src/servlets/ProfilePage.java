@@ -46,9 +46,10 @@ public class ProfilePage extends HttpServlet{
 			Investor investor = (Investor) session.getAttribute("user");
 			
 			ProfileHTML pro = new ProfileHTML(out, investor);
+			out.write("<input type=\"button\" value=\"Sign Out\" onclick=\"location.href='/servlets/signout';\">");
 			out.close(); 
+		} else {
+			servlet_response.sendRedirect("/static/HomePage.html");	
 		}
 	}
-
-	
 }

@@ -22,7 +22,6 @@ public class ProfileHTML extends WriteOut{
 		if(ip!=null)
 			writeDetails(ip);
 		htmlEnd();
-		out.close();
 	}
 	
 	//Writes out all non-empty fields of Address

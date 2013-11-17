@@ -28,6 +28,7 @@ public class JettyServer {
 		handler2.addServlet(new ServletHolder(new Session()), "/session");
 		handler2.addServlet(new ServletHolder(new CheckUsername()), "/user-check");
 		handler2.addServlet(new ServletHolder(new ProfilePage()), "/profile");
+		handler2.addServlet(new ServletHolder(new SignOut()), "/signout");
 		
 		HandlerList handlers = new HandlerList(); //stores all the handlers in an array
 		handlers.setHandlers(new Handler[] { handler1, handler2 });
