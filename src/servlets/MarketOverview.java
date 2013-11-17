@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import main.Investor;
+import webpageOut.OverviewHTML;
 import webpageOut.ProfileHTML;
 
-import main.Investor;
-
-public class ProfilePage extends HttpServlet {
+public class MarketOverview  extends HttpServlet {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -845318471326546043L;
-	PrintWriter out;	
+	private static final long serialVersionUID = -7429721582887832078L;
+	PrintWriter out;
 	
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
@@ -31,7 +31,6 @@ public class ProfilePage extends HttpServlet {
 			HttpServletResponse servlet_response) throws IOException {
 		
 		HttpSession session = servlet_request.getSession(false);
-		//System.out.println(session);
 		
 		if(session!=null && session.getAttribute("user")!=null){
 			servlet_response.setContentType("text/html"); //the response will be of the type html
@@ -40,13 +39,11 @@ public class ProfilePage extends HttpServlet {
 			out = servlet_response.getWriter(); //creates writer
 			//used to send the html page to the client
 			
-			
-			Investor investor = (Investor) session.getAttribute("user");
-			
-			ProfileHTML pro = new ProfileHTML(out, investor);
-			out.close(); 
+			OverviewHTML o = new OverviewHTML(out); //Write HTML
+			out.close();
 		} else {
 			servlet_response.sendRedirect("/static/HomePage.html");	
 		}
 	}
+
 }

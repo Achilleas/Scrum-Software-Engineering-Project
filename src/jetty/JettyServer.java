@@ -29,6 +29,8 @@ public class JettyServer {
 		handler2.addServlet(new ServletHolder(new CheckUsername()), "/user-check");
 		handler2.addServlet(new ServletHolder(new ProfilePage()), "/profile");
 		handler2.addServlet(new ServletHolder(new SignOut()), "/signout");
+		handler2.addServlet(new ServletHolder(new MarketOverview()), "/overview");
+		handler2.addServlet(new ServletHolder(new StockChooser()), "/stocks");
 		
 		/*WebAppContext handler3 = new WebAppContext();
 		handler1.setContextPath("/jsp");

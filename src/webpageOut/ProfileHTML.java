@@ -19,6 +19,7 @@ public class ProfileHTML extends WriteOut{
 	//Writes HTML
 	public void writeProfile(Investor ip){
 		htmlStart();
+		writeHeader();
 		if(ip!=null)
 			writeDetails(ip);
 		htmlEnd();
