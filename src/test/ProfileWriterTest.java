@@ -4,7 +4,6 @@ import main.*;
 
 import org.joda.time.LocalDate;
 import org.junit.*;
-
 public class ProfileWriterTest {
 	String username = "QK";
 	String firstName = "Qiao";
