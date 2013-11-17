@@ -52,7 +52,6 @@ public class ProfileSignin extends HttpServlet {
 
 			//Check input password against password associated with username in db
 			if (investor.verifyPassword(password)) {
-				System.out.println("Password matches!");
 				//Create Session
 				System.out.println("PATH: "+servlet_request.getContextPath());
 				HttpSession session = servlet_request.getSession(true);

@@ -38,5 +38,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/servlet-api-3.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jsp/javax.el-2.2.0.v201108011116.jar"/>
+	<classpathentry kind="lib" path="lib/jsp/javax.servlet.jsp-2.2.0.v201112011158.jar"/>
+	<classpathentry kind="lib" path="lib/jsp/org.apache.jasper.glassfish-2.2.2.v201112011158.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

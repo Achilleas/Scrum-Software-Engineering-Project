@@ -3,7 +3,6 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +16,6 @@ import main.Address;
 import main.Investor;
 import main.ProfileWriter;
 import main.UserExistException;
-import webpageOut.ProfileHTML;
 
 //Takes values from registration form and creates an Investor object for user
 public class CreateProfile extends HttpServlet {
@@ -126,7 +124,7 @@ public class CreateProfile extends HttpServlet {
 		session.setAttribute("accessCount", accessCount);
 
 		// Print Session Info
-	    out.println("<BODY BGCOLOR=\"#FDF5E6\">\n" +
+	    /*out.println("<BODY BGCOLOR=\"#FDF5E6\">\n" +
 	                "<H1 ALIGN=\"CENTER\">" + heading + "</H1>\n" +
 	                "<H2>Information on Your Session:</H2>\n" +
 	                "<TABLE BORDER=1 ALIGN=CENTER>\n" +
@@ -145,16 +143,16 @@ public class CreateProfile extends HttpServlet {
 	                "  <TD>Number of Previous Accesses\n" +
 	                "  <TD>" + accessCount + "\n" +
 	                "</TABLE>\n" +
-	                "</BODY></HTML>");
-		createNewProfile(out, session);
+	                "</BODY></HTML>");*/
+		Investor ip = createNewProfile(out, session);
+		session.setAttribute("user", ip);
+		servlet_response.sendRedirect("/servlets/profile");
 	}
 
-	private void createNewProfile(PrintWriter out, HttpSession session) throws IOException {
+	private Investor createNewProfile(PrintWriter out, HttpSession session) throws IOException {
 		Investor ip = new Investor(username, password, dateOfBirth, firstName, 
 				surname, email, telephone, address,
 				companiesInvested, companiesInterested);
-		session.setAttribute("user", ip);
-		ProfileHTML pro = new ProfileHTML(out, ip);
 		ProfileWriter pw = new ProfileWriter(",");
 		try {
 			pw.writeProfile(ip, true);
@@ -164,6 +162,7 @@ public class CreateProfile extends HttpServlet {
 		}
 		// ip.storeAllDetails();
 		System.out.println("valid");
+		return ip;
 	}
 
 	// Method for parsing companies (given by Strings) from text area input
