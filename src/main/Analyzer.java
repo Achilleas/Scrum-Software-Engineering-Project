@@ -2,7 +2,7 @@ package main;
 
 import java.util.*;
 import org.joda.time.LocalDate;
-
+import static main.Constants.*;
 /**
  * ---------------------------------------------------------------------------------------------------------------------------
  * @author Qiao
@@ -20,7 +20,7 @@ public class Analyzer {
 	private String[] indices;
 
 	public Analyzer(String separator) {
-		indices = FinanceQuery.getComponents(Constants.FTSE100)
+		indices = FinanceQuery.getComponents(FTSE100)
 				.split(separator);
 		profitables = new ArrayList<String>();
 		/*

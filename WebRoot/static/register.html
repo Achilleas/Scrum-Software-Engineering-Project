@@ -35,25 +35,12 @@
 		return true;
 	}
 	</script>
+	<script type="text/javascript" src="./javascript/check-session-ajax.js"></script>
 	<script type="text/javascript" src="./javascript/date-util.js"></script>
 	<script type="text/javascript" src="./javascript/date-chooser.js"></script>
 	<script type="text/javascript" src="./javascript/user-ajax.js"></script>
 </head>
-<body>
-
-<script type="text/javascript">
-	   var request = new XMLHttpRequest();
-	   request.open("GET","/servlets/session");
-	     
-		request.onreadystatechange = function(){
-			if(request.readyState === XMLHttpRequest.DONE && request.status === 200){
-				if(request.responseText!="")
-					document.write(request.responseText);
-			}
-	   }
-		 
-	   request.send();
-</script>
+<body onload="checkSession(); init();">
 
 <div id="header" style="text-align:left; background-color:#71C6E2">
 <h1>User Registration Form</h1></div>
@@ -61,7 +48,7 @@
 <p>Please fill in all fields to create your profile</p>
 <p>All fields marked with a <span class="req">*</span> must be filled in</p>
 
-<form name="form1" onsubmit="return validate()" method="post" action ="/servlets/profile">
+<form name="form1" onsubmit="return validate()" method="post" action ="/servlets/register">
 
 <p><span class="top">Username</span>
 	<span class="req">*</span>

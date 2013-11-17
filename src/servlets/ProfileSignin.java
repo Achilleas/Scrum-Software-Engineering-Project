@@ -57,10 +57,10 @@ public class ProfileSignin extends HttpServlet {
 		// Check User account exists
 		if (ProfileWriter.checkDuplication(username)) {
 			ProfileReader pr = new ProfileReader(",");
-			Investor ip = pr.readProfile(username);
+			Investor investor = pr.readProfile(username);
 
 			//Check input password against password associated with username in db
-			if (ip.verifyPassword(password)) {
+			if (investor.verifyPassword(password)) {
 				System.out.println("Password matches!");
 				//Create Session
 				System.out.println("PATH: "+servlet_request.getContextPath());
@@ -70,8 +70,8 @@ public class ProfileSignin extends HttpServlet {
 				if (accessCount != null) accessCount +=1;
 				else accessCount = 0;
 				session.setAttribute("accessCount", accessCount); 
-				session.setAttribute("user", ip);
-				ProfileHTML pro = new ProfileHTML(out, ip);			 
+				session.setAttribute("user", investor);
+				servlet_response.sendRedirect("/servlets/profile");			 
 			} else
 				// Password was incorrect
 				servlet_response.sendRedirect("/static/WrongPassword.html");

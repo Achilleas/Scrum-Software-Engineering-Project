@@ -16,7 +16,7 @@ public class WriteOut {
 		out.println("<head>");
 		out.println("<meta charset=\"utf-8\">");
 		out.println("<title>"+title+"</title>");
-		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"/servlets/Style.css\" />");
+		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"../static/Style.css\" />");
 		out.println("</head>");
 		out.println("<body>");
 	}

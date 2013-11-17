@@ -1,5 +1,4 @@
-window.onload = init;
- 
+
 // Global variables for the currently selected year, month and day
 var selectedYear;   // 4-digit year
 var selectedMonth;  // 1 to 12 for Jan to Dec
@@ -7,6 +6,7 @@ var selectedDay;    // 1 to 31
  
 // The "onload" handler, runs after the page is fully loaded.
 function init() {
+
 	setToday();      // Set global variables
 	updateYearOption();
 	updateDisplay();

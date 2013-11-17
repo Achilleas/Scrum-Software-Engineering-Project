@@ -19,11 +19,8 @@ public class Session extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = -5175782808795911731L;
-	String username = "";
-	String password = "";
 	PrintWriter out;
 			
-	
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
@@ -33,10 +30,10 @@ public class Session extends HttpServlet{
 	
 	private void processRequest(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws IOException {
-		HttpSession s = servlet_request.getSession(false);
-		System.out.println(s);
+		HttpSession session = servlet_request.getSession(false);
+		System.out.println(session);
 		
-		if(s!=null){
+		if(session!=null){
 			
 		
 		servlet_response.setContentType("text/plain"); //the response will be of the type html
@@ -46,7 +43,7 @@ public class Session extends HttpServlet{
 		//used to send the html page to the client
 		
 		
-		Investor ip = (Investor) s.getAttribute("user");
+		Investor ip = (Investor) session.getAttribute("user");
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		out.println("<head>");
