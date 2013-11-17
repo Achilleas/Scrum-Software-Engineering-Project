@@ -2,12 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-//import java.util.Map;
-
-
-
-
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import webpageOut.ProfileHTML;
 import main.Investor;
 import main.ProfileReader;
 import main.ProfileWriter;
-//import webpageOut.ProfileWrite;
-import main.UserExistException;
 
 //Checks username + password entered on login screen
 //If successful, redirects to user profile page

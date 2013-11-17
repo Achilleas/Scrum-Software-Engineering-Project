@@ -1,7 +1,5 @@
 package main;
 
-//import java.util.LinkedList;
-
 import jetty.JettyServer;
 
 public class Main {
@@ -11,5 +9,4 @@ public class Main {
 		JettyServer js = new JettyServer();
 		js.run(args);
 	}
-
 }
