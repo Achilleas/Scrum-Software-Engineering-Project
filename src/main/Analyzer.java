@@ -47,6 +47,10 @@ public class Analyzer {
 		}
 		return result / divisor;
 	}
+	/**
+	 * Store both the one week's and two week's averages of a single share into the field.
+	 * @param index
+	 */
 	private void analyze(String index){
 		LinkedList<Stock> two_week_prices = FinanceQuery.getHistorical(
 				index, two_week_history, today,
@@ -57,10 +61,10 @@ public class Analyzer {
 		one_week_average = calculateDailyAverage(one_week_prices);
 		two_week_average = calculateDailyAverage(two_week_prices);
 	}
-	/*
-	 * The actual process that can calculate and analyze the shares being
-	 * received based on user's interest.
-	 */
+/**
+ * Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
+ * This method can process historical analysis before users' requests.
+ */
 	public void analyze() {
 		for (int i = 0; i < indices.length; i++) {
 			System.out.println("Processing " + indices[i]);
@@ -72,7 +76,9 @@ public class Analyzer {
 			}
 		}
 	}
-
+/**
+ * Check if a share has been marked profitable
+ */
 	private boolean isProfitable(String index) {
 		for (int i = 0; i < profitables.size(); i++) {
 			if (index.equals(profitables.get(i))) {
@@ -83,17 +89,18 @@ public class Analyzer {
 	}
 
 	/**
-	 * Display the result in html format after the analysis is done. The level
-	 * of granularity is specified and it will determine the format of result.
-	 * To have an overview of the entire market, the index is set to be null To
-	 * generate report about a specific share, the index should be the index of
+	 * Display the result in html format after the analysis is done.
+	 * To have an overview of the entire market, the index is set to be null
+	 * To generate report about a specific share, the index should be the index of
 	 * that share.
+	 * Note that you must call analyze method before passing the null parameter, otherwise the report contains nothing!
 	 */
-	public String report(Investor user,String index) {
+	private String report(Investor user,String index) {
 		ArrayList<String> matches=new ArrayList<String>();
 		if(index==null){
 			boolean suggested=true;
-			result = "<h1>Market overview</h1><h2>All shares</h2>" + "<table>" + "<tr>"
+			result = "<h1>Market overview</h1><h2>All shares</h2>"
+					+"<button type=\"button\" onclick=\"ChangeStyle();\">Highlight</button>"+ "<table>" + "<tr>"
 					+ "<th>Index</th>" + "<th>Comment</th>" + "<th>If invested</th>" + "<th>Your preference</th>"
 					+ "</tr><tr>";
 			for (int i = 0; i < indices.length; i++) {
@@ -147,7 +154,8 @@ public class Analyzer {
 			}
 		}else{
 			analyze(index);
-			result = "<h1>Analysis about a single stock</h1>" + "<table>"
+			result = "<h1>Analysis of a single stock</h1>"
+					+"<button type=\"button\" onclick=\"ChangeStyle();\">Highlight</button>"+ "<table>"
 			+ "<tr>"+ "<th>Index</th>"+ "<th>Two weeks' average</th>" + "<th>One weeks' average</th>" + "<th>If invested</th>" + "<th>Your preference</th>"
 					+ "</tr><tr>";
 			if (one_week_average>two_week_average) {
@@ -168,7 +176,17 @@ public class Analyzer {
 			} else {
 				result+=  "<td>Not interested in</td>";
 			}
+			result+="</table>";
 		}
 		return result;
+	}
+	public String getFullReport(Investor user,String index){
+		HtmlWriter html = new HtmlWriter("Analysis");
+		html.append(HtmlWriter.getCSS());
+		html.append(HtmlWriter.getJavaScript());
+		html.closeHead();
+		html.append(report(user,index));
+		html.closeHtml();
+		return html.getContent();
 	}
 }
