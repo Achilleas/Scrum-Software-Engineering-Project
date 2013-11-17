@@ -36,7 +36,6 @@ public class ProfileWriterTest {
 		try {
 			pw.writeProfile("example.txt", user,true);
 		} catch (UserExistException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ProfileReader pr=new ProfileReader(",");

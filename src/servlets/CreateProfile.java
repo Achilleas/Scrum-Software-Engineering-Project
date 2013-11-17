@@ -51,16 +51,15 @@ public class CreateProfile extends HttpServlet {
 	private void processRequest(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws IOException {
 		HttpSession session = servlet_request.getSession(true);
-		
 		String value;
 		
-		servlet_response.setContentType("text/html"); // the response will be of
-														// the type html
-		servlet_response.setStatus(HttpServletResponse.SC_OK); // and the HTTP
-																// response code
+		// the response will be of the type html
+		servlet_response.setContentType("text/html");
+		// and the HTTP response code
+		servlet_response.setStatus(HttpServletResponse.SC_OK);
 
-		PrintWriter out = servlet_response.getWriter(); // creates writer
-		// used to send the html page to the client
+		// creates writer used to send the html page to the client
+		PrintWriter out = servlet_response.getWriter(); 
 
 		address = new Address();
         dateOfBirth = new LocalDate();
@@ -108,67 +107,66 @@ public class CreateProfile extends HttpServlet {
 		value = servlet_request.getParameter("Interested");
 		parseCompanies(value, companiesInterested);
 		
-		 String heading;
-		    Integer accessCount = new Integer(0);;
-		    if (session.isNew()) {
-		      heading = "Welcome, Newcomer";
-		    } else {
-		      heading = "Welcome Back";
-		      Integer oldAccessCount =
-		        // Use getAttribute, not getValue, in version
-		        // 2.2 of servlet API.
-		        (Integer)session.getAttribute("accessCount"); 
-		      if (oldAccessCount != null) {
-		        accessCount =
-		          new Integer(oldAccessCount.intValue() + 1);
-		      }
-		    }
-		    // Use putAttribute in version 2.2 of servlet API.
-		    session.setAttribute("accessCount", accessCount); 
-		    
-		    //Print Session Info
-		    out.println("<BODY BGCOLOR=\"#FDF5E6\">\n" +
-		                "<H1 ALIGN=\"CENTER\">" + heading + "</H1>\n" +
-		                "<H2>Information on Your Session:</H2>\n" +
-		                "<TABLE BORDER=1 ALIGN=CENTER>\n" +
-		                "<TR BGCOLOR=\"#FFAD00\">\n" +
-		                "  <TH>Info Type<TH>Value\n" +
-		                "<TR>\n" +
-		                "  <TD>ID\n" +
-		                "  <TD>" + session.getId() + "\n" +
-		                "<TR>\n" +
-		                "  <TD>Creation Time\n" +
-		                "  <TD>" + new Date(session.getCreationTime()) + "\n" +
-		                "<TR>\n" +
-		                "  <TD>Time of Last Access\n" +
-		                "  <TD>" + new Date(session.getLastAccessedTime()) + "\n" +
-		                "<TR>\n" +
-		                "  <TD>Number of Previous Accesses\n" +
-		                "  <TD>" + accessCount + "\n" +
-		                "</TABLE>\n" +
-		                "</BODY></HTML>");
-		    createNewProfile(out, session);
-		  }
-
-	public void createNewProfile(PrintWriter out, HttpSession session) throws IOException {
-			// TODO: Create New Investor Argument
-		Investor ip = new Investor(username, password, dateOfBirth,
-					firstName, surname, email, telephone, address,
-					companiesInvested, companiesInterested);
-			session.setAttribute("user", ip);
-			ProfileHTML pro = new ProfileHTML(out, ip);
-			ProfileWriter pw = new ProfileWriter(",");
-			try {
-				pw.writeProfile(ip,true);
-			} catch (UserExistException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		String heading;
+		Integer accessCount = new Integer(0);
+		
+		if (session.isNew()) {
+			heading = "Welcome, Newcomer";
+		} else {
+			heading = "Welcome Back";
+			Integer oldAccessCount =
+			// Use getAttribute, not getValue, in version
+			// 2.2 of servlet API.
+			(Integer) session.getAttribute("accessCount");
+			if (oldAccessCount != null) {
+				accessCount = new Integer(oldAccessCount.intValue() + 1);
 			}
-			// ip.storeAllDetails();
-			System.out.println("valid");
+		}
+		// Use putAttribute in version 2.2 of servlet API.
+		session.setAttribute("accessCount", accessCount);
+
+		// Print Session Info
+	    out.println("<BODY BGCOLOR=\"#FDF5E6\">\n" +
+	                "<H1 ALIGN=\"CENTER\">" + heading + "</H1>\n" +
+	                "<H2>Information on Your Session:</H2>\n" +
+	                "<TABLE BORDER=1 ALIGN=CENTER>\n" +
+	                "<TR BGCOLOR=\"#FFAD00\">\n" +
+	                "  <TH>Info Type<TH>Value\n" +
+	                "<TR>\n" +
+	                "  <TD>ID\n" +
+	                "  <TD>" + session.getId() + "\n" +
+	                "<TR>\n" +
+	                "  <TD>Creation Time\n" +
+	                "  <TD>" + new Date(session.getCreationTime()) + "\n" +
+	                "<TR>\n" +
+	                "  <TD>Time of Last Access\n" +
+	                "  <TD>" + new Date(session.getLastAccessedTime()) + "\n" +
+	                "<TR>\n" +
+	                "  <TD>Number of Previous Accesses\n" +
+	                "  <TD>" + accessCount + "\n" +
+	                "</TABLE>\n" +
+	                "</BODY></HTML>");
+		createNewProfile(out, session);
 	}
 
-	//Method for parsing companies (given by Strings) from text area input
+	public void createNewProfile(PrintWriter out, HttpSession session) throws IOException {
+		Investor ip = new Investor(username, password, dateOfBirth, firstName, 
+				surname, email, telephone, address,
+				companiesInvested, companiesInterested);
+		session.setAttribute("user", ip);
+		ProfileHTML pro = new ProfileHTML(out, ip);
+		ProfileWriter pw = new ProfileWriter(",");
+		try {
+			pw.writeProfile(ip, true);
+		} catch (UserExistException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// ip.storeAllDetails();
+		System.out.println("valid");
+	}
+
+	// Method for parsing companies (given by Strings) from text area input
 	public void parseCompanies(String str, ArrayList<String> list) {
 		if (str == "") {
 			str = "none";
@@ -180,7 +178,7 @@ public class CreateProfile extends HttpServlet {
 		}
 	}
 
-	//Removes whitespace from text area input for companies
+	// Removes whitespace from text area input for companies
 	public String removeWhiteSpace(String str) {
 		String[] a = str.split("\\s+");
 		String b = "";
@@ -194,5 +192,4 @@ public class CreateProfile extends HttpServlet {
 		}
 		return b;
 	}
-	
 }
