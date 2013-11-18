@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.joda.time.LocalDate;
 
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+
 import static main.Constants.*;
 
 /**
@@ -34,30 +36,30 @@ public class Analyzer {
 	private HashMap<String,StockAnalysis> table;
 	private LocalDate today;
 	private LocalDate two_week_history;
-	private LocalDate one_week_history;
+	private LocalDate four_week_history;
 	private LinkedList<Stock> two_week_prices;
-	private LinkedList<Stock> one_week_prices;
+	private LinkedList<Stock> four_week_prices;
 	public Analyzer(String separator) {
 		indices = FinanceQuery.getComponents(FTSE100).split(separator);
 		profitables = new ArrayList<String>();
 		today = new LocalDate();
 		two_week_history = today.minusWeeks(2);
-		one_week_history = today.minusWeeks(1);
+		four_week_history = today.minusWeeks(4);
 		analysis_list=new ArrayList<StockAnalysis>();
 		table=new HashMap<String,StockAnalysis>();
 	}
 	public StockAnalysis getAnalysis(String index){
+		 four_week_prices = FinanceQuery.getHistorical(
+					index, four_week_history, today,
+					Constants.DAILY_INTERVAL);
 		 two_week_prices = FinanceQuery.getHistorical(
 					index, two_week_history, today,
 					Constants.DAILY_INTERVAL);
-		 one_week_prices = FinanceQuery.getHistorical(
-					index, one_week_history, today,
-					Constants.DAILY_INTERVAL);
-		if(two_week_prices==null||one_week_prices==null){
+		if(two_week_prices==null||four_week_prices==null){
 			return null;
 		}
 		StockAnalysis analysis=new StockAnalysis(index);
-		analysis.analyze(one_week_prices,two_week_prices);
+		analysis.analyze(two_week_prices,four_week_prices);
 		return analysis;
 	}
 /**
@@ -88,10 +90,10 @@ public class Analyzer {
 				continue;
 			}
 			if (suggested=analysis.getAverageResult()||analysis.getGradientResult()) {
-				result+= "<td class=\"Header\">"+indices[i]+"</td>"
+				result+= "<td class=\"Header\">"+"<a href=\""+indices[i]+"\">"+indices[i]+"</a></td>"
 						+"<td class=\"Header\">"+analysis.getComment()+"</td>";
 			} else {
-				result+= "<td>"+indices[i]+"</td>"
+				result+= "<td>"+"<a href=\""+indices[i]+"\">"+indices[i]+"</a></td>"
 						+"<td>"+analysis.getComment()+"</td>";
 			}
 			if(suggested){
@@ -152,9 +154,9 @@ public class Analyzer {
 		+ "<tr>"+ "<th>Index</th>"+ "<th>Two weeks' average</th>" + "<th>One weeks' average</th>"+ "<th>Two weeks' gradient</th>" + "<th>One weeks' gradient</th>" + "<th>If invested</th>" + "<th>Your preference</th>"
 				+ "</tr><tr>";
 		if (analysis.getAverageResult()||analysis.getGradientResult()) {
-			result+= "<td class=\"Header\">"+index+"</td>";
+			result+= "<td class=\"Header\">"+"<a href=\""+index+"\">"+index+"</a></td>";
 		} else {
-			result+= "<td>"+index+"</td>";
+			result+= "<td>"+"<a href=\""+index+"\">"+index+"</a></td>";
 		}
 		result+="<td>"
 				+analysis.getSecondAverage()+"</td><td>"
