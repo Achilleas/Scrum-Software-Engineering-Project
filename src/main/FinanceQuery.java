@@ -300,7 +300,6 @@ public class FinanceQuery {
 		try {
 			FileUtils.copyURLToFile(url, file);
 		} catch (IOException e) {
-			System.err.println("Failed to get the file from the url");
 			return null;
 		}
 		return file;
