@@ -1,7 +1,11 @@
 package main;
 
 import java.util.*;
+
 import org.joda.time.LocalDate;
+
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+
 import static main.Constants.*;
 
 /**
@@ -21,8 +25,8 @@ public class Analyzer {
 	private String result;
 	private ArrayList<String> profitables;
 	private String[] indices;
-	private double one_week_average;
-	private double two_week_average;
+	private ArrayList<StockAnalysis> analysis_list;
+	private HashMap<String,StockAnalysis> table;
 	LocalDate today;
 	LocalDate two_week_history;
 	LocalDate one_week_history;
@@ -32,34 +36,7 @@ public class Analyzer {
 		today = new LocalDate();
 		two_week_history = today.minusWeeks(2);
 		one_week_history = today.minusWeeks(1);
-	}
-
-	/**
-	 * Calculate the average of a list of prices
-	 */
-	private double calculateDailyAverage(LinkedList<Stock> prices) {
-		double result = 0;
-		int divisor = prices.size();
-		for (int i = 0; i < divisor; i++) {
-			Stock price = prices.pollFirst();
-			result += price.getClose();
-			// System.out.println(price.getClose());
-		}
-		return result / divisor;
-	}
-	/**
-	 * Store both the one week's and two week's averages of a single share into the field.
-	 * @param index
-	 */
-	private void analyze(String index){
-		LinkedList<Stock> two_week_prices = FinanceQuery.getHistorical(
-				index, two_week_history, today,
-				Constants.DAILY_INTERVAL);
-		LinkedList<Stock> one_week_prices = FinanceQuery.getHistorical(
-				index, one_week_history, today,
-				Constants.DAILY_INTERVAL);
-		one_week_average = calculateDailyAverage(one_week_prices);
-		two_week_average = calculateDailyAverage(two_week_prices);
+		analysis_list=new ArrayList<StockAnalysis>();
 	}
 /**
  * Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
@@ -68,24 +45,16 @@ public class Analyzer {
 	public void analyze() {
 		for (int i = 0; i < indices.length; i++) {
 			System.out.println("Processing " + indices[i]);
-			analyze(indices[i]);
-			if (two_week_average < one_week_average) {
-				profitables.add(indices[i]);
-				System.out.println("One week: " + one_week_average
-						+ " Two week: " + two_week_average);
-			}
+			LinkedList<Stock> two_week_prices = FinanceQuery.getHistorical(
+					indices[i], two_week_history, today,
+					Constants.DAILY_INTERVAL);
+			LinkedList<Stock> one_week_prices = FinanceQuery.getHistorical(
+					indices[i], one_week_history, today,
+					Constants.DAILY_INTERVAL);
+			StockAnalysis analysis=new StockAnalysis(indices[i]);
+			analysis.analyze(one_week_prices,two_week_prices);
+			table.put(indices[i], analysis);
 		}
-	}
-/**
- * Check if a share has been marked profitable
- */
-	private boolean isProfitable(String index) {
-		for (int i = 0; i < profitables.size(); i++) {
-			if (index.equals(profitables.get(i))) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**
@@ -105,13 +74,13 @@ public class Analyzer {
 					+ "</tr><tr>";
 			for (int i = 0; i < indices.length; i++) {
 				suggested=true;
-				if (isProfitable(indices[i])) {
+				StockAnalysis analysis=table.get(indices[i]);
+				if (suggested=analysis.getAverageResult()||analysis.getAverageResult()) {
 					result+= "<td class=\"Header\">"+indices[i]+"</td>"
-							+"<td class=\"Header\">Profitable based on two weeks' analysis.</td>";
+							+"<td class=\"Header\">"+analysis.getComment()+"</td>";
 				} else {
 					result+= "<td>"+indices[i]+"</td>"
-							+"<td>No comment</td>";
-					suggested=false;
+							+"<td>"+analysis.getComment()+"</td>";
 				}
 				if(suggested){
 					if(user.isInvested(indices[i])){
@@ -139,7 +108,7 @@ public class Analyzer {
 					}
 				}
 				result+= "</tr>";
-				if(suggested){
+				if(suggested&&analysis.getAverageResult()&&analysis.getAverageResult()){
 					matches.add(indices[i]);
 				}
 			}
@@ -153,19 +122,34 @@ public class Analyzer {
 				result+="<h2>Based on your profile, there is no recommendation.</h2>";
 			}
 		}else{
-			analyze(index);
+			StockAnalysis analysis;
+			if(table.isEmpty()){
+				analysis=new StockAnalysis(index);
+				LinkedList<Stock> two_week_prices = FinanceQuery.getHistorical(
+						index, two_week_history, today,
+						Constants.DAILY_INTERVAL);
+				LinkedList<Stock> one_week_prices = FinanceQuery.getHistorical(
+						index, one_week_history, today,
+						Constants.DAILY_INTERVAL);
+				analysis.analyze(one_week_prices, two_week_prices);
+			}else{
+				analysis=table.get(index);
+			}
 			result = "<h1>Analysis of a single stock</h1>"
 					+"<button type=\"button\" onclick=\"ChangeStyle();\">Highlight</button>"+ "<table>"
-			+ "<tr>"+ "<th>Index</th>"+ "<th>Two weeks' average</th>" + "<th>One weeks' average</th>" + "<th>If invested</th>" + "<th>Your preference</th>"
+			+ "<tr>"+ "<th>Index</th>"+ "<th>Two weeks' average</th>" + "<th>One weeks' average</th>"+ "<th>Two weeks' gradient</th>" + "<th>One weeks' gradient</th>" + "<th>If invested</th>" + "<th>Your preference</th>"
 					+ "</tr><tr>";
-			if (one_week_average>two_week_average) {
+			if (analysis.getAverageResult()||analysis.getGradientResult()) {
 				result+= "<td class=\"Header\">"+index+"</td>";
 			} else {
 				result+= "<td>"+index+"</td>";
 			}
 			result+="<td>"
-					+two_week_average+"</td><td>"
-					+one_week_average+"</td>";
+					+analysis.getSecondAverage()+"</td><td>"
+					+analysis.getFirstAverage()+"</td>";
+			result+="<td>"
+					+analysis.getSecondGradient()+"</td><td>"
+					+analysis.getFirstAverage()+"</td>";
 			if (user.isInvested(index)) {
 				result+= "<td>You have invested this stock</td>";
 			} else {
