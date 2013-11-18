@@ -27,9 +27,11 @@ public class Analyzer {
 	private String[] indices;
 	private ArrayList<StockAnalysis> analysis_list;
 	private HashMap<String,StockAnalysis> table;
-	LocalDate today;
-	LocalDate two_week_history;
-	LocalDate one_week_history;
+	private LocalDate today;
+	private LocalDate two_week_history;
+	private LocalDate one_week_history;
+	private LinkedList<Stock> two_week_prices;
+	private LinkedList<Stock> one_week_prices;
 	public Analyzer(String separator) {
 		indices = FinanceQuery.getComponents(FTSE100).split(separator);
 		profitables = new ArrayList<String>();
@@ -37,6 +39,21 @@ public class Analyzer {
 		two_week_history = today.minusWeeks(2);
 		one_week_history = today.minusWeeks(1);
 		analysis_list=new ArrayList<StockAnalysis>();
+		table=new HashMap<String,StockAnalysis>();
+	}
+	public StockAnalysis getAnalysis(String index){
+		 two_week_prices = FinanceQuery.getHistorical(
+					index, two_week_history, today,
+					Constants.DAILY_INTERVAL);
+		 one_week_prices = FinanceQuery.getHistorical(
+					index, one_week_history, today,
+					Constants.DAILY_INTERVAL);
+		if(two_week_prices==null||one_week_prices==null){
+			return null;
+		}
+		StockAnalysis analysis=new StockAnalysis(index);
+		analysis.analyze(one_week_prices,two_week_prices);
+		return analysis;
 	}
 /**
  * Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
@@ -44,21 +61,16 @@ public class Analyzer {
  */
 	public void analyze() {
 		for (int i = 0; i < indices.length; i++) {
-			System.out.println("Processing " + indices[i]);
-			LinkedList<Stock> two_week_prices = FinanceQuery.getHistorical(
-					indices[i], two_week_history, today,
-					Constants.DAILY_INTERVAL);
-			LinkedList<Stock> one_week_prices = FinanceQuery.getHistorical(
-					indices[i], one_week_history, today,
-					Constants.DAILY_INTERVAL);
-			StockAnalysis analysis=new StockAnalysis(indices[i]);
-			analysis.analyze(one_week_prices,two_week_prices);
-			table.put(indices[i], analysis);
+			System.out.println("Processing "+indices[i]);
+			StockAnalysis analysis=getAnalysis(indices[i]);
+			if(analysis!=null){
+				table.put(indices[i], analysis);
+			}
 		}
 	}
 
 	/**
-	 * Display the result in html format after the analysis is done.
+	 * Display the result in HTML format after the analysis is done.
 	 * To have an overview of the entire market, the index is set to be null
 	 * To generate report about a specific share, the index should be the index of
 	 * that share.
@@ -124,16 +136,13 @@ public class Analyzer {
 		}else{
 			StockAnalysis analysis;
 			if(table.isEmpty()){
-				analysis=new StockAnalysis(index);
-				LinkedList<Stock> two_week_prices = FinanceQuery.getHistorical(
-						index, two_week_history, today,
-						Constants.DAILY_INTERVAL);
-				LinkedList<Stock> one_week_prices = FinanceQuery.getHistorical(
-						index, one_week_history, today,
-						Constants.DAILY_INTERVAL);
-				analysis.analyze(one_week_prices, two_week_prices);
+				analysis=getAnalysis(index);
 			}else{
 				analysis=table.get(index);
+			}
+			if(analysis==null){
+				result="<h1>Cannot get data for+"+index+"</h1>";
+				return result;
 			}
 			result = "<h1>Analysis of a single stock</h1>"
 					+"<button type=\"button\" onclick=\"ChangeStyle();\">Highlight</button>"+ "<table>"

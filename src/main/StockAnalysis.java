@@ -46,9 +46,16 @@ public class StockAnalysis {
 		}
 		return result / prices.length;
 	}
+	private Stock[] convertToArray(LinkedList<Stock> list){
+		Stock[] array=new Stock[list.size()];
+		for(int i=0;i<array.length;i++){
+			array[i]=list.pollFirst();
+		}
+		return array;
+	}
 	public void analyze(LinkedList<Stock> first_period_list,LinkedList<Stock> second_period_list){
-		Stock[] first_period=(Stock[]) first_period_list.toArray();
-		Stock[] second_period=(Stock[]) second_period_list.toArray();
+		Stock[] first_period=convertToArray(first_period_list);
+		Stock[] second_period=convertToArray(second_period_list);
 		first_average = calculateDailyAverage(first_period);
 		second_average = calculateDailyAverage(second_period);
 		if(first_average>second_average*1.05){
