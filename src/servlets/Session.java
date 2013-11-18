@@ -51,6 +51,7 @@ public class Session extends HttpServlet{
 		out.println("<h1>ALREADY SIGNED IN AS USER: "+ip.getUsername()+"</h1>");
 		out.println("<p>Name: "+ip.getFirstName()+"</p>");
 		out.println("<p>Name: "+ip.getSurname()+"</p>");
+		out.println("<a href=\"/servlets/share-vis\">Display</a>");
 		out.println("</body>");
 		out.println("</html>");
 		out.close(); 
