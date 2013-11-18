@@ -347,4 +347,8 @@ public class FinanceQuery {
 		}
 		return file;
 	}
+	
+	public static NavigableSet<String> getFtseList(){
+		return FinanceQuery.ftseList;
+	}
 }
