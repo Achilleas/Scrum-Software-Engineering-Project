@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import main.Analyzer;
 import main.FinanceQuery;
-import main.HtmlWriter;
 import main.Investor;
 
 import org.junit.*;

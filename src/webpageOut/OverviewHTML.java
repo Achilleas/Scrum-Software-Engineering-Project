@@ -2,8 +2,6 @@ package webpageOut;
 
 import java.io.PrintWriter;
 
-import main.Investor;
-
 public class OverviewHTML extends WriteOut {
 	
 	public OverviewHTML(PrintWriter out){

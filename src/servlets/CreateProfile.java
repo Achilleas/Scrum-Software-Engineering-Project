@@ -105,13 +105,10 @@ public class CreateProfile extends HttpServlet {
 		value = servlet_request.getParameter("Interested");
 		parseCompanies(value, companiesInterested);
 		
-		String heading;
 		Integer accessCount = new Integer(0);
 		
 		if (session.isNew()) {
-			heading = "Welcome, Newcomer";
 		} else {
-			heading = "Welcome Back";
 			Integer oldAccessCount =
 			// Use getAttribute, not getValue, in version
 			// 2.2 of servlet API.
