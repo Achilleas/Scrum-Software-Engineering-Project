@@ -52,6 +52,7 @@ public class Session extends HttpServlet{
 		out.println("<p>Name: "+ip.getFirstName()+"</p>");
 		out.println("<p>Name: "+ip.getSurname()+"</p>");
 		out.println("<a href=\"/servlets/share-vis\">Display</a>");
+		out.println("<a href=\"../static/Vis_Files/examples/share_vis.html\">Display2</a>");
 		out.println("</body>");
 		out.println("</html>");
 		out.close(); 
