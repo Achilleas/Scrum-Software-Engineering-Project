@@ -6,12 +6,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 
 import static main.Constants.*;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.Validate;
+import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
 import com.jaunt.*;
@@ -30,7 +34,14 @@ public class FinanceQuery {
 
 	// id,name,latestValue,open,high,low,closing,volume,marketCap
 	private final static String DAILY_PRICE_PROP = "snl1ohgpvj1";
-
+	private static LocalDate lastUpdate;
+	private static NavigableSet<String> ftseList;
+	
+	public FinanceQuery() {
+		lastUpdate = null;
+		ftseList = getComponentsList(FTSE100);
+	}
+	
 	/**
 	 * 
 	 * get historical price information for a given stock
@@ -148,10 +159,60 @@ public class FinanceQuery {
 		return requestCSVHistorical(symbol, fromDate, toDate, interval);
 	}
 
-	// get all component of the stock market index into a String separated by ","
+	/**
+	 * get all component of the stock market index
+	 * and return them in a set
+	 * 
+	 */
+	public static NavigableSet<String> getComponentsList(String index) {
+
+		// if FTSE is required retrieve the FTSE list from local memory
+		if (index.equals(FTSE100)) {
+			// if the class is first initiated
+			if (lastUpdate == null) {
+				ftseList = getComponentsFromWeb(FTSE100);
+				lastUpdate = new LocalDate();
+				System.out.println("First initiate");
+				return ftseList;
+			}
+			
+			Duration duration = new Duration(lastUpdate.toDateTimeAtCurrentTime(), null);
+			// update list if last update is more than a day
+			if (duration.getStandardDays() <= 1) {
+				System.out.println("return FTSE100 list from local");
+				return ftseList;
+			} else {
+				System.out.println("Update FTSE100 list");
+				ftseList = getComponentsFromWeb(FTSE100);
+				lastUpdate = new LocalDate();
+				return ftseList;
+			}
+		} else {
+			return getComponentsFromWeb(index);
+		}
+	}
+	
+	/**
+	 * get all component of the stock market index into 
+	 * a String separated by ","
+	 * 
+	 */
 	public static String getComponents(String index) {
 
-		String components = "";
+		NavigableSet<String> set = getComponentsList(index);
+		Iterator<String> iterator = set.iterator();
+		
+		String components = (iterator.hasNext())? iterator.next() : "";
+		
+		while(iterator.hasNext()) {
+			components += "," + iterator.next();
+		}
+		return components;
+	}
+
+	private static NavigableSet<String> getComponentsFromWeb(String index) {
+		
+		NavigableSet<String> set = new TreeSet<String>();
 		
 		try {
 			index = URLEncoder.encode(index, "ISO-8859-1");
@@ -160,18 +221,16 @@ public class FinanceQuery {
 			Element element;
 			Elements elements;
 
-			element = userAgent.doc.findFirst("<div align=right>")
-					.getElement(2);
+			element = userAgent.doc.findFirst("<div align=right>") .getElement(2);
 			String last_url = element.getAt("href");
-			int last_index = Integer.parseInt(last_url.substring(last_url
-					.length() - 1)); // get the last index
+			// get the last index
+			int last_index = Integer.parseInt(last_url.substring(last_url.length() - 1)); 
 			int i = 0;
 			while (i <= last_index) { // for each page
 				userAgent = new UserAgent();
 				userAgent.visit("http://uk.finance.yahoo.com/q/cp?s=" + index
 						+ "&c=" + i);
-				// find the table containing the component of the stock market
-				// index
+				// find the table containing the component of the stock market index
 				element = userAgent.doc.findFirst("<table class=yfnc_tableout1>");
 				element = element.getElement(0).getElement(0).getElement(0);
 				// iterate each row of the table
@@ -184,8 +243,7 @@ public class FinanceQuery {
 					if (!textNode.equals("Symbol")) { // filter out the headings
 						element = element.getElement(0).getElement(0);
 						textNode = element.getText();
-						components = components.equals("") ? textNode
-								: components + "," + textNode;
+						set.add(textNode);
 					}
 				}
 				i++;
@@ -195,14 +253,12 @@ public class FinanceQuery {
 			return null;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			System.err
-					.println("Something wrong with the encoding format. Exit!");
+			System.err.println("Something wrong with the encoding format. Exit!");
 			System.exit(1);
 		}
-
-		return components;
+		return set;
 	}
-
+	
 	private static File requestCSVHistorical(String symbol, LocalDate fromDate,
 			LocalDate toDate, String interval) {
 

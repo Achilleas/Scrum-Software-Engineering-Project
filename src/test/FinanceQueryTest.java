@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.NavigableSet;
 
 import static main.Constants.*;
 import main.FinanceQuery;
@@ -36,10 +37,9 @@ public class FinanceQueryTest {
 		// create 2 temporary file and test if second file will replace the first file
 		// a sample csv file will created
 		File file1, file2, sample_file;
-		FinanceQuery query = new FinanceQuery();
 		
-		file1 = query.getLatestPriceCSV(FTSE100);
-		file2 = query.getLatestPriceCSV(FTSE100);
+		file1 = FinanceQuery.getLatestPriceCSV(FTSE100);
+		file2 = FinanceQuery.getLatestPriceCSV(FTSE100);
 		
 		sample_file = new File("sample-daily-price.csv");
 		
@@ -58,13 +58,11 @@ public class FinanceQueryTest {
 		// this uses webscrape to get components instead of using @**** symbol to get components
 		File file1, file2, sample_file;
 		String symbols;
-		FinanceQuery query = new FinanceQuery();
-		
-		symbols = query.getComponents("^FTSE");
+		symbols = FinanceQuery.getComponents("^FTSE");
 		System.out.println("The list of symbols are \n" + symbols);
 		
-		file1 = query.getLatestPriceCSV(symbols);
-		file2 = query.getLatestPriceCSV(symbols);
+		file1 = FinanceQuery.getLatestPriceCSV(symbols);
+		file2 = FinanceQuery.getLatestPriceCSV(symbols);
 		
 		sample_file = new File("sample-daily-price2.csv");
 		
@@ -80,9 +78,7 @@ public class FinanceQueryTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void getDailyPriceNullTest() {
-		FinanceQuery query = new FinanceQuery();
-		
-		query.getLatestPriceCSV(null);
+		FinanceQuery.getLatestPriceCSV(null);
 	}
 	
 	@Test
@@ -90,10 +86,8 @@ public class FinanceQueryTest {
 		// create 2 temporary file and test if second file will replace the first file
 		// a sample csv file will created
 		File file1, file2, sample_file;
-		FinanceQuery query = new FinanceQuery();
-		
-		file1 = query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
-		file2 = query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		file1 = FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		file2 = FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 		sample_file = new File("sample-historical.csv");
 		
 		assertNotNull(file1);
@@ -108,39 +102,32 @@ public class FinanceQueryTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void getHistoricalNullTest1() {
-		FinanceQuery query = new FinanceQuery();
-		query.getHistoricalCVS(null, fromDate, toDate, WEEKLY_INTERVAL);
+		FinanceQuery.getHistoricalCVS(null, fromDate, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void getHistoricalNullTest2() {
-		FinanceQuery query = new FinanceQuery();
-		query.getHistoricalCVS("GOOG", null, toDate, WEEKLY_INTERVAL);
+		FinanceQuery.getHistoricalCVS("GOOG", null, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void getHistoricalNullTest3() {
-		FinanceQuery query = new FinanceQuery();
-		query.getHistoricalCVS("GOOG", null, toDate, WEEKLY_INTERVAL);
+		FinanceQuery.getHistoricalCVS("GOOG", null, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void getHistoricalNullTest4() {
-		FinanceQuery query = new FinanceQuery();
-		query.getHistoricalCVS("GOOG", fromDate, toDate, null);
+		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidInterval() {
-		FinanceQuery query = new FinanceQuery();
-		query.getHistoricalCVS("GOOG", fromDate, toDate, "daily");
+		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, "daily");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidDateRange1() {
-		// flip the toDate and fromDate
-		FinanceQuery query = new FinanceQuery();
-		query.getHistoricalCVS("GOOG", toDate, fromDate, WEEKLY_INTERVAL);
+		FinanceQuery.getHistoricalCVS("GOOG", toDate, fromDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -148,8 +135,7 @@ public class FinanceQueryTest {
 		
 		toDate = fromDate;
 		
-		FinanceQuery query = new FinanceQuery();
-		query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -161,8 +147,7 @@ public class FinanceQueryTest {
 		fromDate = toDate;
 		toDate = nextYear;
 		
-		FinanceQuery query = new FinanceQuery();
-		query.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
+		FinanceQuery.getHistoricalCVS("GOOG", fromDate, toDate, WEEKLY_INTERVAL);
 	}
 	
 	@Test
@@ -170,13 +155,11 @@ public class FinanceQueryTest {
 		// test for other index (NASDAQ-100)
 		File file1, file2, sample_file;
 		String symbols;
-		FinanceQuery query = new FinanceQuery();
-		
-		symbols = query.getComponents("^NDX");
+		symbols = FinanceQuery.getComponents("^NDX");
 		System.out.println("The list of symbols are \n" + symbols);
 		
-		file1 = query.getLatestPriceCSV(symbols);
-		file2 = query.getLatestPriceCSV(symbols);
+		file1 = FinanceQuery.getLatestPriceCSV(symbols);
+		file2 = FinanceQuery.getLatestPriceCSV(symbols);
 		
 		sample_file = new File("sample-daily-price-NASDAQ.csv");
 		
@@ -191,15 +174,26 @@ public class FinanceQueryTest {
 	}
 	
 	@Test
+	public void ftseSetTest() {
+		
+		NavigableSet<String> set1;
+		NavigableSet<String> set2;
+		
+		set1 = FinanceQuery.getComponentsList(FTSE100);
+		set2 = FinanceQuery.getComponentsList(FTSE100);
+		
+		assertEquals(set1,set2);
+		assertEquals(set1.size(), 101);
+	}
+	
+	@Test
 	public void simpleMethodTest() {
 		
 		String symbol = "AAL.L";
 		LinkedList<Stock> stocks = null;
 		LinkedList<Stock> historical = null;
-		FinanceQuery query = new FinanceQuery();
-		
-		stocks = query.getLatestPrice(symbol);
-		historical = query.getHistorical(symbol, fromDate, toDate, WEEKLY_INTERVAL);
+		stocks = FinanceQuery.getLatestPrice(symbol);
+		historical = FinanceQuery.getHistorical(symbol, fromDate, toDate, WEEKLY_INTERVAL);
 		
 		assertNotNull(stocks);
 		assertNotNull(historical);
