@@ -82,7 +82,7 @@ public class FinanceQuery {
 			throw new IllegalArgumentException();
 
 		file = requestCSVHistorical(symbol, fromDate, toDate, interval);
-		return parser.parseHistoricalCSV(file, symbol);
+		return (file != null) ? parser.parseHistoricalCSV(file, symbol) : null;
 	}
 	
 	/**
