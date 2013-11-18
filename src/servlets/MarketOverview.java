@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import main.Investor;
 import webpageOut.OverviewHTML;
 
 public class MarketOverview  extends HttpServlet {
@@ -37,7 +38,8 @@ public class MarketOverview  extends HttpServlet {
 			out = servlet_response.getWriter(); //creates writer
 			//used to send the html page to the client
 			
-			OverviewHTML o = new OverviewHTML(out); //Write HTML
+			Investor investor = (Investor) session.getAttribute("user");
+			OverviewHTML o = new OverviewHTML(out, investor); //Write HTML
 			out.close();
 		} else {
 			servlet_response.sendRedirect("/static/HomePage.html");	
