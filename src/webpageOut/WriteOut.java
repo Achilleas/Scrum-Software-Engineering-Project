@@ -27,7 +27,9 @@ public class WriteOut {
 		out.write("<p><a href=\"/servlets/profile\" style=\"font-size:20px\">Profile</a> &nbsp;&nbsp;&nbsp;");
 		out.write("<a href=\"/servlets/overview\" style=\"font-size:20px\">Market Overview</a> &nbsp;&nbsp;&nbsp;");
 		out.write("<a href=\"/servlets/stocks\" style=\"font-size:20px\">Stock Visualisation</a>&nbsp;&nbsp;&nbsp;");
+		out.write("<a href=\"/servlets/recommend\" style=\"font-size:20px\">Recommended Stocks</a>&nbsp;&nbsp;&nbsp;");
 		out.write("<input type=\"button\" value=\"Sign Out\" onclick=\"location.href=\"/servlets/signout\";\"></p>");
+		out.write("<hr>");
 	}
 	
 	/**
