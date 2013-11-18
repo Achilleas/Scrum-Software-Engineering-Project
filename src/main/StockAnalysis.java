@@ -13,6 +13,7 @@ public class StockAnalysis {
 		this.index=index;
 		strategy_average=false;
 		strategy_slope=false;
+		comment="No particular significant comment.";
 	}
 	private double linearRegression(Stock[] prices){
 		double[] timeline=new double[prices.length];
