@@ -37,9 +37,12 @@ public class FinanceQuery {
 	private static LocalDate lastUpdate;
 	private static NavigableSet<String> ftseList;
 	
-	public FinanceQuery() {
+	public static void initialise() {
+		System.out.println("getting FTSE100 list");
+		System.out.println("Please wait...");
 		lastUpdate = null;
 		ftseList = getComponentsList(FTSE100);
+		System.out.println("done");
 	}
 	
 	/**
@@ -172,17 +175,14 @@ public class FinanceQuery {
 			if (lastUpdate == null) {
 				ftseList = getComponentsFromWeb(FTSE100);
 				lastUpdate = new LocalDate();
-				System.out.println("First initiate");
 				return ftseList;
 			}
 			
 			Duration duration = new Duration(lastUpdate.toDateTimeAtCurrentTime(), null);
 			// update list if last update is more than a day
 			if (duration.getStandardDays() <= 1) {
-				System.out.println("return FTSE100 list from local");
 				return ftseList;
 			} else {
-				System.out.println("Update FTSE100 list");
 				ftseList = getComponentsFromWeb(FTSE100);
 				lastUpdate = new LocalDate();
 				return ftseList;
@@ -342,7 +342,6 @@ public class FinanceQuery {
 		try {
 			FileUtils.copyURLToFile(url, file);
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.err.println("Failed to get the file from the url");
 			return null;
 		}

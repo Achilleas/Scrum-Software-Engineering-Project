@@ -7,6 +7,8 @@ import java.util.LinkedList;
 
 import org.joda.time.LocalDate;
 
+import webpageOut.StockListHTML;
+
 import jetty.JettyServer;
 
 public class Main {
@@ -15,6 +17,8 @@ public class Main {
 		
 		String[] str = {"January", "February", "March", "April","May","June", "July","August", "September","October","November", "December"};
 		
+		FinanceQuery.initialise();
+		StockListHTML.initialise();
 		JettyServer js = new JettyServer();
 		try {
 			js.run(args);
