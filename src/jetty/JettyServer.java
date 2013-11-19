@@ -34,15 +34,11 @@ public class JettyServer {
 		handler2.addServlet(new ServletHolder(new VisShare()), "/share-vis");
 		handler2.addServlet(new ServletHolder(new RecommendShares()), "/recommend");
 		
-		/*WebAppContext handler3 = new WebAppContext();
-		handler1.setContextPath("/jsp");
-		handler1.setResourceBase("WebRoot/jsp/");*/
-		
 		HandlerList handlers = new HandlerList(); //stores all the handlers in an array
 		handlers.setHandlers(new Handler[] { handler1, handler2 });
 
 		Server server = new Server(getPort(args)); //creates the server
-		server.setHandler(handlers); //adds the handlets to the server
+		server.setHandler(handlers); //adds the handlers to the server
 		server.start(); //starts the server
 	}
 
