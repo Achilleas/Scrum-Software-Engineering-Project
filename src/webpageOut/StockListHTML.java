@@ -14,18 +14,6 @@ public class StockListHTML extends WriteOut implements Runnable{
 	
 	private static ConcurrentHashMap<String, String> stocks = new ConcurrentHashMap<String, String>();
 	
-	private static void initialise() {
-		NavigableSet<String> set = FinanceQuery.getComponentsList(FTSE100);
-		Iterator<String> iterator = set.iterator();
-		
-		System.out.println("Loading Stock List");
-		while(iterator.hasNext()) {
-			String id = iterator.next();
-			getStockName(id);
-		}
-		System.out.println("done loading Stock List\n");
-	}
-	
 	public StockListHTML(PrintWriter out){
 		this.out=out;
 		//Set title of HTML output
@@ -79,6 +67,13 @@ public class StockListHTML extends WriteOut implements Runnable{
 	}
 
 	public void run() {
-		initialise();
+		NavigableSet<String> set = FinanceQuery.getComponentsList(FTSE100);
+		Iterator<String> iterator = set.iterator();
+		
+		System.out.println("Update Stock List");
+		while(iterator.hasNext()) {
+			String id = iterator.next();
+			getStockName(id);
+		}
 	}
 }

@@ -161,12 +161,12 @@ public class FinanceQuery implements Runnable {
 
 		// if FTSE is required retrieve the FTSE list from local memory
 		if (index.equals(FTSE100)) {
-			NavigableSet<String> list = new TreeSet<String>();
-			while(list.size() <= 0){
+			NavigableSet<String> list;
+			do {
 				synchronized(ftseList){
 					list = ftseList;
 				}
-			}
+			} while(list.size() <= 0);
 			return ftseList;
 		} else {
 			return getComponentsFromWeb(index);
