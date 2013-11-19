@@ -1,5 +1,6 @@
 package main;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -11,17 +12,23 @@ import webpageOut.StockListHTML;
 
 import jetty.JettyServer;
 
-public class Main {
+public class Main implements Runnable {
 
-	public static void main(String[] args) throws IOException{
-		
+	static String[] arguments;
+	
+	public static void main(String[] args) {
+		arguments = args;
+		(new Thread(new Main())).start();
+		(new Thread(new FinanceQuery())).start();
+	}
+
+	public void run() {
 		String[] str = {"January", "February", "March", "April","May","June", "July","August", "September","October","November", "December"};
 		
-		FinanceQuery.initialise();
 		StockListHTML.initialise();
 		JettyServer js = new JettyServer();
 		try {
-			js.run(args);
+			js.run(arguments);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,7 +46,14 @@ public class Main {
 		Iterator<Stock> iterator = ll.iterator();
 		
 		
-		PrintWriter write = new PrintWriter("Data.js");
+		PrintWriter write = null;
+		try {
+			write = new PrintWriter("Data.js");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(1);
+		}
 
 		StringBuilder jsonData = new StringBuilder("");
 		StringBuilder priceData = new StringBuilder("");
@@ -99,5 +113,4 @@ public class Main {
 		
 		System.out.println(ll.size());
 	}
-
 }

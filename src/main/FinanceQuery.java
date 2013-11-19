@@ -30,20 +30,11 @@ import com.jaunt.*;
  * Provide method to get financial information from Yahoo Finance
  * 
  */
-public class FinanceQuery {
+public class FinanceQuery implements Runnable {
 
 	// id,name,latestValue,open,high,low,closing,volume,marketCap
 	private final static String DAILY_PRICE_PROP = "snl1ohgpvj1";
-	private static LocalDate lastUpdate;
-	private static NavigableSet<String> ftseList;
-	
-	public static void initialise() {
-		System.out.println("getting FTSE100 list");
-		System.out.println("Please wait...");
-		lastUpdate = null;
-		ftseList = getComponentsList(FTSE100);
-		System.out.println("done");
-	}
+	private static NavigableSet<String> ftseList = new TreeSet<String>();
 	
 	/**
 	 * 
@@ -171,22 +162,13 @@ public class FinanceQuery {
 
 		// if FTSE is required retrieve the FTSE list from local memory
 		if (index.equals(FTSE100)) {
-			// if the class is first initiated
-			if (lastUpdate == null) {
-				ftseList = getComponentsFromWeb(FTSE100);
-				lastUpdate = new LocalDate();
-				return ftseList;
+			NavigableSet<String> list = new TreeSet<String>();
+			while(list.size() <= 0){
+				synchronized(ftseList){
+					list = ftseList;
+				}
 			}
-			
-			Duration duration = new Duration(lastUpdate.toDateTimeAtCurrentTime(), null);
-			// update list if last update is more than a day
-			if (duration.getStandardDays() <= 1) {
-				return ftseList;
-			} else {
-				ftseList = getComponentsFromWeb(FTSE100);
-				lastUpdate = new LocalDate();
-				return ftseList;
-			}
+			return ftseList;
 		} else {
 			return getComponentsFromWeb(index);
 		}
@@ -346,8 +328,25 @@ public class FinanceQuery {
 		}
 		return file;
 	}
-	
-	public static NavigableSet<String> getFtseList(){
-		return FinanceQuery.ftseList;
+
+	public void run() {
+		while(true) {
+			// update list
+			System.out.println("start update");
+			NavigableSet<String> newList = getComponentsList(FTSE100);
+			System.out.println("done");
+			synchronized(ftseList) {
+				ftseList = newList;
+			}
+			System.out.println("Going to sleep");
+			try {
+				// update every 5 min(300000)
+		        Thread.sleep(10000);
+		    } catch (InterruptedException e) {
+		        // We've been interrupted
+		    	System.out.println("interupted. FTSE 100 list will not update anymore");
+		        return;
+		    }
+		}
 	}
 }
