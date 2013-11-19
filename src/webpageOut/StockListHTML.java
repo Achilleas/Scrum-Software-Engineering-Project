@@ -5,36 +5,35 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NavigableSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 import main.FinanceQuery;
 import main.Stock;
 import static main.Constants.*;
 
-public class StockListHTML extends WriteOut {
+public class StockListHTML extends WriteOut implements Runnable{
 	
-	private static HashMap<String, String> stocks = new HashMap<String, String>();
+	private static ConcurrentHashMap<String, String> stocks = new ConcurrentHashMap<String, String>();
 	
-	public static void initialise() {
+	private static void initialise() {
 		NavigableSet<String> set = FinanceQuery.getComponentsList(FTSE100);
 		Iterator<String> iterator = set.iterator();
 		
 		System.out.println("Loading Stock List");
-		System.out.println("Please wait...");
 		while(iterator.hasNext()) {
 			String id = iterator.next();
 			getStockName(id);
 		}
-		System.out.println("done\n");
+		System.out.println("done loading Stock List\n");
 	}
 	
 	public StockListHTML(PrintWriter out){
 		this.out=out;
 		//Set title of HTML output
 		this.title="Stock List";
-		writeStockList();
 	}
-
-	private void writeStockList() {
+	
+	public void write() {
 		
 		NavigableSet<String> set = FinanceQuery.getComponentsList(FTSE100);
 		Iterator<String> iterator = set.iterator();
@@ -51,7 +50,6 @@ public class StockListHTML extends WriteOut {
 			String id = iterator.next();
 			String name = stocks.get(id);
 			if (name == null) {
-				System.out.println(id + " is null");
 				name = getStockName(id);
 			}
 			tableContent += "<tr>" +
@@ -77,7 +75,11 @@ public class StockListHTML extends WriteOut {
 		Stock stock = stockList.getFirst();
 		
 		name = stock.getName();
-		stocks.put(id, name);		
+		stocks.putIfAbsent(id, name);		
 		return name;
+	}
+
+	public void run() {
+		initialise();
 	}
 }

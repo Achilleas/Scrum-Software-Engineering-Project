@@ -15,7 +15,6 @@ import static main.Constants.*;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.Validate;
-import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 
 import com.jaunt.*;
@@ -332,16 +331,14 @@ public class FinanceQuery implements Runnable {
 	public void run() {
 		while(true) {
 			// update list
-			System.out.println("start update");
-			NavigableSet<String> newList = getComponentsList(FTSE100);
-			System.out.println("done");
+			System.out.println("Update FTSE List");
+			NavigableSet<String> newList = getComponentsFromWeb(FTSE100);
 			synchronized(ftseList) {
 				ftseList = newList;
 			}
-			System.out.println("Going to sleep");
 			try {
 				// update every 5 min(300000)
-		        Thread.sleep(10000);
+		        Thread.sleep(300000);
 		    } catch (InterruptedException e) {
 		        // We've been interrupted
 		    	System.out.println("interupted. FTSE 100 list will not update anymore");

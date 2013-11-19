@@ -39,6 +39,7 @@ PrintWriter out;
 			//used to send the html page to the client
 			
 			StockListHTML s = new StockListHTML(out); //Write HTML
+			s.write();
 			out.close();
 		} else {
 			servlet_response.sendRedirect("/static/HomePage.html");	

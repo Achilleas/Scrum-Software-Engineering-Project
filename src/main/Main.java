@@ -20,12 +20,12 @@ public class Main implements Runnable {
 		arguments = args;
 		(new Thread(new Main())).start();
 		(new Thread(new FinanceQuery())).start();
+		(new Thread(new StockListHTML(null))).start();
 	}
 
 	public void run() {
 		String[] str = {"January", "February", "March", "April","May","June", "July","August", "September","October","November", "December"};
 		
-		StockListHTML.initialise();
 		JettyServer js = new JettyServer();
 		try {
 			js.run(arguments);
