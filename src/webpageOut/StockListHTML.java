@@ -56,7 +56,7 @@ public class StockListHTML extends WriteOut {
 			}
 			tableContent += "<tr>" +
 					"<td>" + id + "</td>" +
-					"<td>" + name + "</td>" +
+					"<td>" + "<a href=\"/servlets/share-vis?name="+name+"\">"+name+"</a>" + "</td>" +
 					"</tr>";
 		}
 		
