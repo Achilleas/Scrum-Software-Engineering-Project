@@ -24,6 +24,7 @@ public class FinanceQueryTest {
 	@BeforeClass
 	public static void setupBeforeClass() {
 		System.out.println("Running TestFinanceQuery");
+		(new Thread(new FinanceQuery())).start();
 	}
 	
 	@Before

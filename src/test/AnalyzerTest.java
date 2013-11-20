@@ -20,6 +20,11 @@ public class AnalyzerTest {
 	ArrayList<String> companiesInterested;
 	Investor user;
 	String password="123";
+	@BeforeClass
+	public static void setupBeforeClass() {
+		(new Thread(new FinanceQuery())).start();
+	}
+	
 	@Before
 	public void setupUser(){
 		user=new Investor();
