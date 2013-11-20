@@ -38,9 +38,9 @@ public class VisShare extends HttpServlet{
 		servlet_response.setContentType("text/html"); //the response will be of the type html
 		servlet_response.setStatus(HttpServletResponse.SC_OK); //and the HTTP response code
 
-		String name = servlet_request.getParameter("name");
+		String id = servlet_request.getParameter("id");
 		
-		writeDataFile(name);
+		writeDataFile(id);
 		
 		out = servlet_response.getWriter(); //creates writer
 		//used to send the html page to the client
@@ -49,7 +49,7 @@ public class VisShare extends HttpServlet{
 		out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">");
 		out.println("<head>");
 		out.println("<meta charset=\"utf-8\">");
-		out.println("<title> Share Data - "+name+ "</title>");
+		out.println("<title> Share Data - "+id+ "</title>");
 		out.println("<link rel=\"stylesheet\" href=\"../static/Vis_Files/js/finance.css\" type=\"text/css\" />");
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/lib/prototype/prototype.js\"></script>");
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/lib/prototype/scriptaculous.js\"></script>");
@@ -60,7 +60,7 @@ public class VisShare extends HttpServlet{
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/lib/flotr/flotr.js\"></script>");
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/js/HumbleFinance.js\"></script>");
 		//out.println("<script type=\"text/javascript\" src=\"/data.js\"></script>");
-		out.println("<script type=\"text/javascript\" src=\"../static/data.js\"></script>");
+		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/examples/data.js\"></script>");
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/examples/demo.js\"></script>");
 		out.println("</head>");
 		out.println("<body>");
@@ -69,7 +69,7 @@ public class VisShare extends HttpServlet{
 		out.println("<div id=\"links-container\"><div id=\"links\"></div></div>");
 		out.println("<div id=\"content-container\"><div id=\"content\">");
 		out.println("<body>");
-		out.println("<h3>Share Data - "+name+"</h3>");
+		out.println("<h3>Share Data - "+id+"</h3>");
 		out.println("<div id=\"humblefinance\" style=\"position: relative; margin: 40px 0px; width: 600px; border: 1px solid #99CCFF;\";></div>");
 		out.println("</div></div>");
 		out.println("<div id=\"footer-container\"><div id=\"footer\"></div></div>");
@@ -88,15 +88,16 @@ public class VisShare extends HttpServlet{
 		LocalDate toDate = new LocalDate();
 		System.out.println(toDate.getYear());
 		
-		LinkedList<Stock> ll = FinanceQuery.getHistorical("BP", fromDate, toDate, "d");
+		LinkedList<Stock> ll = FinanceQuery.getHistorical(stock, fromDate, toDate, "d");
 		System.out.println(ll.getFirst().getId());
 		Iterator<Stock> iterator = ll.iterator();
 		
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		
 		//File file = new File("Data2.js");
-		PrintWriter write = new PrintWriter("Data2.js");
-
+		//PrintWriter write = new PrintWriter("WebRoot/static/Data-"+stock+".js");
+		PrintWriter write = new PrintWriter("WebRoot/static/Vis_Files/examples/data.js");
+		
 		StringBuilder jsonData = new StringBuilder("");
 		StringBuilder priceData = new StringBuilder("");
 		StringBuilder volumeData = new StringBuilder("");

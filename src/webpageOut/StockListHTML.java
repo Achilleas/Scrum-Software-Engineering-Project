@@ -40,8 +40,8 @@ public class StockListHTML extends WriteOut implements Runnable{
 				name = getStockName(id);
 			}
 			tableContent += "<tr>" +
-					"<td>" + id + "</td>" +
-					"<td>" + "<a href=\"/servlets/share-vis?name="+name+"\">"+name+"</a>" + "</td>" +
+					"<td>" + "<a href=\"/servlets/share-vis?id="+id+"\">"+id+"</a>" + "</td>" +
+					"<td>" + name + "</td>" +
 					"</tr>";
 		}
 		
