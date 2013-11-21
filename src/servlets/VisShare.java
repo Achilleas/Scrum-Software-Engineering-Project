@@ -24,6 +24,10 @@ import webpageOut.StockListHTML;
 public class VisShare extends HttpServlet{
 
 	PrintWriter out;
+	StringBuilder jsonData = new StringBuilder("");
+	StringBuilder priceData = new StringBuilder("");
+	StringBuilder volumeData = new StringBuilder("");
+	StringBuilder summaryData = new StringBuilder("");
 			
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
@@ -60,7 +64,14 @@ public class VisShare extends HttpServlet{
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/lib/flotr/flotr.js\"></script>");
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/js/HumbleFinance.js\"></script>");
 		//out.println("<script type=\"text/javascript\" src=\"/data.js\"></script>");
-		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/examples/data.js\"></script>");
+		
+		out.println("<script type=\"text/javascript\"");
+		out.println(jsonData+"];");
+		out.println(priceData+"];");
+		out.println(volumeData+"];");
+		out.println(summaryData+"];");	
+		out.println("</script>");
+		
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/examples/demo.js\"></script>");
 		out.println("</head>");
 		out.println("<body>");
@@ -96,12 +107,9 @@ public class VisShare extends HttpServlet{
 		
 		//File file = new File("Data2.js");
 		//PrintWriter write = new PrintWriter("WebRoot/static/Data-"+stock+".js");
-		PrintWriter write = new PrintWriter("WebRoot/static/Vis_Files/examples/data.js");
+		//PrintWriter write = new PrintWriter("./WebRoot/static/Vis_Files/examples/data.js");
 		
-		StringBuilder jsonData = new StringBuilder("");
-		StringBuilder priceData = new StringBuilder("");
-		StringBuilder volumeData = new StringBuilder("");
-		StringBuilder summaryData = new StringBuilder("");
+		
 		int i=0;
 
 		while(iterator.hasNext()){
@@ -147,12 +155,12 @@ public class VisShare extends HttpServlet{
 		volumeData.insert(0, "var volumeData = [");
 		summaryData.insert(0, "var summaryData = [");
 
-		write.println(jsonData+"];");
-		write.println(priceData+"];");
-		write.println(volumeData+"];");
-		write.println(summaryData+"];");
+		//write.println(jsonData+"];");
+		//write.println(priceData+"];");
+		//write.println(volumeData+"];");
+		//write.println(summaryData+"];");
 		
-		write.close();
+		//write.close();
 		
 		System.out.println(ll.size());
 	}
