@@ -158,7 +158,6 @@ public class CreateProfile extends HttpServlet {
 			e.printStackTrace();
 		}
 		// ip.storeAllDetails();
-		System.out.println("valid");
 		return ip;
 	}
 

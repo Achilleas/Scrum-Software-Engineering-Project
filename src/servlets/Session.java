@@ -22,14 +22,12 @@ public class Session extends HttpServlet{
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
-		System.out.println("here");
 		processRequest(servlet_request, servlet_response);
 	}
 	
 	private void processRequest(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws IOException {
 		HttpSession session = servlet_request.getSession(false);
-		System.out.println(session);
 		
 		if(session!=null){
 		

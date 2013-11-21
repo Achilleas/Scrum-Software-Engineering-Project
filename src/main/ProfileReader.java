@@ -84,7 +84,6 @@ public class ProfileReader {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line;
 			while ((line = br.readLine()) != null) {
-				System.out.println(line);
 				readElement(line, user);
 			}
 			br.close();

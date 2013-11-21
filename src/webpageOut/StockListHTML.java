@@ -71,13 +71,13 @@ public class StockListHTML extends WriteOut implements Runnable{
 		LinkedList<Stock> list = FinanceQuery.getLatestPrice(ftse);
 		Iterator<Stock> iterator = list.iterator();
 		
-		System.out.println("Update Stock List");
+		System.out.println("StockListHTML : \t Update Stock List");
 		while(iterator.hasNext()) {
 			Stock stock = iterator.next();
 			String id = stock.getId();
 			String name = stock.getName();
 			stocks.putIfAbsent(id, name);
 		}
-		System.out.println("Done Update Stock List");
+		System.out.println("StockListHTML : \t Done Update Stock List");
 	}
 }

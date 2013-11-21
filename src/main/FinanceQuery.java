@@ -340,12 +340,12 @@ public class FinanceQuery implements Runnable {
 	public void run() {
 		while(true) {
 			// update list
-			System.out.println("Update FTSE100 List");
+			System.out.println("FinanceQuery : \t Update FTSE100 List");
 			NavigableSet<String> newList = getComponentsFromWeb(FTSE100);
 			synchronized(ftseList) {
 				ftseList = newList;
 			}
-			System.out.println("Update NASDAQ100 List");
+			System.out.println("FinanceQuery : \t Update NASDAQ100 List");
 			newList = getComponentsFromWeb(NASDAQ100);
 			synchronized(nasdaqList) {
 				nasdaqList = newList;
@@ -357,7 +357,8 @@ public class FinanceQuery implements Runnable {
 		        Thread.sleep(300000);
 		    } catch (InterruptedException e) {
 		        // We've been interrupted
-		    	System.out.println("interupted. FTSE 100 list will not update anymore");
+		    	System.out.println("Finance Query : \t" +
+		    			"interupted. FTSE 100 list will not update anymore");
 		        return;
 		    }
 		}

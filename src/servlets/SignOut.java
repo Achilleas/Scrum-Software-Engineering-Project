@@ -18,7 +18,6 @@ public class SignOut extends HttpServlet {
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
-		System.out.println("here");
 		processRequest(servlet_request, servlet_response);
 	}
 	

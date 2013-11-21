@@ -31,7 +31,6 @@ public class ProfilePage extends HttpServlet {
 			HttpServletResponse servlet_response) throws IOException {
 		
 		HttpSession session = servlet_request.getSession(false);
-		//System.out.println(session);
 		
 		if(session!=null && session.getAttribute("user")!=null){
 			servlet_response.setContentType("text/html"); //the response will be of the type html
