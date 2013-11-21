@@ -34,6 +34,7 @@ public class FinanceQuery implements Runnable {
 	// id,name,latestValue,open,high,low,closing,volume,marketCap
 	private final static String DAILY_PRICE_PROP = "snl1ohgpvj1";
 	private static NavigableSet<String> ftseList = new TreeSet<String>();
+	private static NavigableSet<String>	nasdaqList = new TreeSet<String>();
 	
 	/**
 	 * 
@@ -167,7 +168,15 @@ public class FinanceQuery implements Runnable {
 					list = ftseList;
 				}
 			} while(list.size() <= 0);
-			return ftseList;
+			return list;
+		} else if (index.equals(NASDAQ100)) {
+			NavigableSet<String> list;
+			do {
+				synchronized(ftseList){
+					list = nasdaqList;
+				}
+			} while(list.size() <= 0);
+			return list;
 		} else {
 			return getComponentsFromWeb(index);
 		}
@@ -331,11 +340,18 @@ public class FinanceQuery implements Runnable {
 	public void run() {
 		while(true) {
 			// update list
-			System.out.println("Update FTSE List");
+			System.out.println("Update FTSE100 List");
 			NavigableSet<String> newList = getComponentsFromWeb(FTSE100);
 			synchronized(ftseList) {
 				ftseList = newList;
 			}
+			System.out.println("Update NASDAQ100 List");
+			newList = getComponentsFromWeb(NASDAQ100);
+			synchronized(nasdaqList) {
+				nasdaqList = newList;
+			}
+			
+			// going to sleep
 			try {
 				// update every 5 min(300000)
 		        Thread.sleep(300000);

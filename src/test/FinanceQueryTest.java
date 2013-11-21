@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NavigableSet;
 
@@ -30,7 +31,7 @@ public class FinanceQueryTest {
 	@Before
 	public void setupBefore() {
 		fromDate = new LocalDate(2000,2,15);
-		toDate = new LocalDate(2010,1,31);
+		toDate = new LocalDate();
 	}
 	
 	@Test
@@ -39,8 +40,8 @@ public class FinanceQueryTest {
 		// a sample csv file will created
 		File file1, file2, sample_file;
 		
-		file1 = FinanceQuery.getLatestPriceCSV(FTSE100);
-		file2 = FinanceQuery.getLatestPriceCSV(FTSE100);
+		file1 = FinanceQuery.getLatestPriceCSV("@" + FTSE100);
+		file2 = FinanceQuery.getLatestPriceCSV("@" + FTSE100);
 		
 		sample_file = new File("sample-daily-price.csv");
 		
@@ -60,7 +61,7 @@ public class FinanceQueryTest {
 		File file1, file2, sample_file;
 		String symbols;
 		symbols = FinanceQuery.getComponents("^FTSE");
-		System.out.println("The list of symbols are \n" + symbols);
+		System.out.println("The FTSE list of symbols are \n" + symbols);
 		
 		file1 = FinanceQuery.getLatestPriceCSV(symbols);
 		file2 = FinanceQuery.getLatestPriceCSV(symbols);
@@ -157,7 +158,7 @@ public class FinanceQueryTest {
 		File file1, file2, sample_file;
 		String symbols;
 		symbols = FinanceQuery.getComponents("^NDX");
-		System.out.println("The list of symbols are \n" + symbols);
+		System.out.println("The NASDAQ list of symbols are \n" + symbols);
 		
 		file1 = FinanceQuery.getLatestPriceCSV(symbols);
 		file2 = FinanceQuery.getLatestPriceCSV(symbols);
@@ -179,12 +180,37 @@ public class FinanceQueryTest {
 		
 		NavigableSet<String> set1;
 		NavigableSet<String> set2;
+		Iterator<String> iterator;
 		
 		set1 = FinanceQuery.getComponentsList(FTSE100);
 		set2 = FinanceQuery.getComponentsList(FTSE100);
 		
+		assertNotNull(set1);
+		assertTrue(set1.size() > 0);
+		iterator = set1.iterator();
+		while (iterator.hasNext()) {
+			assertNotNull(iterator.next());
+		}
 		assertEquals(set1,set2);
-		assertEquals(set1.size(), 101);
+	}
+	
+	@Test
+	public void nasdaqSetTest() {
+
+		NavigableSet<String> set1;
+		NavigableSet<String> set2;
+		Iterator<String> iterator;
+		
+		set1 = FinanceQuery.getComponentsList(NASDAQ100);
+		set2 = FinanceQuery.getComponentsList(NASDAQ100);
+		
+		assertNotNull(set1);
+		assertTrue(set1.size() > 0);
+		iterator = set1.iterator();
+		while (iterator.hasNext()) {
+			assertNotNull(iterator.next());
+		}
+		assertEquals(set1,set2);
 	}
 	
 	@Test
