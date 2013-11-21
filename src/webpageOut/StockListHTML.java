@@ -20,7 +20,7 @@ public class StockListHTML extends WriteOut implements Runnable{
 		this.title="Stock List";
 	}
 	
-	public void write() {
+	synchronized public void write() {
 		
 		NavigableSet<String> set = FinanceQuery.getComponentsList(FTSE100);
 		Iterator<String> iterator = set.iterator();
@@ -66,14 +66,18 @@ public class StockListHTML extends WriteOut implements Runnable{
 		return name;
 	}
 
-	public void run() {
-		NavigableSet<String> set = FinanceQuery.getComponentsList(FTSE100);
-		Iterator<String> iterator = set.iterator();
+	synchronized public void run() {
+		String ftse = FinanceQuery.getComponents(FTSE100);
+		LinkedList<Stock> list = FinanceQuery.getLatestPrice(ftse);
+		Iterator<Stock> iterator = list.iterator();
 		
 		System.out.println("Update Stock List");
 		while(iterator.hasNext()) {
-			String id = iterator.next();
-			getStockName(id);
+			Stock stock = iterator.next();
+			String id = stock.getId();
+			String name = stock.getName();
+			stocks.putIfAbsent(id, name);
 		}
+		System.out.println("Done Update Stock List");
 	}
 }
