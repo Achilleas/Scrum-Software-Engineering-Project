@@ -90,10 +90,10 @@ public class Analyzer {
 				continue;
 			}
 			if (suggested=analysis.getAverageResult()||analysis.getGradientResult()) {
-				result+= "<td class=\"Header\">"+"<a href=\""+indices[i]+"\">"+indices[i]+"</a></td>"
+				result+= "<td class=\"Header\">"+"<a href=\"/servlets/recommend?id="+indices[i]+"\">"+indices[i]+"</a></td>"
 						+"<td class=\"Header\">"+analysis.getComment()+"</td>";
 			} else {
-				result+= "<td>"+"<a href=\""+indices[i]+"\">"+indices[i]+"</a></td>"
+				result+= "<td>"+"<a href=\"/servlets/recommend?id="+indices[i]+"\">"+indices[i]+"</a></td>"
 						+"<td>"+analysis.getComment()+"</td>";
 			}
 			if(suggested){
@@ -156,7 +156,7 @@ public class Analyzer {
 		if (analysis.getAverageResult()||analysis.getGradientResult()) {
 			result+= "<td class=\"Header\">"+"<a href=\""+index+"\">"+index+"</a></td>";
 		} else {
-			result+= "<td>"+"<a href=\""+index+"\">"+index+"</a></td>";
+			result+= "<td>"+"<a href=\"/servlets/share-vis?id="+index+"\">"+index+"</a></td>";
 		}
 		result+="<td>"
 				+analysis.getSecondAverage()+"</td><td>"

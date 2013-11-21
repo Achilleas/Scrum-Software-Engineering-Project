@@ -9,14 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import main.Investor;
+import main.*;
 import webpageOut.OverviewHTML;
 
 public class RecommendShares extends HttpServlet {
-
+	private Analyzer analyzer;
 	/**
 	 * 
 	 */
+	public void setUpAnalyzer(){
+		analyzer=new Analyzer(",");
+		analyzer.analyze();
+	}
 	private static final long serialVersionUID = 4068022209531276116L;
 	PrintWriter out;
 
@@ -30,7 +34,7 @@ public class RecommendShares extends HttpServlet {
 			HttpServletResponse servlet_response) throws IOException {
 
 		HttpSession session = servlet_request.getSession(false);
-
+		String index=servlet_request.getParameter("id");
 		if (session != null && session.getAttribute("user") != null) {
 			//the response will be of type html
 			servlet_response.setContentType("text/html");
@@ -41,7 +45,8 @@ public class RecommendShares extends HttpServlet {
 			out = servlet_response.getWriter();
 
 			Investor investor = (Investor) session.getAttribute("user");
-			
+			String result=analyzer.getFullReport(investor, index);
+			out.write(result);
 			out.close();
 		} else {
 			servlet_response.sendRedirect("/static/HomePage.html");
