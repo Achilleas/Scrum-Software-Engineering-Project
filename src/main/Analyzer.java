@@ -98,10 +98,10 @@ public class Analyzer {
 			}
 			if(suggested){
 				if(user.isInvested(indices[i])){
-					result+= "<td>You have invested this stock</td>";
+					result+="<td class=\"Recommended\">You have not invested this stock yet</td>";
 				}else{
 					suggested=false;
-					result+="<td class=\"Recommended\">You have not invested this stock yet</td>";
+					result+= "<td>You have invested this stock</td>";
 				}
 				if (user.isInterested(indices[i])&&suggested) {
 					result+= "<td class=\"Recommended\">Interested in</td>";
@@ -111,9 +111,9 @@ public class Analyzer {
 				}
 			}else{
 				if(user.isInvested(indices[i])){
-					result+= "<td>You have invested this stock</td>";
-				}else{
 					result+="<td>You have not invested this stock yet</td>";
+				}else{
+					result+= "<td>You have invested this stock</td>";
 				}
 				if (user.isInterested(indices[i])&&suggested) {
 					result+= "<td>Interested in</td>";
@@ -149,32 +149,29 @@ public class Analyzer {
 			result="<h1>Cannot get data for+"+index+"</h1>";
 			return result;
 		}
-		result = "<h1>Analysis of a single stock</h1>"
-				+"<button type=\"button\" onclick=\"ChangeStyle();\">Highlight</button>"+ "<table>"
-		+ "<tr>"+ "<th>Index</th>"+ "<th>Two weeks' average</th>" + "<th>One weeks' average</th>"+ "<th>Two weeks' gradient</th>" + "<th>One weeks' gradient</th>" + "<th>If invested</th>" + "<th>Your preference</th>"
+		result = "<h1>Analysis of a single stock</h1><h2>Index: +"+index+"</h2>";
+		if(user.isInterested(index)){
+			result+="<h3>Interested in</h3> ";
+		}else{
+			result+="<h3>Not interested in</h3> ";
+		}
+		if(user.isInvested(index)){
+			result+="<h3>You have invested this stock</h3> ";
+		}else{
+			result+="<h3>You have invested this stock</h3> ";
+		}
+		result+="<table><tr>"+ "<th>Title</th>"+ "<th>Analyzed data</th>"
 				+ "</tr><tr>";
-		if (analysis.getAverageResult()||analysis.getGradientResult()) {
-			result+= "<td class=\"Header\">"+"<a href=\""+index+"\">"+index+"</a></td>";
-		} else {
-			result+= "<td>"+"<a href=\"/servlets/share-vis?id="+index+"\">"+index+"</a></td>";
-		}
-		result+="<td>"
-				+analysis.getSecondAverage()+"</td><td>"
-				+analysis.getFirstAverage()+"</td>";
-		result+="<td>"
-				+analysis.getSecondGradient()+"</td><td>"
-				+analysis.getFirstAverage()+"</td>";
-		if (user.isInvested(index)) {
-			result+= "<td>You have invested this stock</td>";
-		} else {
-			result+="<td class=\"Recommended\">You have not invested this stock yet</td>";
-		}
-		if (user.isInterested(index)) {
-			result+= "<td class=\"Recommended\">Interested in</td>";
-		} else {
-			result+=  "<td>Not interested in</td>";
-		}
-		result+="</table>";
+		result+="<td>Last two weeks' average</td><td>"
+				+analysis.getFirstAverage()+"</td>"
+				+"<tr><td>Last four weeks' average</td><td>"
+				+analysis.getSecondAverage()+"</td></tr>"
+				+"<tr><td>Last two weeks' slope</td><td>"
+				+analysis.getFirstGradient()+"</td></tr>"
+				+"<tr><td>Last two weeks' slope</td><td>"
+				+analysis.getFirstGradient()+"</td></tr>"
+				+"<tr><td>Last four weeks' slope</td><td>"
+				+analysis.getSecondGradient()+"</td></tr></table>";
 		return result;
 	}
 	/**
