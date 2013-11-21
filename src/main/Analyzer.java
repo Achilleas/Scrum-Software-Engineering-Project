@@ -98,10 +98,10 @@ public class Analyzer {
 			}
 			if(suggested){
 				if(user.isInvested(indices[i])){
-					result+="<td class=\"Recommended\">You have not invested this stock yet</td>";
+					result+= "<td>You have invested this stock</td>";
 				}else{
 					suggested=false;
-					result+= "<td>You have invested this stock</td>";
+					result+="<td class=\"Recommended\">You have not invested this stock yet</td>";
 				}
 				if (user.isInterested(indices[i])&&suggested) {
 					result+= "<td class=\"Recommended\">Interested in</td>";
@@ -111,9 +111,9 @@ public class Analyzer {
 				}
 			}else{
 				if(user.isInvested(indices[i])){
-					result+="<td>You have not invested this stock yet</td>";
-				}else{
 					result+= "<td>You have invested this stock</td>";
+				}else{
+					result+="<td>You have not invested this stock yet</td>";
 				}
 				if (user.isInterested(indices[i])&&suggested) {
 					result+= "<td>Interested in</td>";

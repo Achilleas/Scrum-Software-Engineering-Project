@@ -66,8 +66,8 @@ public class OverviewHTML extends WriteOut {
 			}
 			// Highlight share if user is interested/invested
 			String interested = "";
-			if (ip.isInterested(stock.getName())
-					|| ip.isInvested(stock.getName())) {
+			if (ip.isInterested(stock.getId())
+					|| ip.isInvested(stock.getId())) {
 				interested = "style=\"background-color:#71C6E2\"";
 			}
 
