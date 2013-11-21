@@ -1,6 +1,5 @@
 package servlets;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,24 +10,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import jetty.JettyServer;
 import main.FinanceQuery;
 import main.Stock;
 
 import org.joda.time.LocalDate;
 
-import webpageOut.StockListHTML;
-
 
 public class VisShare extends HttpServlet{
-
-	PrintWriter out;
-	StringBuilder jsonData = new StringBuilder("");
-	StringBuilder priceData = new StringBuilder("");
-	StringBuilder volumeData = new StringBuilder("");
-	StringBuilder summaryData = new StringBuilder("");
 			
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 934297545825976921L;
+
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
@@ -38,6 +34,12 @@ public class VisShare extends HttpServlet{
 	private void processRequest(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws IOException {
 
+		HttpSession session = servlet_request.getSession(false);
+		//return to homepage if not sign in
+		if(session==null || session.getAttribute("user")==null){
+			servlet_response.sendRedirect("/static/HomePage.html");
+			return;
+		}
 		
 		servlet_response.setContentType("text/html"); //the response will be of the type html
 		servlet_response.setStatus(HttpServletResponse.SC_OK); //and the HTTP response code
@@ -46,7 +48,7 @@ public class VisShare extends HttpServlet{
 		
 		writeDataFile(id);
 		
-		out = servlet_response.getWriter(); //creates writer
+		PrintWriter out = servlet_response.getWriter(); //creates writer
 		//used to send the html page to the client
 		
 		out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
@@ -94,23 +96,24 @@ public class VisShare extends HttpServlet{
 	
 	public void writeDataFile(String stock) throws FileNotFoundException{
 
+		StringBuilder jsonData = new StringBuilder("");
+		StringBuilder priceData = new StringBuilder("");
+		StringBuilder volumeData = new StringBuilder("");
+		StringBuilder summaryData = new StringBuilder("");
+		
 		String[] str = {"January", "February", "March", "April","May","June", "July","August", "September","October","November", "December"};
 				
 		LocalDate fromDate = new LocalDate(2010,11,17);
 		
 		LocalDate toDate = new LocalDate();
-		System.out.println(toDate.getYear());
 		
 		LinkedList<Stock> ll = FinanceQuery.getHistorical(stock, fromDate, toDate, "d");
 		System.out.println(ll.getFirst().getId());
 		Iterator<Stock> iterator = ll.iterator();
-		
-		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		
+				
 		//File file = new File("Data2.js");
 		//PrintWriter write = new PrintWriter("WebRoot/static/Data-"+stock+".js");
 		PrintWriter write = new PrintWriter("./WebRoot/static/Vis_Files/examples/data-"+stock+".js");
-		
 		
 		int i=0;
 
@@ -134,8 +137,6 @@ public class VisShare extends HttpServlet{
 			//-----------------------------
 			//if(i%14==0)
 			sD+= "["+(ll.size()-1-i)+","+s.getClose()+"]";
-			
-			
 			
 			if(i!=0){
 				jD+= ",";
@@ -161,8 +162,5 @@ public class VisShare extends HttpServlet{
 		write.println(summaryData+"];");
 		
 		write.close();
-		
-		System.out.println(ll.size());
 	}
-
 }
