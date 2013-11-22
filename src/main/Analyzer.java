@@ -14,6 +14,10 @@ import static main.Constants.*;
  * 
  * @author Qiao
  * ----------------------------------------------------------------------------
+ * @version 1.3
+ * HTML looks nicer
+ * Delete redundant fields
+ * ----------------------------------------------------------------------------
  * @version 1.2
  * Some data structures are abstracted to StockAnalysis class
  * Slope method added and average method is updated to be more rigorous ( At least *1.05> ).
@@ -30,9 +34,7 @@ import static main.Constants.*;
  * This class is the demo that analyze the data and generate HTML code based on user profile when it it called. An example of the result page can be viewed at WebRoot/static/Analyzer.html
  */
 public class Analyzer {
-	private ArrayList<String> profitables;
 	private String[] indices;
-	private ArrayList<StockAnalysis> analysis_list;
 	private HashMap<String,StockAnalysis> table;
 	private LocalDate today;
 	private LocalDate two_week_history;
@@ -41,11 +43,9 @@ public class Analyzer {
 	private LinkedList<Stock> four_week_prices;
 	public Analyzer(String separator) {
 		indices = FinanceQuery.getComponents(FTSE100).split(separator);
-		profitables = new ArrayList<String>();
 		today = new LocalDate();
 		two_week_history = today.minusWeeks(2);
 		four_week_history = today.minusWeeks(4);
-		analysis_list=new ArrayList<StockAnalysis>();
 		table=new HashMap<String,StockAnalysis>();
 	}
 	public StockAnalysis getAnalysis(String index){
@@ -79,7 +79,7 @@ public class Analyzer {
 		String result;
 		ArrayList<String> matches=new ArrayList<String>();
 		boolean suggested=true;
-		result = "<h1>Market overview</h1><h2>All shares</h2>"
+		result = "<h1>General Analysis</h1><h2>All shares</h2>"
 				+"<button type=\"button\" onclick=\"ChangeStyle();\">Highlight</button>"+ "<table>" + "<tr>"
 				+ "<th>Index</th>" + "<th>Comment</th>" + "<th>If invested</th>" + "<th>Your preference</th>"
 				+ "</tr><tr>";
@@ -149,7 +149,7 @@ public class Analyzer {
 			result="<h1>Cannot get data for+"+index+"</h1>";
 			return result;
 		}
-		result = "<h1>Analysis of a single stock</h1><h2>Index: +"+index+"</h2>";
+		result = "<h1>Analysis of a single stock</h1><h2>Index: "+index+"</h2>";
 		if(user.isInterested(index)){
 			result+="<h3>Interested in</h3> ";
 		}else{
@@ -160,14 +160,13 @@ public class Analyzer {
 		}else{
 			result+="<h3>You have invested this stock</h3> ";
 		}
-		result+="<table><tr>"+ "<th>Title</th>"+ "<th>Analyzed data</th>"
+		result+="<h3>"+analysis.getComment()+"</h3>"
+				+"<table><tr>"+ "<th>Title</th>"+ "<th>Analyzed data</th>"
 				+ "</tr><tr>";
 		result+="<td>Last two weeks' average</td><td>"
 				+analysis.getFirstAverage()+"</td>"
 				+"<tr><td>Last four weeks' average</td><td>"
 				+analysis.getSecondAverage()+"</td></tr>"
-				+"<tr><td>Last two weeks' slope</td><td>"
-				+analysis.getFirstGradient()+"</td></tr>"
 				+"<tr><td>Last two weeks' slope</td><td>"
 				+analysis.getFirstGradient()+"</td></tr>"
 				+"<tr><td>Last four weeks' slope</td><td>"
