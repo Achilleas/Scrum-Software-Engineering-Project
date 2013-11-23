@@ -33,9 +33,9 @@ public class JettyServer {
 		handler2.addServlet(new ServletHolder(new StockChooser()), "/stocks");
 		handler2.addServlet(new ServletHolder(new VisShare()), "/share-vis");
 		handler2.addServlet(new ServletHolder(new VisAllShare()), "/all-share-vis");
-		RecommendShares rs=new RecommendShares();
-		rs.setUpAnalyzer();
-		handler2.addServlet(new ServletHolder(rs), "/recommend");
+		//RecommendShares rs=new RecommendShares();
+		//rs.setUpAnalyzer();
+		//handler2.addServlet(new ServletHolder(rs), "/recommend");
 		
 		HandlerList handlers = new HandlerList(); //stores all the handlers in an array
 		handlers.setHandlers(new Handler[] { handler1, handler2 });

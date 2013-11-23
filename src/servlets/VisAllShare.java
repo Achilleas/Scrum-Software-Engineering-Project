@@ -1,5 +1,6 @@
 package servlets;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 
 import main.Constants;
 import main.FinanceQuery;
@@ -71,26 +74,48 @@ public class VisAllShare extends HttpServlet{
 	    out.println("var data = [");
 	    
 		Stock stock;
+		String stockID="";
 		int i=0;
+		double max=0;
 		while (it.hasNext()) {
+			stock = it.next();
 			if(i>0){
 				out.print(",");
+				stockID+=",";
+				if(stock.getLatest()>max){
+					max=stock.getLatest();
+				}
+			}
+			else{
+				max=stock.getLatest();
 			}
 			i++;
-			stock = it.next();
+			
 			out.print(stock.getLatest());
+			stockID=stockID+"\""+stock.getId()+"\"";
 		}
+		
+		System.out.println("max: "+max);
+		
+		//int i = 1732;
+		//MathUtils.round((double) i, -1); // nearest ten, 1730.0
+		
+		int a = (int)max/1000;
+		
+		System.out.println(a);
+		
 		out.print("],");
-		out.println("w = 400,");
-		out.println("h = 5000,");
-		out.print("x = pv.Scale.linear(0, 5000).range(0, w),");
+		out.println("share = ["+stockID+"],");
+		out.println("w ="+(a+1)*200+",");
+		out.println("h = 2000,");
+		out.print("x = pv.Scale.linear(0,"+((a+1)*1000)+").range(0, w),");
 		out.println("y = pv.Scale.ordinal(pv.range("+list.size()+")).splitBanded(0, h, 4/5);");
 		
-		out.println("var vis = new pv.Panel().width(w).height(h).bottom(20).left(20).right(10).top(5);");
+		out.println("var vis = new pv.Panel().width(w).height(h).bottom(20).left(50).right(10).top(5);");
 
 		out.println("var bar = vis.add(pv.Bar).data(data).top(function() y(this.index)).height(y.range().band).left(0).width(x).title(function(d) d.toFixed(2)).event(\"mouseover\", pv.Behavior.tipsy({gravity: \"w\", fade: true}));");
 
-		out.println("bar.anchor(\"left\").add(pv.Label).textMargin(10).textAlign(\"right\").text(function() \"ABCPEFGHIJK\".charAt(this.index));");
+		out.println("bar.anchor(\"left\").add(pv.Label).textMargin(10).textAlign(\"right\").text(function() share[this.index]);");
 
 		out.println("vis.add(pv.Rule).data(x.ticks()).left(function(d) Math.round(x(d)) - .5).strokeStyle(function(d) d ? \"rgba(0,0,0,.3)\" : \"#000\").add(pv.Rule).bottom(0).height(5).strokeStyle(\"#000\").anchor(\"bottom\").add(pv.Label).text(function(d) d.toFixed(1));");
 
