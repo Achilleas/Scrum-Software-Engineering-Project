@@ -51,7 +51,8 @@ public class HtmlWriter {
 		      +".Header {}"
 		      +".Recommended {}"
 		      + "table,th,td {border: 1px solid black;}"
-		      +"</style>";
+		      +"</style>" 
+		      +"<link rel=\"stylesheet\" type=\"text/css\" href=\"../static/Style.css\" />";
 	}
 	/**
 	 * Get a piece predefined and static CSS segment for javascript.

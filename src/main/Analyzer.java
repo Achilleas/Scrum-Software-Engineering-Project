@@ -14,6 +14,11 @@ import static main.Constants.*;
  * 
  * @author Qiao
  * ----------------------------------------------------------------------------
+ * @version 1.4
+ * Add headers
+ * Fix displaying bugs
+ * Add market capitalization analysis
+ * ----------------------------------------------------------------------------
  * @version 1.3
  * HTML looks nicer
  * Delete redundant fields
@@ -37,29 +42,29 @@ public class Analyzer {
 	private String[] indices;
 	private HashMap<String,StockAnalysis> table;
 	private LocalDate today;
-	private LocalDate two_week_history;
-	private LocalDate four_week_history;
-	private LinkedList<Stock> two_week_prices;
-	private LinkedList<Stock> four_week_prices;
+	private LocalDate twenty_five_week_history;
+	private LocalDate fifty_week_history;
+	private LinkedList<Stock> twenty_five_week_prices;
+	private LinkedList<Stock> fifty_week_prices;
 	public Analyzer(String separator) {
 		indices = FinanceQuery.getComponents(FTSE100).split(separator);
 		today = new LocalDate();
-		two_week_history = today.minusWeeks(2);
-		four_week_history = today.minusWeeks(4);
+		twenty_five_week_history = today.minusWeeks(25);
+		fifty_week_history = today.minusWeeks(50);
 		table=new HashMap<String,StockAnalysis>();
 	}
 	public StockAnalysis getAnalysis(String index){
-		 four_week_prices = FinanceQuery.getHistorical(
-					index, four_week_history, today,
+		 fifty_week_prices = FinanceQuery.getHistorical(
+					index, fifty_week_history, today,
 					Constants.DAILY_INTERVAL);
-		 two_week_prices = FinanceQuery.getHistorical(
-					index, two_week_history, today,
+		 twenty_five_week_prices = FinanceQuery.getHistorical(
+					index, twenty_five_week_history, today,
 					Constants.DAILY_INTERVAL);
-		if(two_week_prices==null||four_week_prices==null){
+		if(twenty_five_week_prices==null||fifty_week_prices==null){
 			return null;
 		}
 		StockAnalysis analysis=new StockAnalysis(index);
-		analysis.analyze(two_week_prices,four_week_prices);
+		analysis.analyze(twenty_five_week_prices,fifty_week_prices);
 		return analysis;
 	}
 /**
@@ -67,13 +72,14 @@ public class Analyzer {
  * This method can process historical analysis before users' requests.
  */
 	public void analyze() {
+		System.out.println("Loading and analyze data");
 		for (int i = 0; i < indices.length; i++) {
-			System.out.println("Processing "+indices[i]);
 			StockAnalysis analysis=getAnalysis(indices[i]);
 			if(analysis!=null){
 				table.put(indices[i], analysis);
 			}
 		}
+		System.out.println("Analysis done");
 	}
 	private String getFullReport(Investor user){
 		String result;
@@ -89,7 +95,7 @@ public class Analyzer {
 			if(analysis==null){
 				continue;
 			}
-			if (suggested=analysis.getAverageResult()||analysis.getGradientResult()) {
+			if (suggested=analysis.getAverageResult()||analysis.getGradientResult()||analysis.getMarketCapResult()) {
 				result+= "<td class=\"Header\">"+"<a href=\"/servlets/recommend?id="+indices[i]+"\">"+indices[i]+"</a></td>"
 						+"<td class=\"Header\">"+analysis.getComment()+"</td>";
 			} else {
@@ -101,24 +107,24 @@ public class Analyzer {
 					result+="<td class=\"Recommended\">You have not invested this stock yet</td>";
 				}else{
 					suggested=false;
-					result+= "<td>You have invested this stock</td>";
+					result+= "<td></td>";
 				}
-				if (user.isInterested(indices[i])&&suggested) {
+				if (user.isInterested(indices[i])) {
 					result+= "<td class=\"Recommended\">Interested in</td>";
 				} else{
 					suggested=false;
-					result+=  "<td>Not interested in</td>";
+					result+=  "<td></td>";
 				}
 			}else{
 				if(user.isInvested(indices[i])){
-					result+="<td>You have not invested this stock yet</td>";
+					result+="<td></td>";
 				}else{
-					result+= "<td>You have invested this stock</td>";
+					result+= "<td></td>";
 				}
-				if (user.isInterested(indices[i])&&suggested) {
+				if (user.isInterested(indices[i])) {
 					result+= "<td>Interested in</td>";
 				} else{
-					result+=  "<td>Not interested in</td>";
+					result+=  "<td>You have invested this stock yet</td>";
 				}
 			}
 			result+= "</tr>";
@@ -149,7 +155,7 @@ public class Analyzer {
 			result="<h1>Cannot get data for+"+index+"</h1>";
 			return result;
 		}
-		result = "<h1>Analysis of a single stock</h1><h2>Index: "+index+"</h2>";
+		result = "<h1>Analysis of a single stock</h1><p href=\"/servlets/share-vis?id="+index+"\">"+index+"</p>";
 		if(user.isInterested(index)){
 			result+="<h3>Interested in</h3> ";
 		}else{
@@ -163,13 +169,19 @@ public class Analyzer {
 		result+="<h3>"+analysis.getComment()+"</h3>"
 				+"<table><tr>"+ "<th>Title</th>"+ "<th>Analyzed data</th>"
 				+ "</tr><tr>";
-		result+="<td>Last two weeks' average</td><td>"
+		result+="<td>Last 25 weeks' price average</td><td>"
 				+analysis.getFirstAverage()+"</td>"
-				+"<tr><td>Last four weeks' average</td><td>"
+				+"<tr><td>Last 50 weeks' price average</td><td>"
 				+analysis.getSecondAverage()+"</td></tr>"
-				+"<tr><td>Last two weeks' slope</td><td>"
+
+				+"<tr><td>Last 25 weeks' market capitalization average</td><td>"
+				+analysis.getFirstCapAverage()+"</td></tr>"
+				+"<tr><td>Last 50 weeks' market capitalization averagee</td><td>"
+				+analysis.getSecondCapAverage()+"</td></tr>"
+				
+				+"<tr><td>Last 25 weeks' price slope</td><td>"
 				+analysis.getFirstGradient()+"</td></tr>"
-				+"<tr><td>Last four weeks' slope</td><td>"
+				+"<tr><td>Last 50 weeks' price slope</td><td>"
 				+analysis.getSecondGradient()+"</td></tr></table>";
 		return result;
 	}
@@ -194,6 +206,13 @@ public class Analyzer {
 		html.append(HtmlWriter.getCSS());
 		html.append(HtmlWriter.getJavaScript());
 		html.closeHead();
+		html.append("<div id=\"header\" style=\"text-align:center; background-color:#71C6E2\">");
+		html.append("<h1>CS3051 Stock Analyser</h1></div>");
+		html.append("<p><a href=\"/servlets/profile\" style=\"font-size:20px\">Profile</a> &nbsp;&nbsp;&nbsp;");
+		html.append("<a href=\"/servlets/overview\" style=\"font-size:20px\">Market Overview</a> &nbsp;&nbsp;&nbsp;");
+		html.append("<a href=\"/servlets/stocks\" style=\"font-size:20px\">Stock Visualisation</a>&nbsp;&nbsp;&nbsp;");
+		html.append("<a href=\"/servlets/recommend\" style=\"font-size:20px\">Recommended Stocks</a>&nbsp;&nbsp;&nbsp;");
+		html.append("<input type=\"button\" value=\"Sign Out\" onclick=\"location.href='/servlets/signout'\"></p>");
 		html.append(report(user,index));
 		html.closeHtml();
 		return html.getContent();
