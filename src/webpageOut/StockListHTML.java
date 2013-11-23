@@ -21,11 +21,23 @@ public class StockListHTML extends WriteOut implements Runnable{
 	}
 	
 	synchronized public void write() {
-		
-		NavigableSet<String> set = FinanceQuery.getComponentsList(FTSE100);
+		htmlStart();
+		writeHeader();
+		out.println("<p>List of current FTSE 100 Stocks goes here. <br/>");
+		out.println("Users can then click on stock to look at, which will redirect to granularity visualisation. </p>");
+		out.println(getTable(FTSE100,"float:left; width:250px;"));
+		out.println(getTable(NASDAQ100,"margin-left: 75%; width:250px;"));
+		htmlEnd();
+	}
+	
+	private String getTable(String index, String cssStyle) {
+		NavigableSet<String> set = FinanceQuery.getComponentsList(index);
 		Iterator<String> iterator = set.iterator();
 		
-		String tableContent = "<table border=\"1\">";
+		String tableContent = "<table border=\"1\"" +
+				((cssStyle.equalsIgnoreCase(""))?
+						"" : " style=\"" + cssStyle + "\"") +
+				">";
 		
 		// header
 		tableContent += "<tr>" +
@@ -47,14 +59,10 @@ public class StockListHTML extends WriteOut implements Runnable{
 		
 		// table end tag
 		tableContent += "</table>";
-		htmlStart();
-		writeHeader();
-		out.println("<p>List of current FTSE 100 Stocks goes here. <br/>");
-		out.println("Users can then click on stock to look at, which will redirect to granularity visualisation. </p>");
-		out.println(tableContent);
-		htmlEnd();
+		
+		return tableContent;
 	}
-
+	
 	private static String getStockName(String id) {
 		String name;
 		
@@ -66,18 +74,23 @@ public class StockListHTML extends WriteOut implements Runnable{
 		return name;
 	}
 
-	synchronized public void run() {
-		String ftse = FinanceQuery.getComponents(FTSE100);
-		LinkedList<Stock> list = FinanceQuery.getLatestPrice(ftse);
+	private void getAllStockName(String index){
+		String components = FinanceQuery.getComponents(index);
+		LinkedList<Stock> list = FinanceQuery.getLatestPrice(components);
 		Iterator<Stock> iterator = list.iterator();
 		
-		System.out.println("StockListHTML : \t Update Stock List");
 		while(iterator.hasNext()) {
 			Stock stock = iterator.next();
 			String id = stock.getId();
 			String name = stock.getName();
 			stocks.putIfAbsent(id, name);
 		}
+	}
+	
+	synchronized public void run() {
+		System.out.println("StockListHTML : \t Update Stock List");
+		getAllStockName(FTSE100);
+		getAllStockName(NASDAQ100);
 		System.out.println("StockListHTML : \t Done Update Stock List");
 	}
 }
