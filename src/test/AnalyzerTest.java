@@ -12,8 +12,8 @@ import org.junit.*;
 import java.io.*;
 
 public class AnalyzerTest {
-	String filename1="WebRoot\\static\\FullAnalysis.html";
-	String filename2="WebRoot\\static\\SingleAnalysis.html";
+	String filename1="FullAnalysis.html";
+	String filename2="SingleAnalysis.html";
 	String firstname = "Qiao";
 	String surname = "Kang";
 	ArrayList<String> companiesInvested;

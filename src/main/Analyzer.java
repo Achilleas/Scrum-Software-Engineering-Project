@@ -67,13 +67,13 @@ public class Analyzer {
  * This method can process historical analysis before users' requests.
  */
 	public void analyze() {
-		for (int i = 0; i < indices.length; i++) {
+		/*for (int i = 0; i < indices.length; i++) {
 			System.out.println("Processing "+indices[i]);
 			StockAnalysis analysis=getAnalysis(indices[i]);
 			if(analysis!=null){
 				table.put(indices[i], analysis);
 			}
-		}
+		}*/
 	}
 	private String getFullReport(Investor user){
 		String result;
