@@ -30,6 +30,7 @@ public class JettyServer {
 		handler2.addServlet(new ServletHolder(new ProfilePage()), "/profile");
 		handler2.addServlet(new ServletHolder(new SignOut()), "/signout");
 		handler2.addServlet(new ServletHolder(new MarketOverview()), "/overview");
+		handler2.addServlet(new ServletHolder(new RefreshOverview()), "/refreh-overview");
 		handler2.addServlet(new ServletHolder(new StockChooser()), "/stocks");
 		handler2.addServlet(new ServletHolder(new VisShare()), "/share-vis");
 		handler2.addServlet(new ServletHolder(new VisAllShare()), "/all-share-vis");
