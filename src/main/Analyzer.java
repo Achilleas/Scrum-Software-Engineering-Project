@@ -119,12 +119,12 @@ public class Analyzer {
 				if(user.isInvested(indices[i])){
 					result+="<td></td>";
 				}else{
-					result+= "<td></td>";
+					result+=  "<td>You have not invested this stock yet</td>";
 				}
 				if (user.isInterested(indices[i])) {
 					result+= "<td>Interested in</td>";
 				} else{
-					result+=  "<td>You have invested this stock yet</td>";
+					result+="<td></td>";
 				}
 			}
 			result+= "</tr>";
@@ -155,7 +155,7 @@ public class Analyzer {
 			result="<h1>Cannot get data for+"+index+"</h1>";
 			return result;
 		}
-		result = "<h1>Analysis of a single stock</h1><p href=\"/servlets/share-vis?id="+index+"\">"+index+"</p>";
+		result = "<h1>Analysis of a single stock</h1><p><a href=\"/servlets/share-vis?id="+index+"\">"+index+"</a></p>";
 		if(user.isInterested(index)){
 			result+="<h3>Interested in</h3> ";
 		}else{

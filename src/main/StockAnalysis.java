@@ -32,8 +32,8 @@ public class StockAnalysis {
 		for(int i=0;i<prices.length;i++){
 			xx_sum+=timeline[i]*timeline[i];
 			x_mean+=timeline[i];
-			xy_sum+=timeline[i]*prices[i].getMarketCap();
-			y_mean+=prices[i].getMarketCap();
+			xy_sum+=timeline[i]*prices[i].getClose();
+			y_mean+=prices[i].getClose();
 		}
 		x_mean/=n;
 		y_mean/=n;
@@ -51,7 +51,7 @@ public class StockAnalysis {
 		return result / prices.length;
 	}
 	/**
-	 * Calculate the average of a list of prices
+	 * Calculate the average of a list of market capitalization
 	 */
 	private double calculateCapAverage(Stock[] prices) {
 		double result = 0;
@@ -85,7 +85,7 @@ public class StockAnalysis {
 		}
 		second_market_cap_average=calculateCapAverage(second_period);
 		first_market_cap_average=calculateCapAverage(first_period);
-		if(strategy_cap=first_market_cap_average>second_market_cap_average*1.1){
+		if(strategy_cap=first_market_cap_average>second_market_cap_average*1.05&&first_market_cap_average>0&&second_market_cap_average>0){
 			if(strategy_average||strategy_slope){
 				comment+="<br>";
 			}
