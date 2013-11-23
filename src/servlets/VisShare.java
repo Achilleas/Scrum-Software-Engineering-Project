@@ -1,5 +1,6 @@
 package servlets;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -111,9 +112,9 @@ public class VisShare extends HttpServlet{
 		System.out.println(ll.getFirst().getId());
 		Iterator<Stock> iterator = ll.iterator();
 				
-		//File file = new File("Data2.js");
-		//PrintWriter write = new PrintWriter("WebRoot/static/Data-"+stock+".js");
-		PrintWriter write = new PrintWriter("./WebRoot/static/Vis_Files/examples/data-"+stock+".js");
+		File file = new File("./WebRoot/static/Vis_Files/examples/data-"+stock+".js");
+		file.deleteOnExit();
+		PrintWriter write = new PrintWriter(file);
 		
 		int i=0;
 

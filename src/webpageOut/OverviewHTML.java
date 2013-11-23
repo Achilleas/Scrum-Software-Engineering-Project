@@ -3,10 +3,6 @@ package webpageOut;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.NavigableSet;
-
-import org.joda.time.LocalDate;
-
 import main.Constants;
 import main.FinanceQuery;
 import main.Investor;
@@ -15,21 +11,27 @@ import main.Stock;
 //Writes HTML for Market Overview
 public class OverviewHTML extends WriteOut {
 
-	public OverviewHTML(PrintWriter out, Investor ip) {
+	public OverviewHTML(PrintWriter out) {
 		this.out = out;
 		// Set title of HTML output
 		this.title = "Market Overview";
-		writeOverview(ip);
 	}
 
-	private void writeOverview(Investor ip) {
+	public void writeHTML(Investor ip) {
 		htmlStart();
+		out.println("<script type=\"text/javascript\" src=\"/static/javascript/refresh-table-ajax.js\"></script>");
 		writeHeader();
-		tableHeading();
-		writeStocks(ip);
+		out.println("<div id=\"content\">");
+		writeTable(ip);
+		out.println("</div>");
 		htmlEnd();
 	}
 
+	public void writeTable(Investor ip) {
+		tableHeading();
+		writeStocks(ip);
+	}
+	
 	private void tableHeading() {
 		out.println("<table border =\"1\">");
 		out.println("<tr>");
