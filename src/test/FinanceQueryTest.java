@@ -157,7 +157,7 @@ public class FinanceQueryTest {
 		// test for other index (NASDAQ-100)
 		File file1, file2, sample_file;
 		String symbols;
-		symbols = FinanceQuery.getComponents("^NDX");
+		symbols = FinanceQuery.getComponents(NASDAQ100);
 		System.out.println("The NASDAQ list of symbols are \n" + symbols);
 		
 		file1 = FinanceQuery.getLatestPriceCSV(symbols);

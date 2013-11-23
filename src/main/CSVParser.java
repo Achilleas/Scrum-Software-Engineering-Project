@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;*/
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.joda.time.LocalDate;
 
@@ -22,7 +24,7 @@ import org.joda.time.LocalDate;
  */
 public class CSVParser {
 	
-	private final String separator = ",";
+	private Pattern pattern = Pattern.compile("(([^\"][^,]*)|\"([^\"]*)\"),?");
 	
 	public LinkedList<Stock> parseHistoricalCSV(File file, String symbol) {
 		BufferedReader r = null;
@@ -33,7 +35,20 @@ public class CSVParser {
 			r = new BufferedReader(new FileReader(file));
 			r.readLine(); // skip first line
 			while ((line = r.readLine()) != null) {
-				String[] columns = line.split(separator);
+				String[] columns = new String[7];
+				Matcher matcher = pattern.matcher(line);
+				int i = 0;
+				
+				while(matcher.find() && i < 7)
+				{
+					// String without quotes
+				    if(matcher.group(2) != null)
+				        columns[i]=matcher.group(2).replace("\n", "");
+				    // String with quotes
+				    else if(matcher.group(3) != null)
+				    	columns[i]=matcher.group(3).replace("\n", "");
+				    i++;
+				}
 				Stock historicalData = toHistorical(columns, symbol);
 				list.add(historicalData);
 			}
@@ -68,7 +83,21 @@ public class CSVParser {
 		try {
 			r = new BufferedReader(new FileReader(file));
 			while ((line = r.readLine()) != null) {
-				String[] columns = line.split(separator);
+				String[] columns = new String[9];
+				Matcher matcher = pattern.matcher(line);
+				int i = 0;
+				
+				while(matcher.find() && i < 9)
+				{
+					// String without quotes
+				    if(matcher.group(2) != null)
+				        columns[i]=matcher.group(2).replace("\n", "");
+				    // String with quotes
+				    else if(matcher.group(3) != null)
+				    	columns[i]=matcher.group(3).replace("\n", "");
+				    i++;
+				}
+				
 				Stock dailyprice = toStock(columns, date);
 				list.add(dailyprice);
 			}
@@ -103,12 +132,17 @@ public class CSVParser {
 		
 		// Market Capitalization
 		val = columns[8];
-		double marketCap;
+		double marketCap = -2;
 		if (val.equalsIgnoreCase("N/A")) {
 			marketCap = -1;
 		} else {
-			val = val.replace("B", "");	// get digits only
-			marketCap = Double.parseDouble(val);
+			if (val.contains("B")){
+				val = val.replace("B", "");	// get digits only
+				marketCap = Double.parseDouble(val);
+			} else if (val.contains("T")){
+				val = val.replace("T", "");	// get digits only
+				marketCap = Double.parseDouble(val) * 1000;
+			}
 		}
 		return new Stock(date, id, name, latest, open, high, low, close, volume, marketCap);
 	}
