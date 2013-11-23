@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import webpageOut.SessionHTML;
+import webpageOut.WriteOut;
 import main.Investor;
 
 public class Session extends HttpServlet{
@@ -38,22 +40,8 @@ public class Session extends HttpServlet{
 		//used to send the html page to the client
 		
 		Investor ip = (Investor) session.getAttribute("user");
-		out.println("<!DOCTYPE html>");
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<meta charset=\"utf-8\">");
-		out.println("<title> Individual Details </title>");
-		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"/static/Style.css\" />");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<h1>ALREADY SIGNED IN AS USER: "+ip.getUsername()+"</h1>");
-		out.println("<p>Name: "+ip.getFirstName()+"</p>");
-		out.println("<p>Name: "+ip.getSurname()+"</p>");
-		out.println("<a href=\"/servlets/share-vis\">Display</a>");
-		out.println("<a href=\"../static/Vis_Files/examples/share_vis.html\">Display2</a>");
-		out.println("</body>");
-		out.println("</html>");
-		out.close(); 
+		SessionHTML sesOut = new SessionHTML(out);
+		sesOut.writeHTML(ip);
 		}
 	}
 }
