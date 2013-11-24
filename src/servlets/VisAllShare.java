@@ -45,8 +45,14 @@ public class VisAllShare extends HttpServlet{
 		//used to send the html page to the client
 		
 		String sExchange = servlet_request.getParameter("exchange");
-		
-		System.out.println("***"+sExchange);
+		String index="";
+
+		if(sExchange.equals(Constants.FTSE100)){
+			index="FTSE 100";
+		}
+		else if(sExchange.equals(Constants.NASDAQ100)){
+			index="NASDAQ 100";
+		}
 		
 		String ftse = FinanceQuery.getComponents(sExchange);
 		LinkedList<Stock> list = FinanceQuery.getLatestPrice(ftse);
@@ -76,7 +82,7 @@ public class VisAllShare extends HttpServlet{
 	  out.println("</head>");
 	  out.println("<body>");
 	   w.writeHeader(); //Write Header
-	   out.println("<h1>Visualise All Current Shares</h1>");
+	   out.println("<h1>Visualisation of shares in "+index+"</h1>");
 	  out.println("<script type=\"text/javascript+protovis\">");
 	    out.println("var data = [");
 	    
@@ -104,18 +110,15 @@ public class VisAllShare extends HttpServlet{
 		
 		System.out.println("max: "+max);
 		
-		//int i = 1732;
-		//MathUtils.round((double) i, -1); // nearest ten, 1730.0
-		
-		int a = (int)max/1000;
+		int a = (int)max/100;
 		
 		System.out.println(a);
 		
 		out.print("],");
 		out.println("share = ["+stockID+"],");
-		out.println("w ="+(a+1)*200+",");
+		out.println("w =1200,");
 		out.println("h = 2000,");
-		out.print("x = pv.Scale.linear(0,"+((a+1)*1000)+").range(0, w),");
+		out.print("x = pv.Scale.linear(0,"+((a+1)*100)+").range(0, w),");
 		out.println("y = pv.Scale.ordinal(pv.range("+list.size()+")).splitBanded(0, h, 4/5);");
 		
 		out.println("var vis = new pv.Panel().width(w).height(h).bottom(20).left(50).right(10).top(5);");

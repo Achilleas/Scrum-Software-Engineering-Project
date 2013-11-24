@@ -87,7 +87,7 @@ public class VisShare extends HttpServlet{
 		out.println("<body>");
 		
 		w.writeHeader();
-		out.println("<h1>"+id+" Share Visualisation</h1>");
+		//out.println("<h1>"+id+" Share Visualisation</h1>");
 		
 		out.println("<div id=\"body-container\" >");
 		out.println("<div id=\"header-container\"><div id=\"header\"></div></div>");
