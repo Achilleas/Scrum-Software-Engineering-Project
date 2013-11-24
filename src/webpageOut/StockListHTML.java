@@ -23,9 +23,9 @@ public class StockListHTML extends WriteOut implements Runnable{
 	synchronized public void write() {
 		htmlStart();
 		writeHeader();
-		out.println("<h1>Current FTSE100 Shares</h1>");
+		out.println("<h1>Current FTSE100 & NASDAQ100 Shares</h1>");
 		out.println("<p>Pick a share to visualise it over time.<br/>");
-		out.println("Or alternatively, <a href=\"/servlets/all-share-vis?exchange=^FTSE\">visualise all shares</a>.");
+		out.println("Or alternatively, visualise all shares in the <a href=\"/servlets/all-share-vis?exchange=^FTSE\">FTSE-100</a> or the <a href=\"/servlets/all-share-vis?exchange=^NDX\">NASDAQ-100</a>.");
 		out.println(getTable(FTSE100,"float:left; width:250px;"));
 		out.println(getTable(NASDAQ100,"margin-left: 50%; width:250px;"));
 		htmlEnd();
