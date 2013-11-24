@@ -21,6 +21,7 @@ public class OverviewHTML extends WriteOut {
 		htmlStart();
 		out.println("<script type=\"text/javascript\" src=\"/static/javascript/refresh-table-ajax.js\"></script>");
 		writeHeader();
+		out.println("<h1>Market Overview</h1>");
 		out.println("<div id=\"content\">");
 		writeTable(ip);
 		out.println("</div>");

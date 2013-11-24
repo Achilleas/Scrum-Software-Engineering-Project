@@ -18,6 +18,8 @@ import main.Stock;
 
 import org.joda.time.LocalDate;
 
+import webpageOut.WriteOut;
+
 
 public class VisShare extends HttpServlet{
 			
@@ -52,6 +54,9 @@ public class VisShare extends HttpServlet{
 		PrintWriter out = servlet_response.getWriter(); //creates writer
 		//used to send the html page to the client
 		
+		WriteOut w = new WriteOut();
+		w.setWriter(out);
+		
 		out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
 		out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">");
 		out.println("<head>");
@@ -80,6 +85,10 @@ public class VisShare extends HttpServlet{
 		out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/examples/demo.js\"></script>");
 		out.println("</head>");
 		out.println("<body>");
+		
+		w.writeHeader();
+		out.println("<h1>"+id+" Share Visualisation</h1>");
+		
 		out.println("<div id=\"body-container\" >");
 		out.println("<div id=\"header-container\"><div id=\"header\"></div></div>");
 		out.println("<div id=\"links-container\"><div id=\"links\"></div></div>");

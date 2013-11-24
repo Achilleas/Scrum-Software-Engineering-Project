@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import main.Investor;
 
 public class UPHTML extends WriteOut {
+	
+	String reqstar = "<span class=\"req\"> *</span>";
 
 	public UPHTML(PrintWriter out) {
 		this.out = out;
@@ -66,7 +68,7 @@ public class UPHTML extends WriteOut {
 	}
 
 	public void writeName(Investor ip) {
-		out.println("<p>Name<br />");
+		out.println("<p>Name"+reqstar+"<br />");
 		out.println("<input type=\"text\" name=\"Firstname\" value=\""
 				+ ip.getFirstName() + "\" required pattern=\"[A-Za-z]{1,}\"/>");
 		out.println("<input type=\"text\" name=\"Surname\" value=\""
@@ -75,10 +77,10 @@ public class UPHTML extends WriteOut {
 	}
 
 	public void writeEmailPhone(Investor ip) {
-		out.println("<p>E-mail Address");
+		out.println("<p>E-mail Address"+reqstar);
 		out.println("<br /><input type=\"email\" name=\"Email\" value=\""
 				+ ip.getEmail() + "\"required /><br />");
-		out.println("Home telephone");
+		out.println("Home telephone"+reqstar);
 		out.println("<br /><input type=\"tel\" name=\"Telephone\" value=\""
 				+ ip.getTelephone() + "\"required");
 		out.println("pattern=\"[0-9]{5}[ ][0-9]{6}\" title=\"Valid 11 digit number with space, for example: 01122 123456\"/><br />");
@@ -89,7 +91,7 @@ public class UPHTML extends WriteOut {
 		//Line 1
 		out.println("<input type=\"text\" name=\"Line1\" value=\""
 				+ ip.getAddress().getString()[0]
-				+ "\" required pattern=\"[0-9A-Za-z ]{1,}\"/><br />");
+				+ "\" required pattern=\"[0-9A-Za-z ]{1,}\"/>"+reqstar+"<br />");
 		//Line 2
 		out.println("<input type=\"text\" name=\"Line2\" value=\""
 				+ ip.getAddress().getString()[1]
@@ -97,7 +99,7 @@ public class UPHTML extends WriteOut {
 		//Town
 		out.println("<input type=\"text\" name=\"Town\" value=\""
 				+ ip.getAddress().getString()[2]
-				+ "\"required pattern=\"[A-Za-z ]{1,}\"/><br />");
+				+ "\"required pattern=\"[A-Za-z ]{1,}\"/>"+reqstar+"<br />");
 		//County
 		out.println("<input type=\"text\" name=\"County\" value=\""
 				+ ip.getAddress().getString()[3]
@@ -106,11 +108,11 @@ public class UPHTML extends WriteOut {
 		out.println("<input type=\"text\" name=\"Postcode\" value=\""
 				+ ip.getAddress().getString()[4] + "\"required");
 		out.println("pattern=\"[A-Z]{2}[0-9]{1,2}[ ][0-9]{1,2}[A-Z]{2}\"");
-		out.println("title=\"Valid Postcode with a space, for example: KY16 9LY\"/><br />");
+		out.println("title=\"Valid Postcode with a space, for example: KY16 9LY\"/>"+reqstar+"<br />");
 		//Country
 		out.println("<input type=\"text\" name=\"Country\" value=\""
 				+ ip.getAddress().getString()[5]
-				+ "\" required pattern=\"[A-Za-z ]{1,}\" /><br /></p>");
+				+ "\" required pattern=\"[A-Za-z ]{1,}\" />"+reqstar+"<br /></p>");
 	}
 
 	public void writeCompanies(Investor ip) {

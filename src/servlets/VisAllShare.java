@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+import webpageOut.WriteOut;
 import main.Constants;
 import main.FinanceQuery;
 import main.Stock;
@@ -51,6 +53,9 @@ public class VisAllShare extends HttpServlet{
 
 		Iterator<Stock> it = list.iterator();
 
+		WriteOut w = new WriteOut();
+		w.setWriter(out);
+		
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		  out.println("<head>");
@@ -70,7 +75,9 @@ public class VisAllShare extends HttpServlet{
 	    out.println("</style>");
 	  out.println("</head>");
 	  out.println("<body>");
-	    out.println("<script type=\"text/javascript+protovis\">");
+	   w.writeHeader(); //Write Header
+	   out.println("<h1>Visualise All Current Shares</h1>");
+	  out.println("<script type=\"text/javascript+protovis\">");
 	    out.println("var data = [");
 	    
 		Stock stock;

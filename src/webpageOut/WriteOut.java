@@ -39,4 +39,8 @@ public class WriteOut {
 		out.println("</body>");
 		out.println("</html>");
 	}
+	
+	public void setWriter(PrintWriter pw){
+		this.out = pw;
+	}
 }
