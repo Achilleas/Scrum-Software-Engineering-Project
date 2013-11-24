@@ -37,7 +37,7 @@ public class Investor {
 		this.companiesInvested=new ArrayList<String>();
 	}
 	/**
-	 * 
+	 * Investor constructor
 	 * Update:
 	 * 2013/11/11	Jia Heng
 	 * 		- Modify constructor to pass the test]
@@ -76,7 +76,8 @@ public class Investor {
 		this.companiesInterested = (companiesInterested==null)?
 				new ArrayList<String>() : companiesInterested;
 	}
-
+	
+	//INVESTOR GETTERS
 	public String getUsername() {
 		return username;
 	}
@@ -116,7 +117,9 @@ public class Investor {
 	public ArrayList<String> getCompaniesInterested() {
 		return companiesInterested;
 	}
-
+	//END OF INVESTOR GETTERS
+	
+	//INVESTOR SETTERS
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -148,7 +151,8 @@ public class Investor {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
+	//END OF INVESTOR SETTERS
+	
 	/**
 	 * -------------------------------------------------------------------------
 	 * 
@@ -162,8 +166,15 @@ public class Investor {
 		return password.equals(this.password);
 	}
 
+	/**
+	 * Changes password if old password is verified
+	 * @param old_password the old password of the user
+	 * @param new_password the new password the user wants to have
+	 * @return returns true if old password was verified and a new password exists, 
+	 * otherwise false
+	 */
 	public boolean changePassword(String old_password, String new_password) {
-		if (verifyPassword(old_password)) {
+		if (verifyPassword(old_password) && new_password != null) {
 			this.password = new_password;
 			return true;
 		} else {
@@ -172,37 +183,57 @@ public class Investor {
 	}
 
 	/**
-	 * 
+	 * Add another company to the user's list of interested companies
 	 * Update
 	 * 2013/11/11	Jia Heng	
 	 * 		-Uses Collection's method
 	 * 
-	 * @param stock
+	 * @param stock the stock of that company
 	 */
 	public void addInterested(String stock) {
 		if (!isInterested(stock)) {
 			companiesInterested.add(stock);
 		}
 	}
-
+	
+	/**
+	 * Add company to the user's list of invested companies
+	 * @param stock the sotck of that company
+	 */
 	public void addInvested(String stock) {
 		if (!isInvested(stock)) {
 			companiesInvested.add(stock);
 		}
 	}
 
+	/**
+	 * Determines if the user is interested in said stock
+	 * @param stock the stock
+	 * @return returns true if user is interested, otherwise false
+	 */
 	public boolean isInterested(String stock) {
 		return companiesInterested.contains(stock);
 	}
 
+	/**
+	 * Determines if the user is investing in said stock
+	 * @param stock the stock
+	 * @return returns true if user is investing on it, otherwise false
+	 */
 	public boolean isInvested(String stock) {
 		return companiesInvested.contains(stock);
 	}
 
+	/**
+	 * @return returns an arraylist of all the companies the investor is interested
+	 */
 	public ArrayList<String> getInterestList() {
 		return companiesInterested;
 	}
 
+	/**
+	 * @return returns an arraylist of all the companies the investor is investing
+	 */
 	public ArrayList<String> getInvestedList() {
 		return companiesInterested;
 	}

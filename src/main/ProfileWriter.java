@@ -29,7 +29,7 @@ public class ProfileWriter {
 	private BufferedWriter bw;
 	/**
 	 * Constructor
-	 * @param separator
+	 * @param separator the regex to be used
 	 */
 	public ProfileWriter(String separator){
 		this.separator = separator;
@@ -37,7 +37,7 @@ public class ProfileWriter {
 	/**
 	 * Write lists of stocks' name, each list will occupy a single line.
 	 * Names of stocks are separated by predefined separator
-	 * @param list
+	 * @param list 
 	 * @throws IOException
 	 */
 	private void writeList(ArrayList<String> list,int header) throws IOException{
@@ -112,15 +112,17 @@ public class ProfileWriter {
 	 }
 	
 	/**
-	 * This method check if a specific file exist
-	 * @param filename
-	 * @return
+	 * This method checks if a specific file exist
+	 * @param filename the file's name
+	 * @return returns true if a file exists, false if it doesn't
 	 */
 	public static boolean checkDuplication(String username){
 		return new File(PROFILE_PATH + username+".txt").exists();
 	}
 	/**
-	 * This method check if the profile of an investor exists
+	 * This method checks if a user exists
+	 * @param user the user
+	 * @return returns true if it exists, false if it doesn't
 	 */
 	public static boolean checkDuplication(Investor user){
 		return checkDuplication(user.getUsername());

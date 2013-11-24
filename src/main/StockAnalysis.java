@@ -92,6 +92,8 @@ public class StockAnalysis {
 			comment+="<br>Analysis based on market capitalization is significant.";
 		}
 	}
+	
+	//GETTERS
 	public double getFirstAverage(){
 		return first_average;
 	}
@@ -125,4 +127,5 @@ public class StockAnalysis {
 	public String getComment(){
 		return comment;
 	}
+	//END OF GETTERS
 }

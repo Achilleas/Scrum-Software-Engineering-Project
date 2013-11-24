@@ -37,7 +37,6 @@ public class JettyServer {
 		//RecommendShares rs=new RecommendShares();
 		//rs.setUpAnalyzer();
 		//handler2.addServlet(new ServletHolder(rs), "/recommend");
-		
 		HandlerList handlers = new HandlerList(); //stores all the handlers in an array
 		handlers.setHandlers(new Handler[] { handler1, handler2 });
 

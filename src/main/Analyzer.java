@@ -80,10 +80,11 @@ public class Analyzer {
 	}
 	
 	/**
-	 * Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
-	 * This method can process historical analysis before users' requests.
+	 * 
 	 */
 	public void analyze() {
+		//Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
+		//This method can process historical analysis before users' requests.
 		System.out.println("Loading and analyzing data...");
 		for (int i = 0; i < indices.length; i++) {
 			StockAnalysis analysis=getAnalysis(indices[i]);
@@ -95,9 +96,9 @@ public class Analyzer {
 	}
 	
 	/**
-	 * 
-	 * @param user
-	 * @return
+	 * Returns 
+	 * @param user the user
+	 * @return returns a string containing the html report of the analysis
 	 */
 	private String getFullReport(Investor user){
 		String result;

@@ -13,7 +13,6 @@ import jetty.JettyServer;
 public class Main {
 
 	public static void main(String[] args) throws IOException{
-		
 		//String[] str = {"January", "February", "March", "April","May","June", "July","August", "September","October","November", "December"};
 		
 		(new Thread(new FinanceQuery())).start();

@@ -7,6 +7,10 @@ import org.joda.time.LocalDate;
 public class ProfileReader {
 	private String separator;
 
+	/**
+	 * ProfileReader constructor
+	 * @param separator regex to be used
+	 */
 	public ProfileReader(String separator) {
 		this.separator = separator;
 	}
