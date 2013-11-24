@@ -7,9 +7,6 @@ package jetty;
  */
 public class IllegalPortException extends Exception {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7932701055252857374L;
 
 	public IllegalPortException(String message) {

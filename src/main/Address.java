@@ -1,6 +1,8 @@
 package main;
 
-//Home Address Class
+/**
+ * Class representing the Address of an {@link Investor} 
+ */
 public class Address {
 	private String line1;
 	private String line2;
@@ -9,7 +11,15 @@ public class Address {
 	private String postcode;
 	private String country;
 
-	// Constructor
+	/**
+	 * The Address constructor
+	 * @param line1 first line of address
+	 * @param line2 second line of address
+	 * @param town city of investor
+	 * @param county county of investor
+	 * @param postcode postcode of investor
+	 * @param country country of investor
+	 */
 	public Address(String line1, String line2, String town, String county,
 			String postcode, String country) {
 		this.line1 = line1;
@@ -20,6 +30,9 @@ public class Address {
 		this.country = country;
 	}
 
+	/**
+	 * Secondary Address constructor if not information was given
+	 */
 	public Address() {
 		this.line1 = "";
 		this.line2 = "";
@@ -29,7 +42,10 @@ public class Address {
 		this.country = "";
 	}
 
-	// Returns String Array containing Address elements
+	/**
+	 * Gets all the address elements
+	 * @return returns an array of all the address elements
+	 */
 	public String[] getString() {
 		String[] add = new String[6];
 		add[0] = line1;
@@ -41,26 +57,50 @@ public class Address {
 		return add;
 	}
 
+	/**
+	 * Setter for first line of address
+	 * @param line1 first line of address
+	 */
 	public void setLine1(String line1) {
 		this.line1 = line1;
 	}
 
+	/**
+	 * Setter for second line of address
+	 * @param line2 second line of address
+	 */
 	public void setLine2(String line2) {
 		this.line2 = line2;
 	}
 
+	/**
+	 * Setter for city/town of investor
+	 * @param town city/town of investor
+	 */
 	public void setTown(String town) {
 		this.town = town;
 	}
-
+	
+	/**
+	 * Setter for county of investor
+	 * @param county county of investor
+	 */
 	public void setCounty(String county) {
 		this.county = county;
 	}
 
+	/**
+	 * Setter for postcode of investor
+	 * @param postcode postcode of investor
+	 */
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 
+	/**
+	 * Setter for country of investor
+	 * @param country country of investor
+	 */
 	public void setCountry(String country) {
 		this.country = country;
 	}

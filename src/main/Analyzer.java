@@ -36,7 +36,7 @@ import static main.Constants.*;
  * New tests added
  * ----------------------------------------------------------------------------
  * @version 1.0
- * This class is the demo that analyze the data and generate HTML code based on user profile when it it called. An example of the result page can be viewed at WebRoot/static/Analyzer.html
+ * This class is the demo that analyze the data and generate HTML code based on user profile when it is called. An example of the result page can be viewed at WebRoot/static/Analyzer.html
  */
 public class Analyzer {
 	private String[] indices;
@@ -46,6 +46,11 @@ public class Analyzer {
 	private LocalDate fifty_week_history;
 	private LinkedList<Stock> twenty_five_week_prices;
 	private LinkedList<Stock> fifty_week_prices;
+	
+	/**
+	 * Analyzer constructor
+	 * @param separator the regex in which the analyzer will use to split to components
+	 */
 	public Analyzer(String separator) {
 		indices = FinanceQuery.getComponents(FTSE100).split(separator);
 		today = new LocalDate();
@@ -53,6 +58,7 @@ public class Analyzer {
 		fifty_week_history = today.minusWeeks(50);
 		table=new HashMap<String,StockAnalysis>();
 	}
+	
 	public StockAnalysis getAnalysis(String index){
 		 fifty_week_prices = FinanceQuery.getHistorical(
 					index, fifty_week_history, today,
@@ -67,20 +73,27 @@ public class Analyzer {
 		analysis.analyze(twenty_five_week_prices,fifty_week_prices);
 		return analysis;
 	}
-/**
- * Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
- * This method can process historical analysis before users' requests.
- */
+	
+	/**
+	 * Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
+	 * This method can process historical analysis before users' requests.
+	 */
 	public void analyze() {
-		System.out.println("Loading and analyze data");
+		System.out.println("Loading and analyzing data...");
 		for (int i = 0; i < indices.length; i++) {
 			StockAnalysis analysis=getAnalysis(indices[i]);
 			if(analysis!=null){
 				table.put(indices[i], analysis);
 			}
 		}
-		System.out.println("Analysis done");
+		System.out.println("...Analysis done");
 	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	private String getFullReport(Investor user){
 		String result;
 		ArrayList<String> matches=new ArrayList<String>();
@@ -143,6 +156,13 @@ public class Analyzer {
 		}
 		return result;
 	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @param index
+	 * @return
+	 */
 	private String getSingleReport(Investor user,String index){
 		String result;
 		StockAnalysis analysis;
@@ -185,22 +205,13 @@ public class Analyzer {
 				+analysis.getSecondGradient()+"</td></tr></table>";
 		return result;
 	}
+	
 	/**
-	 * Display the result in HTML format after the analysis is done.
-	 * To have an overview of the entire market, the index is set to be null
-	 * To generate report about a specific share, the index should be the index of
-	 * that share.
-	 * Note that you must call analyze method before passing the null parameter, otherwise the report contains nothing!
+	 * 
+	 * @param user
+	 * @param index
+	 * @return
 	 */
-	private String report(Investor user,String index) {
-		String result;
-		if(index==null){
-			result=getFullReport(user);
-		}else{
-			result=getSingleReport(user,index);
-		}
-		return result;
-	}
 	public String getFullReport(Investor user,String index){
 		HtmlWriter html = new HtmlWriter("Analysis");
 		html.append(HtmlWriter.getCSS());
@@ -217,4 +228,23 @@ public class Analyzer {
 		html.closeHtml();
 		return html.getContent();
 	}
+	
+	/**
+	 * Display the result in HTML format after the analysis is done.
+	 * To have an overview of the entire market, the index is set to be null
+	 * To generate report about a specific share, the index should be the index of
+	 * that share.
+	 * Note that you must call analyze method before passing the null parameter, otherwise the report contains nothing!
+	 */
+	private String report(Investor user,String index) {
+		String result;
+		if(index==null){
+			result=getFullReport(user);
+		}else{
+			result=getSingleReport(user,index);
+		}
+		return result;
+	}
+	
+
 }
