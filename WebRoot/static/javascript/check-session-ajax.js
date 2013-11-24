@@ -24,7 +24,7 @@ function stateHandler2() {
 			var URL = "../servlets/profile";
 
 			document.write(xmlHttp.responseText);
-			document.write("You will be redirect to <a href='" + URL + "'>profile page</a> in 5 seconds");
+			document.write("You will be redirect to <a href='" + URL + "'>profile page</a> in 5 seconds.");
 			setTimeout(function(){ window.location = URL; }, delay);
 		}
 	}

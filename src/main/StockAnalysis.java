@@ -1,21 +1,24 @@
 package main;
 import java.util.*;
 public class StockAnalysis {
+	private static final int MARKET_CAP=0;
+	private static final int PRICE=1;
 	private String index;
 	private boolean strategy_average;
 	private boolean strategy_slope;
+	private boolean strategy_cap;
 	private String comment;
 	double first_average;
 	double second_average;
 	double first_gradient;
 	double second_gradient;
+	double second_market_cap_average;
+	double first_market_cap_average;
 	public StockAnalysis(String index){
 		this.index=index;
-		strategy_average=false;
-		strategy_slope=false;
-		comment="No particular significant comment.";
+		comment="";
 	}
-	private double linearRegression(Stock[] prices){
+	private double linearRegression(Stock[] prices,int type){
 		double[] timeline=new double[prices.length];
 		for(int i=0;i<timeline.length;i++){
 			timeline[i]=i+1;
@@ -28,8 +31,8 @@ public class StockAnalysis {
 		double xy_sum=0;
 		for(int i=0;i<prices.length;i++){
 			xx_sum+=timeline[i]*timeline[i];
-			xy_sum+=timeline[i]*prices[i].getClose();
 			x_mean+=timeline[i];
+			xy_sum+=timeline[i]*prices[i].getClose();
 			y_mean+=prices[i].getClose();
 		}
 		x_mean/=n;
@@ -47,6 +50,16 @@ public class StockAnalysis {
 		}
 		return result / prices.length;
 	}
+	/**
+	 * Calculate the average of a list of market capitalization
+	 */
+	private double calculateCapAverage(Stock[] prices) {
+		double result = 0;
+		for (int i = 0; i < prices.length; i++) {
+			result += prices[i].getMarketCap();
+		}
+		return result / prices.length;
+	}
 	private Stock[] convertToArray(LinkedList<Stock> list){
 		Stock[] array=new Stock[list.size()];
 		for(int i=0;i<array.length;i++){
@@ -59,19 +72,24 @@ public class StockAnalysis {
 		Stock[] second_period=convertToArray(second_period_list);
 		first_average = calculateDailyAverage(first_period);
 		second_average = calculateDailyAverage(second_period);
-		if(first_average>second_average*1.05){
-			strategy_average=true;
+		if(strategy_average=first_average>second_average*1.05){
 			comment="Analysis based on period average is significant.";
 		}
-		first_gradient=linearRegression(first_period);
-		second_gradient=linearRegression(second_period);
-		if(first_gradient>second_gradient&&first_gradient>0&&second_gradient>0){
-			strategy_slope=true;
+		first_gradient=linearRegression(first_period,PRICE);
+		second_gradient=linearRegression(second_period,PRICE);
+		if(strategy_slope=first_gradient>second_gradient&&first_gradient>0&&second_gradient>0){
 			if(strategy_average){
-				comment="Both slope and average analysis is significant!";
-			}else{
-				comment="Analysis based on period slope is significant.";
+				comment+="<br>";
 			}
+			comment+="Analysis based on period slope is significant.";
+		}
+		second_market_cap_average=calculateCapAverage(second_period);
+		first_market_cap_average=calculateCapAverage(first_period);
+		if(strategy_cap=first_market_cap_average>second_market_cap_average*1.05&&first_market_cap_average>0&&second_market_cap_average>0){
+			if(strategy_average||strategy_slope){
+				comment+="<br>";
+			}
+			comment+="<br>Analysis based on market capitalization is significant.";
 		}
 	}
 	public double getFirstAverage(){
@@ -86,11 +104,20 @@ public class StockAnalysis {
 	public double getSecondGradient(){
 		return second_gradient;
 	}
+	public double getFirstCapAverage(){
+		return first_market_cap_average;
+	}
+	public double getSecondCapAverage(){
+		return second_market_cap_average;
+	}
 	public boolean getAverageResult(){
 		return strategy_average;
 	}
 	public boolean getGradientResult(){
 		return strategy_slope;
+	}
+	public boolean getMarketCapResult(){
+		return strategy_cap;
 	}
 	public String getIndex(){
 		return index;
