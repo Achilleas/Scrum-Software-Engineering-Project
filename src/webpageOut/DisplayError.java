@@ -9,14 +9,14 @@ import java.io.PrintWriter;
  * @author cl72
  * Used to display an error message
  */
-public class CreateError extends WriteOut{
+public class DisplayError extends WriteOut{
 	
 	/**
 	 * Constructor for the class
 	 * @param out the location of where to write the HTML file
 	 * @throws IOException 
 	 */
-	public CreateError(PrintWriter out, String message) throws IOException{
+	public DisplayError(PrintWriter out, String message) throws IOException{
 		this.out = out;
 		writeErrorMessage(message);
 	}

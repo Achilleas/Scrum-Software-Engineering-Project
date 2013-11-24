@@ -108,8 +108,6 @@ public class VisAllShare extends HttpServlet{
 			stockID=stockID+"\""+stock.getId()+"\"";
 		}
 		
-		System.out.println("max: "+max);
-		
 		int a = (int)max/100;
 		
 		System.out.println(a);

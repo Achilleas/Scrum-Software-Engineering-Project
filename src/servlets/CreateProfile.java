@@ -19,7 +19,10 @@ import main.Investor;
 import main.ProfileWriter;
 import main.UserExistException;
 
-//Takes values from registration form and creates an Investor object for user
+/**
+ * @author Callum Kenny
+ * Takes values from registration form and creates an Investor object for the user	
+ */
 public class CreateProfile extends HttpServlet {
 
 	private static final long serialVersionUID = -1922391698617055744L;
