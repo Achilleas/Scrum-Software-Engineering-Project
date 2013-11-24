@@ -52,24 +52,24 @@
 
 <p><span class="top">Username</span>
 	<span class="req">*</span>
-	<span class="sub">(if available)</span>
+	<span class="sub">(2-10 digits, no white spaces or symbols)</span>
 		<br />
-		<input id="username" type="text" name="Username" onchange="userCheck();" required />
+		<input id="username" type="text" name="Username" onchange="userCheck();" pattern="[A-Za-z0-9]{2,10}" required />
 		<span id="username-error" class="status">username name exist! Please use another username</span>
 		<span id="username-available" class="status">username available!</span>
 </p>
 
 <p><span class="top">Password</span>
 	<span class="req">*</span>
-	<span class="sub">(minimum 6 digits length, include numbers, symbols, and different case letters)</span>
+	<span class="sub">(6-14 digits length, include numbers, symbols, and different case letters)</span>
 		<br />
-		<input type="password" name="Password" required pattern="[A-Za-z0-9]{6,14}"/></p>
+		<input type="password" name="Password" required pattern=".{6,14}"/></p>
 
 <h2>Personal Info</h2>
 
 <p>Name <span class="req">*</span><br />
-	<input type="text" name="Firstname" placeholder="Forename" required />
-	<input type="text" name="Surname" placeholder="Surname" required /></p>
+	<input type="text" name="Firstname" placeholder="Forename" pattern="[A-Za-z]{1,}" required />
+	<input type="text" name="Surname" placeholder="Surname" pattern="[A-Za-z]{1,}" required /></p>
 
 <p>
 Date of Birth <span class="req">*</span><br />
@@ -103,14 +103,14 @@ Home telephone <span class="req">*</span>
 		title="Valid 11 digit number with space, for example: 01122 123456"/><br />
 
 Address<br />
-	<input type="text" name="Line1" placeholder="Line 1" required /><span class="req"> *</span><br />
-	<input type="text" name="Line2" placeholder="Line 2" /><br />
-	<input type="text" name="Town" placeholder="Town" required /><span class="req"> *</span><br />
-	<input type="text" name="County" placeholder="County"/><br />
+	<input type="text" name="Line1" placeholder="Line 1" required pattern="[0-9A-Za-z ]{1,}" /><span class="req"> *</span><br />
+	<input type="text" name="Line2" placeholder="Line 2" pattern="[0-9A-Za-z ]{0,}" /><br />
+	<input type="text" name="Town" placeholder="Town" required pattern="[A-Za-z ]{1,}" /><span class="req"> *</span><br />
+	<input type="text" name="County" placeholder="County" pattern="[A-Za-z ]{0,}" /><br />
 	<input type="text" name="Postcode" placeholder="Postcode"required
 		pattern="[A-Z]{2}[0-9]{1,2}[ ][0-9]{1,2}[A-Z]{2}"
 		title="Valid Postcode with a space, for example: KY16 9LY"/><span class="req"> *</span><br />
-	<input type="text" name="Country" placeholder="Country" required /><span class="req"> *</span><br />
+	<input type="text" name="Country" placeholder="Country" required pattern="[A-Za-z ]{1,}" /><span class="req"> *</span><br />
 </p>
 
 <h2>Companies</h2>

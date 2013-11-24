@@ -3,6 +3,8 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -135,6 +137,10 @@ public class CreateProfile extends HttpServlet {
 		for (int i = 0; i < a.length; i++) {
 			list.add(a[i]);
 		}
+		//Removes duplicates by converting to Set then back again
+		//LinkedHashSet preserves ordering of list
+		Set<String> set = new LinkedHashSet<String>(list);
+		list = new ArrayList<String>(set);
 	}
 
 	// Removes whitespace from text area input for companies

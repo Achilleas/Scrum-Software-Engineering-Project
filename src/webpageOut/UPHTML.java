@@ -41,31 +41,37 @@ public class UPHTML extends WriteOut {
 		out.println("</form>");
 	}
 
-	public void hiddenValues(Investor ip){
+	public void hiddenValues(Investor ip) {
 		String day = Integer.toString(ip.getDateOfBirth().getDayOfMonth());
 		String month = Integer.toString(ip.getDateOfBirth().getMonthOfYear());
 		String year = Integer.toString(ip.getDateOfBirth().getYear());
 
-		out.println("<input type=\"hidden\" name=\"Username\" value=\""+ip.getUsername()+"\">");
-		out.println("<input type=\"hidden\" name=\"Day\" value=\""+day+"\">");
-		out.println("<input type=\"hidden\" name=\"Month\" value=\""+month+"\">");
-		out.println("<input type=\"hidden\" name=\"Year\" value=\""+year+"\">");
+		out.println("<input type=\"hidden\" name=\"Username\" value=\""
+				+ ip.getUsername() + "\">");
+		out.println("<input type=\"hidden\" name=\"Day\" value=\"" + day
+				+ "\">");
+		out.println("<input type=\"hidden\" name=\"Month\" value=\"" + month
+				+ "\">");
+		out.println("<input type=\"hidden\" name=\"Year\" value=\"" + year
+				+ "\">");
 	}
-	
+
 	public void writePass() {
 		out.println("<p>Old Password");
 		out.println("<br /><input type=\"password\" name=\"OldPassword\" required /></p>");
 
 		out.println("<p>New Password");
-		out.println("<br /><input type=\"password\" name=\"Password\" required /></p>");
+		out.println("<span class=\"sub\">(6-14 digits length, include numbers, symbols, and different case letters)</span>");
+		out.println("<br /><input type=\"password\" name=\"Password\" required pattern=\".{6,14}\"/></p>");
 	}
 
 	public void writeName(Investor ip) {
 		out.println("<p>Name<br />");
 		out.println("<input type=\"text\" name=\"Firstname\" value=\""
-				+ ip.getFirstName() + "\" required />");
+				+ ip.getFirstName() + "\" required pattern=\"[A-Za-z]{1,}\"/>");
 		out.println("<input type=\"text\" name=\"Surname\" value=\""
-				+ ip.getSurname() + "\" required /></p>");
+				+ ip.getSurname()
+				+ "\" required pattern=\"[A-Za-z]{1,}\"/></p>");
 	}
 
 	public void writeEmailPhone(Investor ip) {
@@ -80,20 +86,31 @@ public class UPHTML extends WriteOut {
 
 	public void writeAddress(Investor ip) {
 		out.println("<p>Address<br />");
+		//Line 1
 		out.println("<input type=\"text\" name=\"Line1\" value=\""
-				+ ip.getAddress().getString()[0] + "\" required /><br />");
+				+ ip.getAddress().getString()[0]
+				+ "\" required pattern=\"[0-9A-Za-z ]{1,}\"/><br />");
+		//Line 2
 		out.println("<input type=\"text\" name=\"Line2\" value=\""
-				+ ip.getAddress().getString()[1] + "\"><br />");
+				+ ip.getAddress().getString()[1]
+				+ "\" pattern=\"[0-9A-Za-z ]{0,}\"><br />");
+		//Town
 		out.println("<input type=\"text\" name=\"Town\" value=\""
-				+ ip.getAddress().getString()[2] + "\"required /><br />");
+				+ ip.getAddress().getString()[2]
+				+ "\"required pattern=\"[A-Za-z ]{1,}\"/><br />");
+		//County
 		out.println("<input type=\"text\" name=\"County\" value=\""
-				+ ip.getAddress().getString()[3] + "\"/><br />");
+				+ ip.getAddress().getString()[3]
+				+ "\" pattern=\"[A-Za-z ]{0,}\"/><br />");
+		//Postcode
 		out.println("<input type=\"text\" name=\"Postcode\" value=\""
 				+ ip.getAddress().getString()[4] + "\"required");
 		out.println("pattern=\"[A-Z]{2}[0-9]{1,2}[ ][0-9]{1,2}[A-Z]{2}\"");
 		out.println("title=\"Valid Postcode with a space, for example: KY16 9LY\"/><br />");
+		//Country
 		out.println("<input type=\"text\" name=\"Country\" value=\""
-				+ ip.getAddress().getString()[5] + "\" required /><br /></p>");
+				+ ip.getAddress().getString()[5]
+				+ "\" required pattern=\"[A-Za-z ]{1,}\" /><br /></p>");
 	}
 
 	public void writeCompanies(Investor ip) {
