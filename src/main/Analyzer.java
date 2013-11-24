@@ -56,9 +56,14 @@ public class Analyzer {
 		today = new LocalDate();
 		twenty_five_week_history = today.minusWeeks(25);
 		fifty_week_history = today.minusWeeks(50);
-		table=new HashMap<String,StockAnalysis>();
+		table = new HashMap<String,StockAnalysis>();
 	}
 	
+	/**
+	 * Gets a 25-week and 50-week of historical data 
+	 * @param index the index this historical data is to be taken from
+	 * @return returns return the stock analysis {@link StockAnalysis}
+	 */
 	public StockAnalysis getAnalysis(String index){
 		 fifty_week_prices = FinanceQuery.getHistorical(
 					index, fifty_week_history, today,
