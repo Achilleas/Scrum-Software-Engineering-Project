@@ -44,7 +44,7 @@ public class OverviewHTML extends WriteOut {
 		out.println("<th>High Price</th>");
 		out.println("<th>Low Price</th>");
 		out.println("<th>Volume</th>");
-		out.println("<th>Market Cap</th>");
+		out.println("<th>Market Cap (B)</th>");
 		out.println("</tr>");
 	}
 
@@ -84,10 +84,12 @@ public class OverviewHTML extends WriteOut {
 			out.println("<td>" + stock.getHigh() + "</td>");
 			out.println("<td>" + stock.getLow() + "</td>");
 			out.println("<td>" + stock.getVolume() + "</td>");
-			out.println("<td>" + stock.getMarketCap() + "</td>");
+			int compare = Double.compare(stock.getMarketCap(),-1.0);
+			out.println("<td>" + ( (compare > 0)? stock.getMarketCap() : "N/A" ) + "</td>");
 			out.println("</tr>");
 		}
 
 		out.println("</table>");
+		out.println("<p><small>Currency in GBP.</small></p>");
 	}
 }
