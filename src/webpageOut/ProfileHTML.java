@@ -22,6 +22,7 @@ public class ProfileHTML extends WriteOut{
 		writeHeader();
 		if(ip!=null)
 			writeDetails(ip);
+			updateProfile();
 		htmlEnd();
 	}
 	
@@ -58,6 +59,10 @@ public class ProfileHTML extends WriteOut{
 		printList(ip.getCompaniesInvested());
 		out.write("<h3><u>Companies Interested In</u></h3>");
 		printList(ip.getCompaniesInterested());
+	}
+	
+	public void updateProfile(){
+		out.write("<input type=\"button\" value=\"Update Profile\" onclick=\"location.href='/servlets/update'\"></p>");
 	}
 	
 }

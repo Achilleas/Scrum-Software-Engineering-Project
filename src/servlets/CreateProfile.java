@@ -104,43 +104,7 @@ public class CreateProfile extends HttpServlet {
 		parseCompanies(value, companiesInvested);
 		value = servlet_request.getParameter("Interested");
 		parseCompanies(value, companiesInterested);
-		
-		Integer accessCount = new Integer(0);
-		
-		if (session.isNew()) {
-		} else {
-			Integer oldAccessCount =
-			// Use getAttribute, not getValue, in version
-			// 2.2 of servlet API.
-			(Integer) session.getAttribute("accessCount");
-			if (oldAccessCount != null) {
-				accessCount = new Integer(oldAccessCount.intValue() + 1);
-			}
-		}
-		// Use putAttribute in version 2.2 of servlet API.
-		session.setAttribute("accessCount", accessCount);
 
-		// Print Session Info
-	    /*out.println("<BODY BGCOLOR=\"#FDF5E6\">\n" +
-	                "<H1 ALIGN=\"CENTER\">" + heading + "</H1>\n" +
-	                "<H2>Information on Your Session:</H2>\n" +
-	                "<TABLE BORDER=1 ALIGN=CENTER>\n" +
-	                "<TR BGCOLOR=\"#FFAD00\">\n" +
-	                "  <TH>Info Type<TH>Value\n" +
-	                "<TR>\n" +
-	                "  <TD>ID\n" +
-	                "  <TD>" + session.getId() + "\n" +
-	                "<TR>\n" +
-	                "  <TD>Creation Time\n" +
-	                "  <TD>" + new Date(session.getCreationTime()) + "\n" +
-	                "<TR>\n" +
-	                "  <TD>Time of Last Access\n" +
-	                "  <TD>" + new Date(session.getLastAccessedTime()) + "\n" +
-	                "<TR>\n" +
-	                "  <TD>Number of Previous Accesses\n" +
-	                "  <TD>" + accessCount + "\n" +
-	                "</TABLE>\n" +
-	                "</BODY></HTML>");*/
 		Investor ip = createNewProfile(out, session);
 		session.setAttribute("user", ip);
 		servlet_response.sendRedirect("/servlets/profile");
@@ -152,7 +116,7 @@ public class CreateProfile extends HttpServlet {
 				companiesInvested, companiesInterested);
 		ProfileWriter pw = new ProfileWriter(",");
 		try {
-			pw.writeProfile(ip, true);
+			pw.writeProfile(ip, false);
 		} catch (UserExistException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
