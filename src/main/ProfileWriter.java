@@ -78,7 +78,7 @@ public class ProfileWriter {
 	 */
 	public void writeProfile(String filename,Investor user,boolean overwrite) throws UserExistException{
 		try{
-			if(checkDuplication(user)&&overwrite){
+			if(checkDuplication(user)&&!overwrite){
 				throw new UserExistException();
 			}
 			bw=new BufferedWriter(new FileWriter(filename));
