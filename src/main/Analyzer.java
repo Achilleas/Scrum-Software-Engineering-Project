@@ -68,6 +68,7 @@ public class Analyzer {
 		return null;
 	}
 	private void set_twenty_five_weeks(){
+		twenty_five_week_prices=new LinkedList<Stock>();
 		Stock[] stocks=StockAnalysis.convertToArray(fifty_week_prices);
 		for(int i=0;i<stocks.length;i++){
 			LocalDate d;
