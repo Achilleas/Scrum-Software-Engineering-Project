@@ -14,6 +14,10 @@ import static main.Constants.*;
  * 
  * @author Qiao
  * ----------------------------------------------------------------------------
+ * @version 1.5
+ * More bug fixed
+ * Optimized data acquisition
+ * ----------------------------------------------------------------------------
  * @version 1.4
  * Add headers
  * Fix displaying bugs
@@ -233,9 +237,9 @@ public class Analyzer {
 				+"<tr><td>Last 50 weeks' price slope</td><td>"
 				+analysis.getSecondGradient()+"</td></tr>";
 		if(analysis.getMarketCap()>0&&analysis.getMarketPrice()>0){
-			result+="<tr><td>Market Capitalization (B)</td><td>"
+			result+="<tr><td>Market Capitalization</td><td>"
 					+analysis.getMarketCap()+"</td></tr>"
-					+"<tr><td>Product of volume and current price (B)</td><td>"
+					+"<tr><td>Product of volume and current price</td><td>"
 					+analysis.getMarketPrice()+"</td></tr>";
 		}
 		result+="</table>";
