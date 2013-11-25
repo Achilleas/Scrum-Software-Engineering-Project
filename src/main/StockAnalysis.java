@@ -1,8 +1,6 @@
 package main;
 import java.util.*;
 public class StockAnalysis {
-	private static final int MARKET_CAP=0;
-	private static final int PRICE=1;
 	private String index;
 	private boolean strategy_average;
 	private boolean strategy_slope;
@@ -18,7 +16,7 @@ public class StockAnalysis {
 		this.index=index;
 		comment="";
 	}
-	private double linearRegression(Stock[] prices,int type){
+	private double linearRegression(Stock[] prices){
 		double[] timeline=new double[prices.length];
 		for(int i=0;i<timeline.length;i++){
 			timeline[i]=i+1;
@@ -56,8 +54,8 @@ public class StockAnalysis {
 		if(strategy_average=first_average>second_average*1.05){
 			comment="Analysis based on period average is significant.";
 		}
-		first_gradient=linearRegression(first_period,PRICE);
-		second_gradient=linearRegression(second_period,PRICE);
+		first_gradient=linearRegression(first_period);
+		second_gradient=linearRegression(second_period);
 		if(strategy_slope=first_gradient>second_gradient&&first_gradient>0&&second_gradient>0){
 			if(strategy_average){
 				comment+="<br>";
