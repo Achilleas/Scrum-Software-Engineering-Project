@@ -74,7 +74,7 @@ public class StockAnalysis {
 			comment+="Analysis based on period slope is significant.";
 		}
 		this.market_cap=market_cap;
-		market_price=volume*latest;
+		market_price=volume*latest/(10^9);
 		if(strategy_cap=market_cap>market_price){
 			if(strategy_average||strategy_slope){
 				comment+="<br>";
@@ -82,7 +82,6 @@ public class StockAnalysis {
 			comment+="<br>Analysis based on market capitalization is significant.";
 		}
 	}
-	
 	//GETTERS
 	public double getFirstAverage(){
 		return first_average;
