@@ -15,8 +15,7 @@ import main.Investor;
 
 /**
  * 
- * Check username availability
- * response true if the username is available
+ * Refresh Overview Table only
  * 
  * @author jiaheng
  *
@@ -27,7 +26,6 @@ public class RefreshOverview extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = -3533939763348246659L;
-	String username = "";
 	PrintWriter out;
 	
 	protected void doGet(HttpServletRequest servlet_request,

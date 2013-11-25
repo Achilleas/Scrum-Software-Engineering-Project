@@ -1,10 +1,8 @@
 var xmlHttp;
 
-//window.onload=function(){
-var intervalFunc=	setInterval(function(){
+var intervalFunc=setInterval(function(){
 		refreshTable();
-	},5000);
-//};
+	},interval);
 
 //XMLHttpRequest object generator
 function genXmlHttp() {
@@ -27,7 +25,6 @@ function stateHandler() {
 		if (xmlHttp.responseText != "") {
 			var ele = document.getElementById('content');
 			ele.innerHTML = xmlHttp.responseText;
-			console.log("done");
 		} else {
 			clearInterval(intervalFunc);
 		}
@@ -43,11 +40,10 @@ function refreshTable() {
 		return;
 	}
 	
-    var url = "/servlets/refreh-overview";
-	url = url + "?sid=" + Math.random(); // Use random number to avoid using a cached file
-
+	var url_final = url + "?sid=" + Math.random(); // Use random number to avoid using a cached file
+	console.log(url_final);
 	xmlHttp.onreadystatechange = stateHandler;
   
-  	xmlHttp.open("GET", url, true);
+  	xmlHttp.open("GET", url_final, true);
   	xmlHttp.send(null);
 }

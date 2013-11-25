@@ -19,6 +19,10 @@ public class OverviewHTML extends WriteOut {
 
 	public void writeHTML(Investor ip) {
 		htmlStart();
+		out.println("<script>" +
+				"var url = \"/servlets/refreh-overview\";" +
+				"var interval = 5000;" +
+				"</script>");
 		out.println("<script type=\"text/javascript\" src=\"/static/javascript/refresh-table-ajax.js\"></script>");
 		writeHeader();
 		out.println("<h1>Market Overview</h1>");

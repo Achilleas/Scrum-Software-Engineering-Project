@@ -32,12 +32,14 @@ public class JettyServer {
 		handler2.addServlet(new ServletHolder(new MarketOverview()), "/overview");
 		handler2.addServlet(new ServletHolder(new RefreshOverview()), "/refreh-overview");
 		handler2.addServlet(new ServletHolder(new StockChooser()), "/stocks");
+		handler2.addServlet(new ServletHolder(new RefreshStockChooser()), "/refresh-stocks");
 		handler2.addServlet(new ServletHolder(new VisShare()), "/share-vis");
 		handler2.addServlet(new ServletHolder(new VisAllShare()), "/all-share-vis");
 		handler2.addServlet(new ServletHolder(new UpdateProfile()), "/update");
 		//RecommendShares rs=new RecommendShares();
 		//rs.setUpAnalyzer();
 		//handler2.addServlet(new ServletHolder(rs), "/recommend");
+		
 		HandlerList handlers = new HandlerList(); //stores all the handlers in an array
 		handlers.setHandlers(new Handler[] { handler1, handler2 });
 

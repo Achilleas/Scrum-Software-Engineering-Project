@@ -20,15 +20,27 @@ public class StockListHTML extends WriteOut implements Runnable{
 		this.title="Stock List";
 	}
 	
-	synchronized public void write() {
+	public void writeHTML() {
 		htmlStart();
+		out.println("<script>" +
+				"var url = \"/servlets/refresh-stocks\";" +
+				"var interval = 10000;" +
+				"</script>");
+		out.println("<script type=\"text/javascript\" src=\"/static/javascript/refresh-table-ajax.js\"></script>");
 		writeHeader();
 		out.println("<h1>Current FTSE100 & NASDAQ100 Shares</h1>");
 		out.println("<p>Pick a share to visualise it over time.<br/>");
 		out.println("Or alternatively, visualise all shares in the <a href=\"/servlets/all-share-vis?exchange=^FTSE\">FTSE-100</a> or the <a href=\"/servlets/all-share-vis?exchange=^NDX\">NASDAQ-100</a>.");
+		out.println("<div id=\"content\">");
 		out.println(getTable(FTSE100,"float:left; width:250px;"));
 		out.println(getTable(NASDAQ100,"margin-left: 50%; width:250px;"));
+		out.println("</div>");
 		htmlEnd();
+	}
+	
+	public void writeTable() {
+		out.println(getTable(FTSE100,"float:left; width:250px;"));
+		out.println(getTable(NASDAQ100,"margin-left: 50%; width:250px;"));
 	}
 	
 	private String getTable(String index, String cssStyle) {
@@ -88,7 +100,7 @@ public class StockListHTML extends WriteOut implements Runnable{
 		}
 	}
 	
-	synchronized public void run() {
+	public void run() {
 		System.out.println("StockListHTML : \t Update Stock List");
 		getAllStockName(FTSE100);
 		getAllStockName(NASDAQ100);

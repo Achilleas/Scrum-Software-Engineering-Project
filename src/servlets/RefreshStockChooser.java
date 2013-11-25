@@ -9,16 +9,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import webpageOut.OverviewHTML;
 import webpageOut.StockListHTML;
 
-//Generates List of Stocks currently in FTSE100 which a user can select to visualise
-public class StockChooser extends HttpServlet {
+import main.Investor;
 
+/**
+ * 
+ * Refresh Stock List table only
+ * 
+ * @author jiaheng
+ *
+ */
+public class RefreshStockChooser extends HttpServlet {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3372993162487229776L;
-PrintWriter out;
+	private static final long serialVersionUID = 8877237117239698065L;
+	PrintWriter out;
 	
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
@@ -28,22 +37,23 @@ PrintWriter out;
 	
 	private void processRequest(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws IOException {
+		servlet_response.setContentType("text/html"); //the response will be of the type html
+		servlet_response.setStatus(HttpServletResponse.SC_OK); //and the HTTP response code
 		
 		HttpSession session = servlet_request.getSession(false);
+		out = servlet_response.getWriter(); //creates writer
+		//used to send the html page to the client
 		
 		if(session!=null && session.getAttribute("user")!=null){
-			servlet_response.setContentType("text/html"); //the response will be of the type html
-			servlet_response.setStatus(HttpServletResponse.SC_OK); //and the HTTP response code
 	
 			out = servlet_response.getWriter(); //creates writer
 			//used to send the html page to the client
 			
 			StockListHTML s = new StockListHTML(out); //Write HTML
-			s.writeHTML();
-			out.close();
+			s.writeTable();
 		} else {
-			servlet_response.sendRedirect("/static/HomePage.html");	
+			out.write("");
 		}
+		out.close();
 	}
-
 }
