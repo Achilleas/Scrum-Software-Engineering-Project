@@ -123,10 +123,10 @@ public class Analyzer {
 			}
 			if(suggested){
 				if(user.isInvested(indices[i])){
-					result+="<td class=\"Recommended\">You have not invested this stock yet</td>";
+					result+="<td></td>";
 				}else{
 					suggested=false;
-					result+= "<td></td>";
+					result+=  "<td>You have invested this stock yet</td>";
 				}
 				if (user.isInterested(indices[i])) {
 					result+= "<td class=\"Recommended\">Interested in</td>";
@@ -138,7 +138,7 @@ public class Analyzer {
 				if(user.isInvested(indices[i])){
 					result+="<td></td>";
 				}else{
-					result+=  "<td>You have not invested this stock yet</td>";
+					result+=  "<td>You have invested this stock yet</td>";
 				}
 				if (user.isInterested(indices[i])) {
 					result+= "<td>Interested in</td>";
@@ -200,15 +200,17 @@ public class Analyzer {
 				+"<tr><td>Last 50 weeks' price average</td><td>"
 				+analysis.getSecondAverage()+"</td></tr>"
 
-				+"<tr><td>Last 25 weeks' market capitalization average</td><td>"
-				+analysis.getFirstCapAverage()+"</td></tr>"
-				+"<tr><td>Last 50 weeks' market capitalization averagee</td><td>"
-				+analysis.getSecondCapAverage()+"</td></tr>"
 				
 				+"<tr><td>Last 25 weeks' price slope</td><td>"
 				+analysis.getFirstGradient()+"</td></tr>"
 				+"<tr><td>Last 50 weeks' price slope</td><td>"
 				+analysis.getSecondGradient()+"</td></tr></table>";
+		if(analysis.getFirstCapAverage()>0&&analysis.getSecondCapAverage()>0){
+			result+="<tr><td>Last 25 weeks' market capitalization average</td><td>"
+					+analysis.getFirstCapAverage()+"</td></tr>"
+					+"<tr><td>Last 50 weeks' market capitalization averagee</td><td>"
+					+analysis.getSecondCapAverage()+"</td></tr>";
+		}
 		return result;
 	}
 	
