@@ -22,7 +22,7 @@ function genXmlHttp() {
 // state change handler function
 function stateHandler() {
 	if(xmlHttp.readyState == 4)	{ // when request is complete
-		if (xmlHttp.responseText != "") {
+		if (xmlHttp.responseText != "" && xmlHttp.responseText.length > 250) {
 			var ele = document.getElementById('content');
 			ele.innerHTML = xmlHttp.responseText;
 		} else {
@@ -41,7 +41,6 @@ function refreshTable() {
 	}
 	
 	var url_final = url + "?sid=" + Math.random(); // Use random number to avoid using a cached file
-	console.log(url_final);
 	xmlHttp.onreadystatechange = stateHandler;
   
   	xmlHttp.open("GET", url_final, true);
