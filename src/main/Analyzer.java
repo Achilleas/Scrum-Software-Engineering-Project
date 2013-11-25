@@ -47,7 +47,8 @@ public class Analyzer {
 	private LinkedList<Stock> twenty_five_week_prices;
 	private LinkedList<Stock> fifty_week_prices;
 	private Stock[] latest;
-	
+	private Stock[] first_period;
+	private Stock[] second_period;
 	/**
 	 * Analyzer constructor
 	 * @param separator the regex in which the analyzer will use to split to components
@@ -67,15 +68,21 @@ public class Analyzer {
 		}
 		return null;
 	}
+	private static Stock[] convertToArray(LinkedList<Stock> list){
+		Stock[] array=new Stock[list.size()];
+		for(int i=0;i<array.length;i++){
+			array[i]=list.pollFirst();
+		}
+		return array;
+	}
 	private void set_twenty_five_weeks(){
 		twenty_five_week_prices=new LinkedList<Stock>();
-		Stock[] stocks=StockAnalysis.convertToArray(fifty_week_prices);
-		for(int i=0;i<stocks.length;i++){
-			LocalDate d;
-			if(stocks[i].getDate().isAfter(twenty_five_week_history)){
-				twenty_five_week_prices.add(stocks[i]);
+		for(int i=0;i<second_period.length;i++){
+			if(second_period[i].getDate().isAfter(twenty_five_week_history)){
+				twenty_five_week_prices.add(second_period[i]);
 			}
 		}
+		first_period=convertToArray(twenty_five_week_prices);
 	}
 	/**
 	 * Gets a 25-week and 50-week of historical data 
@@ -86,13 +93,14 @@ public class Analyzer {
 		 fifty_week_prices = FinanceQuery.getHistorical(
 					index, fifty_week_history, today,
 					Constants.DAILY_INTERVAL);
-		 set_twenty_five_weeks();
+		second_period=convertToArray(fifty_week_prices);
+		set_twenty_five_weeks();
 		StockAnalysis analysis=new StockAnalysis(index);
 		Stock stock=getStock(index);
 		if(twenty_five_week_prices==null||fifty_week_prices==null||stock==null){
 			return null;
 		}
-		analysis.analyze(twenty_five_week_prices,fifty_week_prices,stock.getMarketCap(),stock.getLatest(),stock.getVolume());
+		analysis.analyze(first_period,second_period,stock.getMarketCap(),stock.getLatest(),stock.getVolume());
 		return analysis;
 	}
 	
@@ -104,7 +112,7 @@ public class Analyzer {
 		//This method can process historical analysis before users' requests.
 		System.out.println("Loading and analyzing data...");
 		LinkedList<Stock> latest_list=FinanceQuery.getLatestPrice(FinanceQuery.getComponents(FTSE100));
-		latest=StockAnalysis.convertToArray(latest_list);
+		latest=convertToArray(latest_list);
 		for (int i = 0; i < indices.length; i++) {
 			StockAnalysis analysis=getAnalysis(indices[i]);
 			if(analysis!=null){
