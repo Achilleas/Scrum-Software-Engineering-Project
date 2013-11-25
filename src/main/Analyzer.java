@@ -67,6 +67,15 @@ public class Analyzer {
 		}
 		return null;
 	}
+	private void set_twenty_five_weeks(){
+		Stock[] stocks=StockAnalysis.convertToArray(fifty_week_prices);
+		for(int i=0;i<stocks.length;i++){
+			LocalDate d;
+			if(stocks[i].getDate().isAfter(twenty_five_week_history)){
+				twenty_five_week_prices.add(stocks[i]);
+			}
+		}
+	}
 	/**
 	 * Gets a 25-week and 50-week of historical data 
 	 * @param index the index this historical data is to be taken from
@@ -76,9 +85,7 @@ public class Analyzer {
 		 fifty_week_prices = FinanceQuery.getHistorical(
 					index, fifty_week_history, today,
 					Constants.DAILY_INTERVAL);
-		 twenty_five_week_prices = FinanceQuery.getHistorical(
-					index, twenty_five_week_history, today,
-					Constants.DAILY_INTERVAL);
+		 set_twenty_five_weeks();
 		StockAnalysis analysis=new StockAnalysis(index);
 		Stock stock=getStock(index);
 		if(twenty_five_week_prices==null||fifty_week_prices==null||stock==null){
@@ -147,7 +154,7 @@ public class Analyzer {
 				}
 			}else{
 				if(user.isInvested(indices[i])){
-					result+=  "<td>You have invested this stock yet</td>";
+					result+=  "<td>You have invested this stock</td>";
 				}else{
 					result+="<td></td>";
 				}
@@ -215,13 +222,14 @@ public class Analyzer {
 				+"<tr><td>Last 25 weeks' price slope</td><td>"
 				+analysis.getFirstGradient()+"</td></tr>"
 				+"<tr><td>Last 50 weeks' price slope</td><td>"
-				+analysis.getSecondGradient()+"</td></tr></table>";
+				+analysis.getSecondGradient()+"</td></tr>";
 		if(analysis.getMarketCap()>0&&analysis.getMarketPrice()>0){
-			result+="<tr><td>Market Capitalization</td><td>"
+			result+="<tr><td>Market Capitalization (B)</td><td>"
 					+analysis.getMarketCap()+"</td></tr>"
-					+"<tr><td>Product of volume and current price</td><td>"
+					+"<tr><td>Product of volume and current price (B)</td><td>"
 					+analysis.getMarketPrice()+"</td></tr>";
 		}
+		result+="</table>";
 		return result;
 	}
 	
