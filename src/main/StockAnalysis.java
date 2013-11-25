@@ -12,8 +12,8 @@ public class StockAnalysis {
 	double second_average;
 	double first_gradient;
 	double second_gradient;
-	double second_market_cap_average;
-	double first_market_cap_average;
+	double market_cap;
+	double market_price;
 	public StockAnalysis(String index){
 		this.index=index;
 		comment="";
@@ -50,24 +50,14 @@ public class StockAnalysis {
 		}
 		return result / prices.length;
 	}
-	/**
-	 * Calculate the average of a list of market capitalization
-	 */
-	private double calculateCapAverage(Stock[] prices) {
-		double result = 0;
-		for (int i = 0; i < prices.length; i++) {
-			result += prices[i].getMarketCap();
-		}
-		return result / prices.length;
-	}
-	private Stock[] convertToArray(LinkedList<Stock> list){
+	public static Stock[] convertToArray(LinkedList<Stock> list){
 		Stock[] array=new Stock[list.size()];
 		for(int i=0;i<array.length;i++){
 			array[i]=list.pollFirst();
 		}
 		return array;
 	}
-	public void analyze(LinkedList<Stock> first_period_list,LinkedList<Stock> second_period_list){
+	public void analyze(LinkedList<Stock> first_period_list,LinkedList<Stock> second_period_list,double market_cap,double latest,double volume){
 		Stock[] first_period=convertToArray(first_period_list);
 		Stock[] second_period=convertToArray(second_period_list);
 		first_average = calculateDailyAverage(first_period);
@@ -83,9 +73,9 @@ public class StockAnalysis {
 			}
 			comment+="Analysis based on period slope is significant.";
 		}
-		second_market_cap_average=calculateCapAverage(second_period);
-		first_market_cap_average=calculateCapAverage(first_period);
-		if(strategy_cap=first_market_cap_average>second_market_cap_average*1.05&&first_market_cap_average>0&&second_market_cap_average>0){
+		this.market_cap=market_cap;
+		market_price=volume*latest;
+		if(strategy_cap=market_cap>market_price){
 			if(strategy_average||strategy_slope){
 				comment+="<br>";
 			}
@@ -106,11 +96,11 @@ public class StockAnalysis {
 	public double getSecondGradient(){
 		return second_gradient;
 	}
-	public double getFirstCapAverage(){
-		return first_market_cap_average;
+	public double getMarketCap(){
+		return market_cap;
 	}
-	public double getSecondCapAverage(){
-		return second_market_cap_average;
+	public double getMarketPrice(){
+		return market_price;
 	}
 	public boolean getAverageResult(){
 		return strategy_average;

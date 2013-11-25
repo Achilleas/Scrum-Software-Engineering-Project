@@ -46,6 +46,7 @@ public class Analyzer {
 	private LocalDate fifty_week_history;
 	private LinkedList<Stock> twenty_five_week_prices;
 	private LinkedList<Stock> fifty_week_prices;
+	private Stock[] latest;
 	
 	/**
 	 * Analyzer constructor
@@ -58,7 +59,14 @@ public class Analyzer {
 		fifty_week_history = today.minusWeeks(50);
 		table = new HashMap<String,StockAnalysis>();
 	}
-	
+	private Stock getStock(String index){
+		for(int i=0;i<latest.length;i++){
+			if(latest[i].getId().equals(index)){
+				return latest[i];
+			}
+		}
+		return null;
+	}
 	/**
 	 * Gets a 25-week and 50-week of historical data 
 	 * @param index the index this historical data is to be taken from
@@ -71,11 +79,12 @@ public class Analyzer {
 		 twenty_five_week_prices = FinanceQuery.getHistorical(
 					index, twenty_five_week_history, today,
 					Constants.DAILY_INTERVAL);
-		if(twenty_five_week_prices==null||fifty_week_prices==null){
+		StockAnalysis analysis=new StockAnalysis(index);
+		Stock stock=getStock(index);
+		if(twenty_five_week_prices==null||fifty_week_prices==null||stock==null){
 			return null;
 		}
-		StockAnalysis analysis=new StockAnalysis(index);
-		analysis.analyze(twenty_five_week_prices,fifty_week_prices);
+		analysis.analyze(twenty_five_week_prices,fifty_week_prices,stock.getMarketCap(),stock.getLatest(),stock.getVolume());
 		return analysis;
 	}
 	
@@ -86,6 +95,8 @@ public class Analyzer {
 		//Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
 		//This method can process historical analysis before users' requests.
 		System.out.println("Loading and analyzing data...");
+		LinkedList<Stock> latest_list=FinanceQuery.getLatestPrice(FinanceQuery.getComponents(FTSE100));
+		latest=StockAnalysis.convertToArray(latest_list);
 		for (int i = 0; i < indices.length; i++) {
 			StockAnalysis analysis=getAnalysis(indices[i]);
 			if(analysis!=null){
@@ -123,10 +134,10 @@ public class Analyzer {
 			}
 			if(suggested){
 				if(user.isInvested(indices[i])){
-					result+="<td></td>";
+					result+=  "<td>You have invested this stock yet</td>";
 				}else{
 					suggested=false;
-					result+=  "<td>You have invested this stock yet</td>";
+					result+="<td></td>";
 				}
 				if (user.isInterested(indices[i])) {
 					result+= "<td class=\"Recommended\">Interested in</td>";
@@ -136,9 +147,9 @@ public class Analyzer {
 				}
 			}else{
 				if(user.isInvested(indices[i])){
-					result+="<td></td>";
-				}else{
 					result+=  "<td>You have invested this stock yet</td>";
+				}else{
+					result+="<td></td>";
 				}
 				if (user.isInterested(indices[i])) {
 					result+= "<td>Interested in</td>";
@@ -205,11 +216,11 @@ public class Analyzer {
 				+analysis.getFirstGradient()+"</td></tr>"
 				+"<tr><td>Last 50 weeks' price slope</td><td>"
 				+analysis.getSecondGradient()+"</td></tr></table>";
-		if(analysis.getFirstCapAverage()>0&&analysis.getSecondCapAverage()>0){
-			result+="<tr><td>Last 25 weeks' market capitalization average</td><td>"
-					+analysis.getFirstCapAverage()+"</td></tr>"
-					+"<tr><td>Last 50 weeks' market capitalization averagee</td><td>"
-					+analysis.getSecondCapAverage()+"</td></tr>";
+		if(analysis.getMarketCap()>0&&analysis.getMarketPrice()>0){
+			result+="<tr><td>Market Capitalization</td><td>"
+					+analysis.getMarketCap()+"</td></tr>"
+					+"<tr><td>Product of volume and current price</td><td>"
+					+analysis.getMarketPrice()+"</td></tr>";
 		}
 		return result;
 	}

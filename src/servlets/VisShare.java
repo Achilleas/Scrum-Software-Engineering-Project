@@ -51,6 +51,8 @@ public class VisShare extends HttpServlet{
 		
 		writeDataFile(id);
 		
+	
+		
 		PrintWriter out = servlet_response.getWriter(); //creates writer
 		//used to send the html page to the client
 		
