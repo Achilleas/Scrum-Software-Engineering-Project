@@ -66,8 +66,6 @@ public class CreateProfile extends HttpServlet {
 
 		address = new Address();
         dateOfBirth = new LocalDate();
-        companiesInvested = new ArrayList<String>();
-        companiesInterested = new ArrayList<String>();
 		
 		// Note: If no value entered for text boxes, sets as ""
         // =======USERNAME + NAME=========
@@ -106,9 +104,9 @@ public class CreateProfile extends HttpServlet {
 		
 		// =======COMPANIES=========
 		value = servlet_request.getParameter("Invested");
-		parseCompanies(value, companiesInvested);
+		companiesInvested=parseCompanies(value);
 		value = servlet_request.getParameter("Interested");
-		parseCompanies(value, companiesInterested);
+		companiesInterested=parseCompanies(value);
 
 		Investor ip = createNewProfile(out, session);
 		session.setAttribute("user", ip);
@@ -131,7 +129,8 @@ public class CreateProfile extends HttpServlet {
 	}
 
 	// Method for parsing companies (given by Strings) from text area input
-	private void parseCompanies(String str, ArrayList<String> list) {
+	private ArrayList<String> parseCompanies(String str) {
+		ArrayList<String> list=new ArrayList<String>();
 		if (str == "") {
 			str = "none";
 		}
@@ -143,7 +142,8 @@ public class CreateProfile extends HttpServlet {
 		//Removes duplicates by converting to Set then back again
 		//LinkedHashSet preserves ordering of list
 		Set<String> set = new LinkedHashSet<String>(list);
-		list = new ArrayList<String>(set);
+		ArrayList<String> result = new ArrayList<String>(set);
+		return result;
 	}
 
 	// Removes whitespace from text area input for companies

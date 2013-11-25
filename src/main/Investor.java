@@ -235,6 +235,6 @@ public class Investor {
 	 * @return returns an arraylist of all the companies the investor is investing
 	 */
 	public ArrayList<String> getInvestedList() {
-		return companiesInterested;
+		return companiesInvested;
 	}
 }
