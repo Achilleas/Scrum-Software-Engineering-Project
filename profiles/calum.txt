@@ -1,0 +1,10 @@
+1,a
+0,Calum
+5,123456
+4,abc@st-ancrews.ac.uk
+8,12345 678901
+9,calum
+6,1999-11-25
+3,AGK.L
+2,AGK.L
+7,2,,AS,a,KY16 9SA,UJ

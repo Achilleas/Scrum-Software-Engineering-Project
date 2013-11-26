@@ -23,6 +23,7 @@ import main.Stock;
 /**
  * @author cl72
  * Used to visualise all the shares that are part of an index
+ * HTML and associated javascript code is based on: http://mbostock.github.io/protovis
  */
 public class VisAllShare extends HttpServlet{
 
@@ -47,6 +48,7 @@ public class VisAllShare extends HttpServlet{
 
 		HttpSession session = servlet_request.getSession(false);
 		
+		//checks an investor is signed into the system
 		if(session==null || session.getAttribute("user")==null){
 			servlet_response.sendRedirect("/static/HomePage.html");
 			return;
@@ -72,8 +74,9 @@ public class VisAllShare extends HttpServlet{
 			return;
 		}
 			
-		
+		//get all the shares in an index
 		String ex = FinanceQuery.getComponents(sExchange);
+		//get all the shares in an index returned as a LinkedList
 		LinkedList<Stock> list = FinanceQuery.getLatestPrice(ex);
 
 		Iterator<Stock> it = list.iterator();
@@ -84,13 +87,12 @@ public class VisAllShare extends HttpServlet{
 		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		  out.println("<head>");
-		  out.println("<script type=\"text/javascript\" src=\"../static/Vis_Files/lib/flotr/base64.js\"></script>");
-		    out.println("<script src=\"../static/VisAllShare/protovis.js\" type=\"text/javascript\"></script>");
-		    out.println("<script src=\"../static/VisAllShare/jquery-1.4.2.min.js\" type=\"text/javascript\"></script>");
-		    out.println("<script src=\"../static/VisAllShare/jquery.tipsy.js\" type=\"text/javascript\"></script>");
-		    out.println("<script src=\"../static/VisAllShare/tipsy.js\" type=\"text/javascript\"></script>");
-		    out.println("<link href=\"../static/VisAllShare/tipsy.css\" type=\"text/css\" rel=\"stylesheet\"/>");
-		    out.println("<title>Vis All</title>");
+		    out.println("<script src=\"../static/javascript/VisAllShare/protovis.js\" type=\"text/javascript\"></script>");
+		    out.println("<script src=\"../static/javascript/VisAllShare/jquery-1.4.2.min.js\" type=\"text/javascript\"></script>");
+		    out.println("<script src=\"../static/javascript/VisAllShare/jquery.tipsy.js\" type=\"text/javascript\"></script>");
+		    out.println("<script src=\"../static/javascript/VisAllShare/tipsy.js\" type=\"text/javascript\"></script>");
+		    out.println("<link href=\"../static/javascript/VisAllShare/tipsy.css\" type=\"text/css\" rel=\"stylesheet\"/>");
+		    out.println("<title>All Share Visualisation</title>");
 		    out.println("<style type=\"text/css\">");
 
 		out.println("body {");
@@ -152,6 +154,10 @@ public class VisAllShare extends HttpServlet{
 		    out.println("<div id=\"example\"></div>");
 		  out.println("</body>");
 		out.println("</html>");
+		
+	}
+	
+	public void printOutWebpage(){
 		
 	}
 	

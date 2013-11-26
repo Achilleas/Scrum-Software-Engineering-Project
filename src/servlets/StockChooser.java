@@ -12,13 +12,21 @@ import javax.servlet.http.HttpSession;
 import webpageOut.StockListHTML;
 
 /**
- * Generates List of Stock currently in FTSE100 and NASDAQ100 which a user can select to visualise
+ * Generates List of Stock currently in FTSE100 and NASDAQ100 which a user can
+ * select to visualise
  */
 public class StockChooser extends HttpServlet {
 
 	private static final long serialVersionUID = -3372993162487229776L;
 	PrintWriter out;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest
+	 * , javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
