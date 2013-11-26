@@ -42,7 +42,7 @@ function refreshTable() {
 	
 	var url_final = url + "?sid=" + Math.random(); // Use random number to avoid using a cached file
 	xmlHttp.onreadystatechange = stateHandler;
-  
+  console.log(final_url);
   	xmlHttp.open("GET", url_final, true);
   	xmlHttp.send(null);
 }
