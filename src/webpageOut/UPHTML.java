@@ -83,24 +83,46 @@ public class UPHTML extends WriteOut {
 				+ "var op = document.getElementById('op');\n"
 				+ "var pass = document.getElementById('p1');\n"
 				+ "var pass2 = document.getElementById('p2');\n"
-				+ "var check = " + ip.getPassword() + "\n" +
+				+ "var check = "
+				+ ip.getPassword()
+				+ "\n"
+				+
 
+				// If no values entered, keeps original password
 				"if(op.value==\"\"&&pass.value==\"\"&&pass2.value==\"\"){\n\n"
 				+ "document.getElementById('p1').value= check;\n"
-				+ "return true;\n" + "}\n\n" +
+				+ "return true;\n"
+				+ "}\n\n"
+				+
 
+				// If value entered for old password doesn't match, return error
 				"else if(op.value!=check){\n"
 				+ "alert(\"Old Password is incorrect!\");\n"
-				+ "return false;\n" + "}\n\n" +
+				+ "return false;\n"
+				+ "}\n\n"
+				+
 
+				// If old password field is filled in but new ones left empty,
+				// return error
+				"else if(pass2.value==\"\"&&pass.value==\"\") {\n"
+				+ "alert(\"No values entered for new password!\");\n"
+				+ "return false;\n"
+				+ "}\n\n"
+				+
+
+				// If new passwords don't match, return error
 				"else if(pass2.value != pass.value) {\n"
-				+ "alert(\"Passwords do not match!\");\n" + "return false;\n"
-				+ "}\n\n" + "}\n" + "return true;\n" + "}\n" + "</script>\n");
+				+ "alert(\"Passwords do not match!\");\n"
+				+ "return false;\n"
+				+ "}\n\n" +
+
+				// Otherwise, all OK
+				"else{\n" + "return true;\n" + "}\n}\n" + "</script>\n");
 	}
 
 	public void writePass() {
 		out.println("<p>Old Password");
-		out.println("<span class=\"sub\">(leave blank if you do not wish to change)</span>");
+		out.println("<span class=\"sub\">(leave all blank if you do not wish to change)</span>");
 		out.println("<br /><input type=\"password\" name=\"OldPassword\" id=\"op\" /></p>");
 
 		out.println("<p>New Password");
