@@ -29,12 +29,12 @@ public class UPHTML extends WriteOut {
 
 	public void writeForm(Investor ip) {
 		out.println("<p>Update any fields you would like to make changes to.</p>");
-		out.println("<p>Please note that your username and date of birth cannot be changed.</p>");
+		out.println("<p>Please note that your username, password and date of birth cannot be changed.</p>");
 		out.println("<form name=\"form2\" onsubmit=\"return checkPass()\" method=\"post\" action =\"/servlets/register\">");
 		out.println("<h1>Update Details</h1>");
 		out.println("<p>Username: " + ip.getUsername() + "</p>");
 		hiddenValues(ip);
-		writePass();
+		// writePass(); - no longer implemented due to password reset bug
 		out.println("<h2>Personal Info</h2>");
 		writeName(ip);
 		out.println("<p>Date of Birth: " + ip.getDateOfBirth() + "</p>");
@@ -48,7 +48,7 @@ public class UPHTML extends WriteOut {
 		out.println("</form>");
 	}
 
-	// Writes hidden form values for date of birth
+	// Writes hidden form values for date of birth, username and password
 	public void hiddenValues(Investor ip) {
 		String day = Integer.toString(ip.getDateOfBirth().getDayOfMonth());
 		String month = Integer.toString(ip.getDateOfBirth().getMonthOfYear());
@@ -56,6 +56,8 @@ public class UPHTML extends WriteOut {
 
 		out.println("<input type=\"hidden\" name=\"Username\" value=\""
 				+ ip.getUsername() + "\">");
+		out.println("<input type=\"hidden\" name=\"Password\" value=\""
+				+ ip.getPassword() + "\">");
 		out.println("<input type=\"hidden\" name=\"Day\" value=\"" + day
 				+ "\">");
 		out.println("<input type=\"hidden\" name=\"Month\" value=\"" + month
@@ -71,55 +73,52 @@ public class UPHTML extends WriteOut {
 		out.println("<meta charset=\"utf-8\">");
 		out.println("<title>" + title + "</title>");
 		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"../static/Style.css\" />");
-		writeJS(ip);
+		// writeJS(ip);
 		out.println("</head>");
 		out.println("<body>");
 	}
 
 	// Javascript function for checking password entries
-	public void writeJS(Investor ip) {
-		out.println("<script type=\"text/javascript\">\n"
-				+ "function checkPass() {\n"
-				+ "var op = document.getElementById('op');\n"
-				+ "var pass = document.getElementById('p1');\n"
-				+ "var pass2 = document.getElementById('p2');\n"
-				+ "var check = "
-				+ ip.getPassword()
-				+ "\n"
-				+
+	// --NOTE: Commented out because of unsolvable bug, whereby a user's
+	// password
+	// gets reset to "" (empty) the *first* time they update their profile in a
+	// session without filling in the password fields. That is to say, if they
+	// changed their password on the first update profile attempt, then while
+	// the server was still running they could afterwards sign in, update all
+	// other fields at will, leaving passwords blank and the javascript would
+	// keep the old password.--
+	/*
+	 * public void writeJS(Investor ip) {
+	 * out.println("<script type=\"text/javascript\">\n" +
+	 * "function checkPass() {\n" + "var op = document.getElementById('op');\n"
+	 * + "var pass = document.getElementById('p1');\n" +
+	 * "var pass2 = document.getElementById('p2');\n" + "var check = " +
+	 * ip.getPassword() + "\n" +
+	 * 
+	 * // If no values entered, keeps original password
+	 * "if(op.value==\"\"&&pass.value==\"\"&&pass2.value==\"\"){\n\n" +
+	 * "document.getElementById('p1').value= check;\n" + "return true;\n" +
+	 * "}\n\n" +
+	 * 
+	 * // If value entered for old password doesn't match, return error
+	 * "else if(op.value!=check){\n" +
+	 * "alert(\"Old Password is incorrect!\");\n" + "return false;\n" + "}\n\n"
+	 * +
+	 * 
+	 * // If old password field is filled in but new ones left empty, // return
+	 * error "else if(pass2.value==\"\"&&pass.value==\"\") {\n" +
+	 * "alert(\"No values entered for new password!\");\n" + "return false;\n" +
+	 * "}\n\n" +
+	 * 
+	 * // If new passwords don't match, return error
+	 * "else if(pass2.value != pass.value) {\n" +
+	 * "alert(\"Passwords do not match!\");\n" + "return false;\n" + "}\n\n" +
+	 * 
+	 * // Otherwise, all OK "else{\n" + "return true;\n" + "}\n}\n" +
+	 * "</script>\n"); }
+	 */
 
-				// If no values entered, keeps original password
-				"if(op.value==\"\"&&pass.value==\"\"&&pass2.value==\"\"){\n\n"
-				+ "document.getElementById('p1').value= check;\n"
-				+ "return true;\n"
-				+ "}\n\n"
-				+
-
-				// If value entered for old password doesn't match, return error
-				"else if(op.value!=check){\n"
-				+ "alert(\"Old Password is incorrect!\");\n"
-				+ "return false;\n"
-				+ "}\n\n"
-				+
-
-				// If old password field is filled in but new ones left empty,
-				// return error
-				"else if(pass2.value==\"\"&&pass.value==\"\") {\n"
-				+ "alert(\"No values entered for new password!\");\n"
-				+ "return false;\n"
-				+ "}\n\n"
-				+
-
-				// If new passwords don't match, return error
-				"else if(pass2.value != pass.value) {\n"
-				+ "alert(\"Passwords do not match!\");\n"
-				+ "return false;\n"
-				+ "}\n\n" +
-
-				// Otherwise, all OK
-				"else{\n" + "return true;\n" + "}\n}\n" + "</script>\n");
-	}
-
+	//No longer used due to bug above ^^
 	public void writePass() {
 		out.println("<p>Old Password");
 		out.println("<span class=\"sub\">(leave all blank if you do not wish to change)</span>");
