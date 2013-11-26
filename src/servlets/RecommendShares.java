@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import main.*;
-
+/**
+   This servlet handles request associated to recommendation of shares
+ * @author Qiao
+ *
+ */
 public class RecommendShares extends HttpServlet {
 	private Analyzer analyzer;
 	
