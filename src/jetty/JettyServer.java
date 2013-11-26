@@ -11,6 +11,10 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 import servlets.*;
 
+/**
+ * @author cl72
+ * Creates and runs the jetty server
+ */
 public class JettyServer {
 
 	private static final int MAX_PORT = 65535; //the maximum port number a server can run on

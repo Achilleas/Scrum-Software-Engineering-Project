@@ -10,32 +10,19 @@ import org.joda.time.LocalDate;
 import webpageOut.StockListHTML;
 import jetty.JettyServer;
 
+/**
+ * Main method for starting up and running the application
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) throws IOException{
-		//String[] str = {"January", "February", "March", "April","May","June", "July","August", "September","October","November", "December"};
 		
 		(new Thread(new FinanceQuery())).start();
 		(new Thread(new StockListHTML(null))).start();
+		//creates and runs the jetty server
 		JettyServer js = new JettyServer();
-		try {
-			js.run(args);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		String ftse = FinanceQuery.getComponents(Constants.FTSE100);
-		LinkedList<Stock> list = FinanceQuery.getLatestPrice(ftse);
-
-		Iterator<Stock> it = list.iterator();
-
-		Stock stock;
-		while (it.hasNext()) {
-			stock = it.next();
-
-
-		}
+		js.run(args);
 	}
 
 }

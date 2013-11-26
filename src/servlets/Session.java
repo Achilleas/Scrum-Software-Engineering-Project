@@ -47,15 +47,15 @@ public class Session extends HttpServlet{
 			
 			try {
 				out = servlet_response.getWriter();
+				//display that the system is already logged into and which investor is logged in
+				Investor ip = (Investor) session.getAttribute("user");
+				SessionHTML sesOut = new SessionHTML(out); 
+				sesOut.writeHTML(ip);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Error when creating the output writer: "+e.getMessage());
 			} 
 		
-			//display that the system is already logged into and which investor is logged in
-			Investor ip = (Investor) session.getAttribute("user");
-			SessionHTML sesOut = new SessionHTML(out);
-			sesOut.writeHTML(ip);
+			
 		}
 	}
 }
