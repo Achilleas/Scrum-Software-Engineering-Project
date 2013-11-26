@@ -4,6 +4,10 @@ import java.io.PrintWriter;
 
 import main.Investor;
 
+/**
+ * @author cl72
+ * Redirects user to signed-in content if they have created a session
+ */
 public class SessionHTML extends WriteOut{
 
 	public SessionHTML(PrintWriter out){

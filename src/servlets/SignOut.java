@@ -10,9 +10,6 @@ import javax.servlet.http.HttpSession;
 
 public class SignOut extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2403528070614551707L;
 
 	protected void doGet(HttpServletRequest servlet_request,

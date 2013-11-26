@@ -66,7 +66,7 @@ public class ProfileWriter {
 		Address address=user.getAddress();
 		if(address!=null){
 			bw.write(header+"");
-			String[] lines=address.getString();
+			String[] lines=address.getAddString();
 			for(int i=0;i<lines.length;i++){
 				bw.write(separator+lines[i]);
 			}
@@ -85,16 +85,17 @@ public class ProfileWriter {
 			/*
 			 * Write everything!
 			 */
-			writeString(user.getSurname(),Investor.SURNAME);
-			writeString(user.getFirstName(),Investor.FIRSTNAME);
-			writeString(user.getPassword(),Investor.PASSWORD);
-			writeString(user.getEmail(),Investor.EMAIL);
-			writeString(user.getTelephone(),Investor.TELEPHONE);
-			writeString(user.getUsername(),Investor.USERNAME);
-			writeDate(user,Investor.DATEOFBIRTH);
-			writeList(user.getCompaniesInterested(),Investor.INTERESTED);
-			writeList(user.getCompaniesInvested(),Investor.INVESTEDED);
-			writeAddress(user,Investor.ADDRESS);
+			writeString(user.getSurname(),SURNAME);
+			writeString(user.getFirstName(),FIRSTNAME);
+			writeString(user.getPassword(),PASSWORD);
+			writeString(user.getEmail(),EMAIL);
+			writeString(user.getTelephone(),TELEPHONE);
+			writeString(user.getUsername(),USERNAME);
+			writeDate(user,DATEOFBIRTH);
+			writeList(user.getCompaniesInterested(),INTERESTED);
+			writeList(user.getCompaniesInvested(),INVESTED);
+			writeAddress(user,ADDRESS);
+
 			bw.flush();
 			bw.close();
 		}catch(IOException e){

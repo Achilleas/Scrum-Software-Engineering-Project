@@ -8,7 +8,9 @@ import main.FinanceQuery;
 import main.Investor;
 import main.Stock;
 
-//Writes HTML for Market Overview
+/**
+ * @author cwk4 Writes HTML for Market Overview table
+ */
 public class OverviewHTML extends WriteOut {
 
 	public OverviewHTML(PrintWriter out) {
@@ -19,10 +21,8 @@ public class OverviewHTML extends WriteOut {
 
 	public void writeHTML(Investor ip) {
 		htmlStart();
-		out.println("<script>" +
-				"var url = \"/servlets/refreh-overview\";" +
-				"var interval = 5000;" +
-				"</script>");
+		out.println("<script>" + "var url = \"/servlets/refreh-overview\";"
+				+ "var interval = 5000;" + "</script>");
 		out.println("<script type=\"text/javascript\" src=\"/static/javascript/refresh-table-ajax.js\"></script>");
 		writeHeader();
 		out.println("<h1>Market Overview</h1>");
@@ -36,7 +36,7 @@ public class OverviewHTML extends WriteOut {
 		tableHeading();
 		writeStocks(ip);
 	}
-	
+
 	private void tableHeading() {
 		out.println("<table border =\"1\">");
 		out.println("<tr>");
@@ -73,8 +73,7 @@ public class OverviewHTML extends WriteOut {
 			}
 			// Highlight share if user is interested/invested
 			String interested = "";
-			if (ip.isInterested(stock.getId())
-					|| ip.isInvested(stock.getId())) {
+			if (ip.isInterested(stock.getId()) || ip.isInvested(stock.getId())) {
 				interested = "style=\"background-color:#71C6E2\"";
 			}
 
@@ -88,8 +87,9 @@ public class OverviewHTML extends WriteOut {
 			out.println("<td>" + stock.getHigh() + "</td>");
 			out.println("<td>" + stock.getLow() + "</td>");
 			out.println("<td>" + stock.getVolume() + "</td>");
-			int compare = Double.compare(stock.getMarketCap(),-1.0);
-			out.println("<td>" + ( (compare > 0)? stock.getMarketCap() : "N/A" ) + "</td>");
+			int compare = Double.compare(stock.getMarketCap(), -1.0);
+			out.println("<td>" + ((compare > 0) ? stock.getMarketCap() : "N/A")
+					+ "</td>");
 			out.println("</tr>");
 		}
 

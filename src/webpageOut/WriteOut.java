@@ -2,6 +2,9 @@ package webpageOut;
 
 import java.io.PrintWriter;
 
+/**
+ * @author cl72 + cwk4
+ */
 public class WriteOut {
 	
 	protected String title;
@@ -21,6 +24,9 @@ public class WriteOut {
 		out.println("<body>");
 	}
 	
+	/**
+	 * Write HTML for header with links to various servlets
+	 */
 	public void writeHeader(){
 		out.write("<div id=\"header\" style=\"text-align:center; background-color:#71C6E2\">");
 		out.write("<h1>CS3051 Stock Analyser</h1></div>");

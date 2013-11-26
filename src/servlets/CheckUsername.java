@@ -19,10 +19,7 @@ import main.ProfileReader;
  *
  */
 public class CheckUsername extends HttpServlet {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -929638900476571970L;
 	String username = "";
 	PrintWriter out;

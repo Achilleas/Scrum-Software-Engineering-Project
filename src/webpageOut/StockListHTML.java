@@ -10,6 +10,10 @@ import main.FinanceQuery;
 import main.Stock;
 import static main.Constants.*;
 
+/**
+ * @author jiaheng
+ * Writes Top-100 stocks from indexes in list which users can user to access individual stock visualisation
+ */
 public class StockListHTML extends WriteOut implements Runnable{
 	
 	private static ConcurrentHashMap<String, String> stocks = new ConcurrentHashMap<String, String>();

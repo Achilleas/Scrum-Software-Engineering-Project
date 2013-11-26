@@ -20,7 +20,10 @@ import org.joda.time.LocalDate;
 
 import webpageOut.WriteOut;
 
-
+/**
+ * @author cl72
+ * Visualise a single share
+ */
 public class VisShare extends HttpServlet{
 			
 	/**

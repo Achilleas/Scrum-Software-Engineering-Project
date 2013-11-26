@@ -3,6 +3,7 @@ package main;
 import java.io.*;
 import static main.Constants.*;
 import org.joda.time.LocalDate;
+import main.Constants;
 
 public class ProfileReader {
 	private String separator;
@@ -19,47 +20,47 @@ public class ProfileReader {
 		String[] elements = line.split(separator);
 		int header = Integer.parseInt(elements[0]);
 		switch (header) {
-		case Investor.FIRSTNAME: {
+		case Constants.FIRSTNAME: {
 			user.setFirstName(elements[1]);
 			break;
 		}
-		case Investor.SURNAME: {
+		case Constants.SURNAME: {
 			user.setSurname(elements[1]);
 			break;
 		}
-		case Investor.PASSWORD: {
-			user.changePassword("", elements[1]);
+		case Constants.PASSWORD: {
+			user.setPassword(elements[1]);
 			break;
 		}
-		case Investor.INTERESTED: {
+		case Constants.INTERESTED: {
 			for (int i = 1; i < elements.length; i++) {
 				user.addInterested(elements[i]);
 			}
 			break;
 		}
-		case Investor.INVESTEDED: {
+		case Constants.INVESTED: {
 			for (int i = 1; i < elements.length; i++) {
 				user.addInvested(elements[i]);
 			}
 			break;
 		}
-		case Investor.EMAIL: {
+		case Constants.EMAIL: {
 			user.setEmail(elements[1]);
 			break;
 		}
-		case Investor.TELEPHONE: {
+		case Constants.TELEPHONE: {
 			user.setTelephone(elements[1]);
 			break;
 		}
-		case Investor.USERNAME: {
+		case Constants.USERNAME: {
 			user.setUsername(elements[1]);
 			break;
 		}
-		case Investor.DATEOFBIRTH: {
+		case Constants.DATEOFBIRTH: {
 			user.setDob(LocalDate.parse(elements[1]));
 			break;
 		}
-		case Investor.ADDRESS: {
+		case Constants.ADDRESS: {
 			Address address = new Address(elements[1], elements[2],
 					elements[3], elements[4], elements[5], elements[6]);
 			user.setAddress(address);

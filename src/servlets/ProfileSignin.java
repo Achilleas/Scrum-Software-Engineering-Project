@@ -13,13 +13,12 @@ import main.Investor;
 import main.ProfileReader;
 import main.ProfileWriter;
 
-//Checks username + password entered on login screen
-//If successful, redirects to user profile page
+/**
+ * @author cwk4 Checks username & password entered on login screen - if
+ *         successful, redirects to user profile page
+ */
 public class ProfileSignin extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2301464661383582935L;
 	String username = "";
 	String password = "";
@@ -41,7 +40,7 @@ public class ProfileSignin extends HttpServlet {
 		out = servlet_response.getWriter(); // creates writer
 		// used to send the html page to the client
 
-		//Get username + password parameters
+		// Get username + password parameters
 		username = servlet_request.getParameter("Username");
 		password = servlet_request.getParameter("Password");
 
@@ -50,18 +49,13 @@ public class ProfileSignin extends HttpServlet {
 			ProfileReader pr = new ProfileReader(",");
 			Investor investor = pr.readProfile(username);
 
-			//Check input password against password associated with username in db
+			// Check input password against password associated with username in
+			// db
 			if (investor.verifyPassword(password)) {
-				//Create Session
-				System.out.println("PATH: "+servlet_request.getContextPath());
+				// Create Session
 				HttpSession session = servlet_request.getSession(true);
-				Integer accessCount = (Integer)session.getAttribute("accessCount"); 
-				System.out.println("AC: "+accessCount);
-				if (accessCount != null) accessCount +=1;
-				else accessCount = 0;
-				session.setAttribute("accessCount", accessCount); 
 				session.setAttribute("user", investor);
-				servlet_response.sendRedirect("/servlets/profile");			 
+				servlet_response.sendRedirect("/servlets/profile");
 			} else
 				// Password was incorrect
 				servlet_response.sendRedirect("/static/WrongPassword.html");

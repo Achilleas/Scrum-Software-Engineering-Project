@@ -26,6 +26,8 @@ import main.Stock;
  */
 public class VisAllShare extends HttpServlet{
 
+	private static final long serialVersionUID = 5878729264427584184L;
+
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
