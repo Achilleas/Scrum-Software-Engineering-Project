@@ -22,7 +22,7 @@ import main.Stock;
 
 /**
  * @author cl72
- *
+ * Used to visualise all the shares that are part of an index
  */
 public class VisAllShare extends HttpServlet{
 
@@ -56,6 +56,7 @@ public class VisAllShare extends HttpServlet{
 		PrintWriter out = servlet_response.getWriter(); //creates writer
 		//used to send the html page to the client
 		
+		//parameter to determine if the the ftse100 or the nasdaq100 are to be displayed
 		String sExchange = servlet_request.getParameter("exchange");
 		String index="";
 
@@ -65,9 +66,13 @@ public class VisAllShare extends HttpServlet{
 		else if(sExchange.equals(Constants.NASDAQ100)){
 			index="NASDAQ 100";
 		}
+		else{
+			return;
+		}
+			
 		
-		String ftse = FinanceQuery.getComponents(sExchange);
-		LinkedList<Stock> list = FinanceQuery.getLatestPrice(ftse);
+		String ex = FinanceQuery.getComponents(sExchange);
+		LinkedList<Stock> list = FinanceQuery.getLatestPrice(ex);
 
 		Iterator<Stock> it = list.iterator();
 
