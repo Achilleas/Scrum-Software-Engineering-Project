@@ -22,11 +22,11 @@ public class StockListHTML extends WriteOut implements Runnable{
 	
 	public void writeHTML() {
 		htmlStart();
-		//out.println("<script>" +
-			//	"var url = \"/servlets/refresh-stocks\";" +
-			//	"var interval = 10000;" +
-			//	"</script>");
-		//out.println("<script type=\"text/javascript\" src=\"/static/javascript/refresh-table-ajax.js\"></script>");
+		out.println("<script>" +
+				"var url = \"/servlets/refresh-stocks\";" +
+				"var interval = 10000;" +
+				"</script>");
+		out.println("<script type=\"text/javascript\" src=\"/static/javascript/refresh-table-ajax.js\"></script>");
 		writeHeader();
 		out.println("<h1>Current FTSE100 & NASDAQ100 Shares</h1>");
 		out.println("<p>Pick a share to visualise it over time.<br/>");

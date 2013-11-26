@@ -92,8 +92,8 @@ public class ProfileWriter {
 			writeString(user.getTelephone(),Investor.TELEPHONE);
 			writeString(user.getUsername(),Investor.USERNAME);
 			writeDate(user,Investor.DATEOFBIRTH);
-			writeList(user.getInterestList(),Investor.INTERESTED);
-			writeList(user.getInvestedList(),Investor.INVESTEDED);
+			writeList(user.getCompaniesInterested(),Investor.INTERESTED);
+			writeList(user.getCompaniesInvested(),Investor.INVESTEDED);
 			writeAddress(user,Investor.ADDRESS);
 			bw.flush();
 			bw.close();

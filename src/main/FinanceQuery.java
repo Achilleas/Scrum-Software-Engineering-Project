@@ -200,6 +200,14 @@ public class FinanceQuery implements Runnable {
 		return components;
 	}
 
+	/**
+	 * Webscrape yahoo finance to find all the component of the market indexes(FTSE, NASDAQ etc)
+	 * this method is implemented because yahoo finance api has a limitation, it only retrieve up to 50
+	 * components of a market index
+	 * 
+	 * @param market index
+	 * @return a set of component of the market index
+	 */
 	private static NavigableSet<String> getComponentsFromWeb(String index) {
 		
 		NavigableSet<String> set = new TreeSet<String>();
@@ -337,6 +345,10 @@ public class FinanceQuery implements Runnable {
 		return file;
 	}
 
+	/**
+	 * A new thread will update the FTSE and NASDAQ list every 5 minute
+	 * so that it wont request FTSE list from yahoo finance everytime when needed
+	 */
 	public void run() {
 		while(true) {
 			// update list

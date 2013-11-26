@@ -223,18 +223,4 @@ public class Investor {
 	public boolean isInvested(String stock) {
 		return companiesInvested.contains(stock);
 	}
-
-	/**
-	 * @return returns an arraylist of all the companies the investor is interested
-	 */
-	public ArrayList<String> getInterestList() {
-		return companiesInterested;
-	}
-
-	/**
-	 * @return returns an arraylist of all the companies the investor is investing
-	 */
-	public ArrayList<String> getInvestedList() {
-		return companiesInvested;
-	}
 }
