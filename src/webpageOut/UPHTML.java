@@ -76,7 +76,7 @@ public class UPHTML extends WriteOut {
 			"var op = document.getElementById('op');\n" +
 			"var pass = document.getElementById('p1');\n" +
 			"var pass2 = document.getElementById('p2');\n" +
-			"var check = ip.getPassword();\n" +
+			"var check = "+ip.getPassword()+"\n" +
 			
 			"if(op.value==\"\"&&pass.value==\"\"&&pass2.value==\"\"){\n\n" +
 				"document.getElementById('p1').value= check;\n" +
