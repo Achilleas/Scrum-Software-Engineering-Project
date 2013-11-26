@@ -20,14 +20,26 @@ import main.Constants;
 import main.FinanceQuery;
 import main.Stock;
 
+/**
+ * @author cl72
+ *
+ */
 public class VisAllShare extends HttpServlet{
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doGet(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
 		processRequest(servlet_request, servlet_response);
 	}
 	
+	/**
+	 * @param servlet_request The index (e.g. FTSE100) which is to be visualised
+	 * @param servlet_response The visualisation of the data
+	 * @throws IOException
+	 */
 	private void processRequest(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws IOException {
 
