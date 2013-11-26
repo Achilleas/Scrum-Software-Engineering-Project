@@ -1,7 +1,5 @@
 package jetty;
 
-import java.net.BindException;
-
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -20,7 +18,6 @@ public class JettyServer {
 	private static final int MAX_PORT = 65535; //the maximum port number a server can run on
 	private static final int MIN_PORT = 1024; //the minimum port number a server can run on
 	private static final int DEFAULT_PORT = 8282; //the port number which is used to set up the Jetty Server
-	private static int currentPort; //the current port the server is trying to connect on
 	private static Server server; //will hold the server we are running
 	
 	public void run(String[] args){

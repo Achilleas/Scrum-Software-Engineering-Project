@@ -6,16 +6,6 @@ import org.joda.time.LocalDate;
 
 public class Investor {
 
-	public static final int FIRSTNAME=0;
-	public static final int SURNAME=1;
-	public static final int INVESTEDED=2;
-	public static final int INTERESTED=3;
-	public static final int EMAIL=4;
-	public static final int PASSWORD = 5;
-	public static final int DATEOFBIRTH=6;
-	public static final int ADDRESS=7;
-	public static final int TELEPHONE=8;
-	public static final int USERNAME=9;
 	private String username;
 	private String password;
 	private LocalDate dateOfBirth;
@@ -167,22 +157,6 @@ public class Investor {
 	}
 
 	/**
-	 * Changes password if old password is verified
-	 * @param old_password the old password of the user
-	 * @param new_password the new password the user wants to have
-	 * @return returns true if old password was verified and a new password exists, 
-	 * otherwise false
-	 */
-	public boolean changePassword(String old_password, String new_password) {
-		if (verifyPassword(old_password) && new_password != null) {
-			this.password = new_password;
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * Add another company to the user's list of interested companies
 	 * Update
 	 * 2013/11/11	Jia Heng	
@@ -222,19 +196,5 @@ public class Investor {
 	 */
 	public boolean isInvested(String stock) {
 		return companiesInvested.contains(stock);
-	}
-
-	/**
-	 * @return returns an arraylist of all the companies the investor is interested
-	 */
-	public ArrayList<String> getInterestList() {
-		return companiesInterested;
-	}
-
-	/**
-	 * @return returns an arraylist of all the companies the investor is investing
-	 */
-	public ArrayList<String> getInvestedList() {
-		return companiesInvested;
 	}
 }

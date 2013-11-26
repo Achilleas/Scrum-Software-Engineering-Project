@@ -1,5 +1,4 @@
 package main;
-import java.util.*;
 public class StockAnalysis {
 	private String index;
 	private boolean strategy_average;

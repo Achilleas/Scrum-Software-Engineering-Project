@@ -85,16 +85,16 @@ public class ProfileWriter {
 			/*
 			 * Write everything!
 			 */
-			writeString(user.getSurname(),Investor.SURNAME);
-			writeString(user.getFirstName(),Investor.FIRSTNAME);
-			writeString(user.getPassword(),Investor.PASSWORD);
-			writeString(user.getEmail(),Investor.EMAIL);
-			writeString(user.getTelephone(),Investor.TELEPHONE);
-			writeString(user.getUsername(),Investor.USERNAME);
-			writeDate(user,Investor.DATEOFBIRTH);
-			writeList(user.getInterestList(),Investor.INTERESTED);
-			writeList(user.getInvestedList(),Investor.INVESTEDED);
-			writeAddress(user,Investor.ADDRESS);
+			writeString(user.getSurname(),Constants.SURNAME);
+			writeString(user.getFirstName(),Constants.FIRSTNAME);
+			writeString(user.getPassword(),Constants.PASSWORD);
+			writeString(user.getEmail(),Constants.EMAIL);
+			writeString(user.getTelephone(),Constants.TELEPHONE);
+			writeString(user.getUsername(),Constants.USERNAME);
+			writeDate(user,Constants.DATEOFBIRTH);
+			writeList(user.getCompaniesInterested(),Constants.INTERESTED);
+			writeList(user.getCompaniesInvested(),Constants.INVESTED);
+			writeAddress(user,Constants.ADDRESS);
 			bw.flush();
 			bw.close();
 		}catch(IOException e){
