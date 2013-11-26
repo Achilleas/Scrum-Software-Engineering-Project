@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 import main.Investor;
 import webpageOut.UPHTML;
 
+/**
+ * @author cwk4 Servlet for updating profile information
+ */
 public class UpdateProfile extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7700115661390031968L;
 	PrintWriter out;
 
@@ -31,20 +31,24 @@ public class UpdateProfile extends HttpServlet {
 
 		HttpSession session = servlet_request.getSession(false);
 
+		// Check that a user is signed in and a session has been created for
+		// them
 		if (session != null && session.getAttribute("user") != null) {
-			//the response will be of type html
+			// the response will be of type html
 			servlet_response.setContentType("text/html");
-			//HTTP response code
-			servlet_response.setStatus(HttpServletResponse.SC_OK); 
-			
-			//creates writer used to sent html page to client
+			// HTTP response code
+			servlet_response.setStatus(HttpServletResponse.SC_OK);
+
+			// creates writer used to sent html page to client
 			out = servlet_response.getWriter();
 
 			Investor investor = (Investor) session.getAttribute("user");
 			UPHTML up = new UPHTML(out); // Write HTML
 			up.writeHTML(investor);
 			out.close();
-		} else {
+		}
+		// Otherwise, redirects to homepage
+		else {
 			servlet_response.sendRedirect("/static/HomePage.html");
 		}
 	}

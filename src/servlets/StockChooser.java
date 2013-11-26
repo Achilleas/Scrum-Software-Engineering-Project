@@ -14,9 +14,6 @@ import webpageOut.StockListHTML;
 //Generates List of Stocks currently in FTSE100 which a user can select to visualise
 public class StockChooser extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3372993162487229776L;
 PrintWriter out;
 	

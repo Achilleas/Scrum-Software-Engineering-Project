@@ -11,9 +11,7 @@ import main.*;
 
 public class RecommendShares extends HttpServlet {
 	private Analyzer analyzer;
-	/**
-	 * 
-	 */
+	
 	public void setUpAnalyzer(){
 		analyzer=new Analyzer(",");
 		analyzer.analyze();

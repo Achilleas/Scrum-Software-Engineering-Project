@@ -66,7 +66,7 @@ public class ProfileWriter {
 		Address address=user.getAddress();
 		if(address!=null){
 			bw.write(header+"");
-			String[] lines=address.getString();
+			String[] lines=address.getAddString();
 			for(int i=0;i<lines.length;i++){
 				bw.write(separator+lines[i]);
 			}

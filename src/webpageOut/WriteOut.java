@@ -2,6 +2,9 @@ package webpageOut;
 
 import java.io.PrintWriter;
 
+/**
+ * @author cl72 + cwk4
+ */
 public class WriteOut {
 	
 	protected String title;

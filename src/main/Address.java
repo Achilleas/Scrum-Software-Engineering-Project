@@ -46,7 +46,7 @@ public class Address {
 	 * Gets all the address elements
 	 * @return returns an array of all the address elements
 	 */
-	public String[] getString() {
+	public String[] getAddString() {
 		String[] add = new String[6];
 		add[0] = line1;
 		add[1] = line2;

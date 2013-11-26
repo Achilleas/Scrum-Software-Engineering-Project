@@ -20,7 +20,7 @@ import main.ProfileWriter;
 import main.UserExistException;
 
 /**
- * @author Callum Kenny
+ * @author cwk4
  * Takes values from registration form and creates an Investor object for the user	
  */
 public class CreateProfile extends HttpServlet {

@@ -42,7 +42,7 @@ public class ProfileWriterTest {
 		System.out.println("----------------------user's attributes----------------------");
 		System.out.println(user.getFirstName());
 		System.out.println(user.getSurname());
-		System.out.println(user.getAddress().getString()[1]);
+		System.out.println(user.getAddress().getAddString()[1]);
 		System.out.println(user.getDateOfBirth());
 	}
 }

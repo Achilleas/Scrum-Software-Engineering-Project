@@ -18,9 +18,6 @@ import main.Investor;
  */
 public class Session extends HttpServlet{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 9185202102395304882L;
 	PrintWriter out; //will be used to send response to browser
 			
