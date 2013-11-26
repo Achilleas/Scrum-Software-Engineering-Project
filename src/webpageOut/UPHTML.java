@@ -16,7 +16,7 @@ public class UPHTML extends WriteOut {
 	}
 
 	public void writeHTML(Investor ip) {
-		htmlStart();
+		htmlStart2(ip);
 		writeHeader();
 		writeForm(ip);
 		htmlEnd();
@@ -25,7 +25,7 @@ public class UPHTML extends WriteOut {
 	public void writeForm(Investor ip) {
 		out.println("<p>Update any fields you would like to make changes to.</p>");
 		out.println("<p>Please note that your username and date of birth cannot be changed.</p>");
-		out.println("<form name=\"form2\" method=\"post\" action =\"/servlets/register\">");
+		out.println("<form name=\"form2\" onsubmit=\"return checkPass()\" method=\"post\" action =\"/servlets/register\">");
 		out.println("<h1>Update Details</h1>");
 		out.println("<p>Username: " + ip.getUsername() + "</p>");
 		hiddenValues(ip);
@@ -57,14 +57,58 @@ public class UPHTML extends WriteOut {
 		out.println("<input type=\"hidden\" name=\"Year\" value=\"" + year
 				+ "\">");
 	}
+	
+	public void htmlStart2(Investor ip){
+		out.println("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<meta charset=\"utf-8\">");
+		out.println("<title>"+title+"</title>");
+		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"../static/Style.css\" />");
+		writeJS(ip);
+		out.println("</head>");
+		out.println("<body>");
+	}
+	
+	public void writeJS(Investor ip) {
+		out.println("<script type=\"text/javascript\">\n" +
+		"function checkPass() {\n" +
+			"var op = document.getElementById('op');\n" +
+			"var pass = document.getElementById('p1');\n" +
+			"var pass2 = document.getElementById('p2');\n" +
+			"var check = "+ip.getPassword()+"\n" +
+			
+			"if(op.value==\"\"&&pass.value==\"\"&&pass2.value==\"\"){\n\n" +
+				"document.getElementById('p1').value= check;\n" +
+				"return true;\n" +
+			"}\n\n" +
+			
+			"else if(op.value!=check){\n" +
+				"alert(\"Old Password is incorrect!\");\n" +
+				"return false;\n" +
+			"}\n\n" +
+			
+			"else if(pass2.value != pass.value) {\n" +
+				"alert(\"Passwords do not match!\");\n" +
+				"return false;\n" +
+			"}\n\n" +
+		"}\n" +
+		"return true;\n" +
+		"}\n" +
+		"</script>\n");
+	}
 
 	public void writePass() {
 		out.println("<p>Old Password");
-		out.println("<br /><input type=\"password\" name=\"OldPassword\" required /></p>");
+		out.println("<span class=\"sub\">(leave blank if you do not wish to change)</span>");
+		out.println("<br /><input type=\"password\" name=\"OldPassword\" id=\"op\" /></p>");
 
 		out.println("<p>New Password");
 		out.println("<span class=\"sub\">(6-14 digits length, include numbers, symbols, and different case letters)</span>");
-		out.println("<br /><input type=\"password\" name=\"Password\" required pattern=\".{6,14}\"/></p>");
+		out.println("<br /><input type=\"password\" name=\"Password\" id=\"p1\" pattern=\".{6,14}\"/></p>");
+		
+		out.println("<p>Confirm New Password");
+		out.println("<br /><input type=\"password\" name=\"Password2\" id=\"p2\" pattern=\".{6,14}\"/></p>");
 	}
 
 	public void writeName(Investor ip) {
@@ -99,7 +143,7 @@ public class UPHTML extends WriteOut {
 		//Town
 		out.println("<input type=\"text\" name=\"Town\" value=\""
 				+ ip.getAddress().getString()[2]
-				+ "\"required pattern=\"[A-Za-z ]{1,}\"/>"+reqstar+"<br />");
+				+ "\"required pattern=\"[.,A-Za-z ]{1,}\"/>"+reqstar+"<br />");
 		//County
 		out.println("<input type=\"text\" name=\"County\" value=\""
 				+ ip.getAddress().getString()[3]
