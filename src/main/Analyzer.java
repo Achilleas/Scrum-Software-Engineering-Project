@@ -10,6 +10,10 @@ import static main.Constants.*;
  * 
  * @author Qiao
  * ----------------------------------------------------------------------------
+ * @version 1.6
+ * Hide comments for stocks.
+ * Show them when you click the button.
+ * ----------------------------------------------------------------------------
  * @version 1.5
  * More bug fixed
  * Optimized data acquisition
@@ -40,12 +44,22 @@ import static main.Constants.*;
  */
 public class Analyzer {
 	private String[] indices;
+	/**
+	 * Store the result of analysis.
+	 * Use stock index as key to map to analysis.
+	 */
 	private HashMap<String,StockAnalysis> table;
+	/**
+	 * Dates
+	 */
 	private LocalDate today;
 	private LocalDate twenty_five_week_history;
 	private LocalDate fifty_week_history;
 	private LinkedList<Stock> twenty_five_week_prices;
 	private LinkedList<Stock> fifty_week_prices;
+	/**
+	 * Array of stocks.
+	 */
 	private Stock[] latest;
 	private Stock[] first_period;
 	private Stock[] second_period;
@@ -60,6 +74,9 @@ public class Analyzer {
 		fifty_week_history = today.minusWeeks(50);
 		table = new HashMap<String,StockAnalysis>();
 	}
+	/**
+	 * Search an individual stock from the latest array of stock objects by id of that stock.
+	 */
 	private Stock getStock(String index){
 		for(int i=0;i<latest.length;i++){
 			if(latest[i].getId().equals(index)){
@@ -68,6 +85,11 @@ public class Analyzer {
 		}
 		return null;
 	}
+	/**
+	 * Convert a list of stock to array.
+	 * @param list
+	 * @return array of stocks objects
+	 */
 	private static Stock[] convertToArray(LinkedList<Stock> list){
 		Stock[] array=new Stock[list.size()];
 		for(int i=0;i<array.length;i++){
@@ -85,7 +107,7 @@ public class Analyzer {
 		first_period=convertToArray(twenty_five_week_prices);
 	}
 	/**
-	 * Gets a 25-week and 50-week of historical data 
+	 * Gets a 26-week and 52-week of historical data 
 	 * @param index the index this historical data is to be taken from
 	 * @return returns return the stock analysis {@link StockAnalysis}
 	 */
@@ -105,12 +127,11 @@ public class Analyzer {
 	}
 	
 	/**
-	 * 
+	 * Analyze all stocks. Store the result of analysis( object of StockAnalysis) in the hash map. 
 	 */
 	public void analyze() {
-		//Since analysis of the entire market will take ages, it is wise to analyze historical prices only once.
-		//This method can process historical analysis before users' requests.
-		System.out.println("Loading and analyzing data...");
+		//Since analysis of the entire market will take a few minutes, it is wise to analyze historical prices for a single time.
+		System.out.println("Loading and analyzing data...This process may take a few minutes.");
 		LinkedList<Stock> latest_list=FinanceQuery.getLatestPrice(FinanceQuery.getComponents(FTSE100));
 		latest=convertToArray(latest_list);
 		for (int i = 0; i < indices.length; i++) {
@@ -123,24 +144,27 @@ public class Analyzer {
 	}
 	
 	/**
-	 * Returns 
+	 * Returns report of analysis based on users' profile.
 	 * @param user the user
-	 * @return returns a string containing the html report of the analysis
+	 * @return returns a string containing the HTML report of the analysis
 	 */
 	private String getFullReport(Investor user){
 		String result;
 		ArrayList<String> matches=new ArrayList<String>();
+		//HTML headers
 		boolean suggested=true;
 		result = "<h1>General Analysis</h1><h2>All shares</h2>"
 				+"<button type=\"button\" onclick=\"ChangeStyle();\">Highlight</button>"+ "<table>" + "<tr>"
 				+ "<th>Index</th>" + "<th>Comment</th>" + "<th>If invested</th>" + "<th>Your preference</th>"
 				+ "</tr><tr>";
+		//Write out the table
 		for (int i = 0; i < indices.length; i++) {
 			suggested=true;
 			StockAnalysis analysis=table.get(indices[i]);
 			if(analysis==null){
 				continue;
 			}
+			//Check if this stock was recommended by any strategies.
 			if (suggested=analysis.getAverageResult()||analysis.getGradientResult()||analysis.getMarketCapResult()) {
 				result+= "<td class=\"Header\">"+"<a href=\"/servlets/recommend?id="+indices[i]+"\">"+indices[i]+"</a></td>"
 						+"<td class=\"Header\">"+analysis.getComment()+"</td>";
@@ -148,6 +172,7 @@ public class Analyzer {
 				result+= "<td>"+"<a href=\"/servlets/recommend?id="+indices[i]+"\">"+indices[i]+"</a></td>"
 						+"<td>"+analysis.getComment()+"</td>";
 			}
+			//If it is recommended, Add some CSS headers for the javascript
 			if(suggested){
 				if(user.isInvested(indices[i])){
 					result+=  "<td>You have invested this stock yet</td>";
@@ -191,14 +216,15 @@ public class Analyzer {
 	}
 	
 	/**
-	 * 
+	 * Get a detailed recommendation report for an individual stock.
 	 * @param user
 	 * @param index
-	 * @return
+	 * @return Analysis of a single stock based on users' profile.
 	 */
 	private String getSingleReport(Investor user,String index){
 		String result;
 		StockAnalysis analysis;
+		//Verify null
 		if(table.isEmpty()){
 			analysis=getAnalysis(index);
 		}else{
@@ -208,6 +234,7 @@ public class Analyzer {
 			result="<h1>Cannot get data for+"+index+"</h1>";
 			return result;
 		}
+		//Headers
 		result = "<h1>Analysis of a single stock</h1><p><a href=\"/servlets/share-vis?id="+index+"\">"+index+"</a></p>";
 		if(user.isInterested(index)){
 			result+="<h3>Interested in</h3> ";
@@ -219,6 +246,7 @@ public class Analyzer {
 		}else{
 			result+="<h3>You have invested this stock</h3> ";
 		}
+		//Get all result from the stock analysis as users may want to see the reason of this recommendation.
 		result+="<h3>"+analysis.getComment()+"</h3>"
 				+"<table><tr>"+ "<th>Title</th>"+ "<th>Analyzed data</th>"
 				+ "</tr><tr>";
@@ -243,7 +271,7 @@ public class Analyzer {
 	}
 	
 	/**
-	 * 
+	 * Get a table of analysis for all stocks.
 	 * @param user
 	 * @param index
 	 * @return

@@ -4,6 +4,8 @@ import java.util.*;*/
 
 /**
  * ---------------------------------------------------------------------------------------
+ * This class helps to generate the recommendation pages.
+ * ---------------------------------------------------------------------------------------
  * @author Qiao Kang
  * ---------------------------------------------------------------------------------------
  * @version 1.1
@@ -46,9 +48,13 @@ public class HtmlWriter {
 	public String getContent() {
 		return content;
 	}
+	/**
+	 * Static CSS contents
+	 * @return CSS contents
+	 */
 	public static String getCSS(){
 		return "<style type=\"text/css\">"
-		      +".Header {}"
+		      +".Header {color:#71C6E2}"
 		      +".Recommended {}"
 		      + "table,th,td {border: 1px solid black;}"
 		      +"</style>" 
