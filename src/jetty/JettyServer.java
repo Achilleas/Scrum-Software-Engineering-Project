@@ -49,9 +49,9 @@ public class JettyServer {
 		handler2.addServlet(new ServletHolder(new VisShare()), "/share-vis");
 		handler2.addServlet(new ServletHolder(new VisAllShare()), "/all-share-vis");
 		handler2.addServlet(new ServletHolder(new UpdateProfile()), "/update");
-		//RecommendShares rs = new RecommendShares();
-		//rs.setUpAnalyzer(); // analysis of all the shares in the ftse 100
-		//handler2.addServlet(new ServletHolder(rs), "/recommend");
+		RecommendShares rs = new RecommendShares();
+		rs.setUpAnalyzer(); // analysis of all the shares in the ftse 100
+		handler2.addServlet(new ServletHolder(rs), "/recommend");
 
 		HandlerList handlers = new HandlerList();
 		handlers.setHandlers(new Handler[] { handler1, handler2 });
