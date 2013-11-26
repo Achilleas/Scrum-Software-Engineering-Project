@@ -119,7 +119,7 @@ public class CreateProfile extends HttpServlet {
 				companiesInvested, companiesInterested);
 		ProfileWriter pw = new ProfileWriter(",");
 		try {
-			pw.writeProfile(ip, false);
+			pw.writeProfile(ip, true);
 		} catch (UserExistException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
