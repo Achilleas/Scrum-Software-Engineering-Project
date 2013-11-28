@@ -67,7 +67,7 @@ public class VisAllShare extends HttpServlet {
 		servlet_response.setStatus(HttpServletResponse.SC_OK); // and the HTTP
 																// response code
 
-		PrintWriter out = servlet_response.getWriter(); // creates writer
+		out = servlet_response.getWriter(); // creates writer
 		// used to send the html page to the client
 
 		// parameter to determine if the the ftse100 or the nasdaq100 are to be
