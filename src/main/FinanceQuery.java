@@ -16,6 +16,7 @@ import static main.Constants.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.Validate;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import com.jaunt.*;
 
@@ -352,12 +353,12 @@ public class FinanceQuery implements Runnable {
 	public void run() {
 		while(true) {
 			// update list
-			System.out.println("FinanceQuery : \t Update FTSE100 List");
+			System.out.println(LocalTime.now().toString() + " FinanceQuery : \t Update FTSE100 List");
 			NavigableSet<String> newList = getComponentsFromWeb(FTSE100);
 			synchronized(ftseList) {
 				ftseList = newList;
 			}
-			System.out.println("FinanceQuery : \t Update NASDAQ100 List");
+			System.out.println(LocalTime.now().toString() + " FinanceQuery : \t Update NASDAQ100 List");
 			newList = getComponentsFromWeb(NASDAQ100);
 			synchronized(nasdaqList) {
 				nasdaqList = newList;
