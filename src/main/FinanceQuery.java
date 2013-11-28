@@ -173,7 +173,7 @@ public class FinanceQuery implements Runnable {
 		} else if (index.equals(NASDAQ100)) {
 			NavigableSet<String> list;
 			do {
-				synchronized(ftseList){
+				synchronized(nasdaqList){
 					list = nasdaqList;
 				}
 			} while(list.size() <= 0);
