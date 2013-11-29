@@ -168,7 +168,7 @@ public class FinanceQuery implements Runnable {
 				synchronized(ftseList){
 					list = ftseList;
 				}
-			} while(list.size() <= 0);
+			} while(list== null || list.size() <= 0);
 			return list;
 		} else if (index.equals(NASDAQ100)) {
 			NavigableSet<String> list;
@@ -176,7 +176,7 @@ public class FinanceQuery implements Runnable {
 				synchronized(nasdaqList){
 					list = nasdaqList;
 				}
-			} while(list.size() <= 0);
+			} while(list== null || list.size() <= 0);
 			return list;
 		} else {
 			return getComponentsFromWeb(index);
@@ -353,13 +353,22 @@ public class FinanceQuery implements Runnable {
 	public void run() {
 		while(true) {
 			// update list
+			NavigableSet<String> newList = null;
+			
+			// get FTSE100 List
 			System.out.println(LocalTime.now().toString() + " FinanceQuery : \t Update FTSE100 List");
-			NavigableSet<String> newList = getComponentsFromWeb(FTSE100);
+			do {
+				newList = getComponentsFromWeb(FTSE100);
+			} while(newList == null);
 			synchronized(ftseList) {
 				ftseList = newList;
 			}
+			
+			// get NASDAQ list
 			System.out.println(LocalTime.now().toString() + " FinanceQuery : \t Update NASDAQ100 List");
-			newList = getComponentsFromWeb(NASDAQ100);
+			do {
+				newList = getComponentsFromWeb(NASDAQ100);
+			} while(newList == null);
 			synchronized(nasdaqList) {
 				nasdaqList = newList;
 			}
